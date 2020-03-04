@@ -1,28 +1,29 @@
 {
     "schemaVersion": 1,
 
-    "id": "__id__",
+    "id": "dark-loading-screen",
     "version": "${version}",
 
-    "name": ".__name__",
-    "description": "bla",
-    "icon": "assets/__id__/icon.png",
+    "name": "Dark Loading Screen",
+    "description": "Makes the loading screen less retina-burning",
+    "icon": "assets/dark-loading-screen/icon.png",
     "authors": ["Neecko"],
     "contact": {  
-        "homepage": "https://github.com/A5b84/__id__",
-        "issues": "https://github.com/A5b84/__id__/issues",
-        "sources": "https://github.com/A5b84/__id__"
+        "homepage": "https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen",
+        "issues": "https://github.com/A5b84/dark-loading-screen/issues",
+        "sources": "https://github.com/A5b84/dark-loading-screen"
     },
     "license": "MIT",
 
     "environment": "client",
     "entrypoints": {
-        "client": ["io.github.a5b84.__package__.__name__Mod"],
-        "modmenu": ["io.github.a5b84.__package__.config.__name__ModMenu"]
+        "client": ["io.github.a5b84.darkloadingscreen.DarkLoadingScreenMod"]
     },
-    "mixins": ["__id__.mixins.json"],
+    "mixins": ["dark-loading-screen.mixins.json"],
 
-    "depends": {},
+    "depends": {
+        "minecraft": ">=1.15"
+    },
 
     "custom": {
         "modmenu:clientsideOnly": true

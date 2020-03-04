@@ -5,9 +5,6 @@ plugins {
 
 repositories {
     maven { url = "https://minecraft.curseforge.com/api/maven" }
-
-    // Configuration
-    maven { url "https://dl.bintray.com/shedaniel/autoconfig1u/" }
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -26,14 +23,7 @@ dependencies {
     modCompile "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // API Fabric
-    modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-    // Configuration
-    modCompile "io.github.prospector:modmenu:${project.mod_menu_version}"
-    modCompile "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
-    include    "me.shedaniel.cloth:config-2:${project.cloth_config_version}"
-    modCompile "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
-    include    "me.sargunvohra.mcmods:autoconfig1u:${project.auto_config_version}"
+    // modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
 processResources {
