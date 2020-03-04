@@ -1,7 +1,6 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -21,8 +20,6 @@ public abstract class SplashScreenMixin extends DrawableHelper {
     private static final int BAR_COLOR = 0xe22837; // Couleur vanilla
     private static final int BORDER_COLOR = 0x303030;
 
-    @Shadow private float progress;
-
     /** Change la couleur de l'arrière-plan.
      * @see SplashScreen#render */
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V"), index = 4)
@@ -34,13 +31,13 @@ public abstract class SplashScreenMixin extends DrawableHelper {
      * avec des ModifyArg et tout vu que c'est court.
      * @see SplashScreen#renderProgressBar */
     @Inject(method = "renderProgressBar", at = @At("HEAD"), cancellable = true)
-    private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, CallbackInfo ci) {
-        final int progressWidth = MathHelper.ceil((maxX - minX - 1) * this.progress);
+    private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, float endAnimProgress, CallbackInfo ci) {
+        final int progressWidth = MathHelper.ceil((maxX - minX - 1) * progress);
 
         // Bordures
         fill(
             minX - 1, minY - 1, maxX + 1, maxY + 1,
-            colorLerp(progress, BG_COLOR, BORDER_COLOR) | 0xff000000
+            colorLerp(endAnimProgress, BG_COLOR, BORDER_COLOR) | 0xff000000
         );
 
         // Fond
@@ -49,7 +46,7 @@ public abstract class SplashScreenMixin extends DrawableHelper {
         // Barre
         fill(
             minX + 1, minY + 1, minX + progressWidth, maxY - 1,
-            colorLerp(progress, BG_COLOR, BAR_COLOR) | 0xff000000
+            colorLerp(endAnimProgress, BG_COLOR, BAR_COLOR) | 0xff000000
         );
 
         ci.cancel();
