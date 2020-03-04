@@ -1,0 +1,30 @@
+{
+    "schemaVersion": 1,
+
+    "id": "__id__",
+    "version": "${version}",
+
+    "name": ".__name__",
+    "description": "bla",
+    "icon": "assets/__id__/icon.png",
+    "authors": ["Neecko"],
+    "contact": {  
+        "homepage": "https://github.com/A5b84/__id__",
+        "issues": "https://github.com/A5b84/__id__/issues",
+        "sources": "https://github.com/A5b84/__id__"
+    },
+    "license": "MIT",
+
+    "environment": "client",
+    "entrypoints": {
+        "client": ["io.github.a5b84.__package__.__name__Mod"],
+        "modmenu": ["io.github.a5b84.__package__.config.__name__ModMenu"]
+    },
+    "mixins": ["__id__.mixins.json"],
+
+    "depends": {},
+
+    "custom": {
+        "modmenu:clientsideOnly": true
+    }
+}
