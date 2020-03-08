@@ -2,4 +2,4 @@
 
 A simple mod to make the loading screen less retina-burning.
 
-![](https://media.forgecdn.net/attachments/280/664/dark_loading_screen.png)
+Requires the [Fabric Mod Loader](https://fabricmc.net)
