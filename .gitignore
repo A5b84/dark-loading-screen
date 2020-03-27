@@ -12,7 +12,8 @@ classes/
 
 # VSCode
 .settings/
-.vscode/
+.vscode/*
+!.vscode/tasks.json
 bin/
 .classpath
 .project
