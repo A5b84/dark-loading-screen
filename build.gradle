@@ -15,6 +15,7 @@ version = project.mod_version
 // group = project.maven_group
 
 minecraft {
+    refmapName = "dark-loading-screen-refmap.json"
 }
 
 dependencies {

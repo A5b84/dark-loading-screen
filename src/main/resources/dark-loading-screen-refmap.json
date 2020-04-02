@@ -1,0 +1,24 @@
+{
+    "mappings": {
+        "io/github/a5b84/darkloadingscreen/mixin/SplashScreenMixin": {
+            "fill": "Lnet/minecraft/class_425;method_25294(IIIII)V",
+            "fill1_15": "Lnet/minecraft/class_425;fill(IIIII)V",
+            "render": "Lnet/minecraft/class_425;method_25394(IIF)V",
+            "render1_15": "Lnet/minecraft/class_425;render(IIF)V",
+            "renderProgressBar": "Lnet/minecraft/class_425;method_18103(IIIIF)V",
+            "renderProgressBar1_14": "Lnet/minecraft/class_425;method_18103(IIIIFF)V"
+        }
+    },
+    "data": {
+        "named:intermediary": {
+            "io/github/a5b84/darkloadingscreen/mixin/SplashScreenMixin": {
+                "fill": "Lnet/minecraft/class_425;method_25294(IIIII)V",
+                "fill1_15": "Lnet/minecraft/class_425;fill(IIIII)V",
+                "render": "Lnet/minecraft/class_425;method_25394(IIF)V",
+                "render1_15": "Lnet/minecraft/class_425;render(IIF)V",
+                "renderProgressBar": "Lnet/minecraft/class_425;method_18103(IIIIF)V",
+                "renderProgressBar1_14": "Lnet/minecraft/class_425;method_18103(IIIIFF)V"
+            }
+        }
+    }
+}

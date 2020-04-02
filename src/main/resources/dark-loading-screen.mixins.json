@@ -2,8 +2,5 @@
     "required": true,
     "package": "io.github.a5b84.darkloadingscreen.mixin",
     "compatibilityLevel": "JAVA_8",
-    "client": ["SplashScreenMixin"],
-    "injectors": {
-        "defaultRequire": 1
-    }
+    "client": ["SplashScreenMixin"]
 }
