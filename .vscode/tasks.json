@@ -4,6 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Build",
+            "type": "shell",
+            "command": "./gradlew.bat build",
+            "group": "build"
+        },
+        {
             "label": "Build + copie",
             "type": "shell",
             "command": "./gradlew.bat build; scp ./build/libs/dark-loading-screen-1.0.0.jar C:/Users/Nicolas/AppData/Roaming/.minecraft/mods/",
@@ -13,10 +19,14 @@
             }
         },
         {
-            "label": "Build",
+            "label": "Clean",
             "type": "shell",
-            "command": "./gradlew.bat build;",
-            "group": "build"
-        }
+            "command": "./gradlew.bat clean"
+        },
+        {
+            "label": "genSources",
+            "type": "shell",
+            "command": "./gradlew.bat genSources"
+        },
     ]
 }
