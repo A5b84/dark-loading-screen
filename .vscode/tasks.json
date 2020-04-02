@@ -27,6 +27,6 @@
             "label": "genSources",
             "type": "shell",
             "command": "./gradlew.bat genSources"
-        },
+        }
     ]
 }
