@@ -18,9 +18,9 @@ import net.minecraft.util.math.MathHelper;
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin extends DrawableHelper {
 
-    @Unique private static final int BG_COLOR = 0x181818;
+    @Unique private static final int BG_COLOR = 0x14181c;
+    @Unique private static final int BORDER_COLOR = 0x303336;
     @Unique private static final int BAR_COLOR = 0xe22837; // Couleur vanilla
-    @Unique private static final int BORDER_COLOR = 0x303030;
 
 
 
