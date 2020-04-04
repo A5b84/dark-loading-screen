@@ -1,6 +1,18 @@
 {
     "required": true,
     "package": "io.github.a5b84.darkloadingscreen.mixin",
+    "plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinConfigPlugin",
     "compatibilityLevel": "JAVA_8",
-    "client": ["SplashScreenMixin"]
+    "client": [
+        "SplashScreenMixin$Bg$a2512",
+        "SplashScreenMixin$Bg$b2512",
+        "SplashScreenMixin$OnRenderBar$a2210",
+        "SplashScreenMixin$OnRenderBar$b2210",
+        "SplashScreenMixin$Bar$a2512",
+        "SplashScreenMixin$Bar$a2210b2512",
+        "SplashScreenMixin$Bar$b2210"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }
