@@ -31,6 +31,11 @@
     },
     "data": {
         "named:intermediary": {
+            "io/github/a5b84/darkloadingscreen/mixin/MinecraftClientMixin": {
+                "Framebuffer#setClearColor": "Lnet/minecraft/class_276;method_1236(FFFF)V",
+                "window": "Lnet/minecraft/class_310;field_1704:Lnet/minecraft/class_1041;"
+            },
+
             "io/github/a5b84/darkloadingscreen/mixin/SplashScreenMixin$Bg$a2512": {
                 "fill_a2512": "Lnet/minecraft/class_425;method_25294(IIIII)V",
                 "render_a2512": "Lnet/minecraft/class_425;method_25394(IIF)V"

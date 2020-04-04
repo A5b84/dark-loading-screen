@@ -4,6 +4,7 @@
     "plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinConfigPlugin",
     "compatibilityLevel": "JAVA_8",
     "client": [
+        "WindowMixin",
         "SplashScreenMixin$Bg$a2512",
         "SplashScreenMixin$Bg$b2512",
         "SplashScreenMixin$OnRenderBar$a2210",
