@@ -8,7 +8,7 @@
     "description": "Makes the loading screen less retina-burning",
     "icon": "assets/dark-loading-screen/icon.png",
     "authors": ["Neecko"],
-    "contact": {  
+    "contact": { 
         "homepage": "https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen",
         "issues": "https://github.com/A5b84/dark-loading-screen/issues",
         "sources": "https://github.com/A5b84/dark-loading-screen"
