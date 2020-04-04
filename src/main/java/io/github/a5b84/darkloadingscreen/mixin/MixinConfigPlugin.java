@@ -13,16 +13,16 @@ import net.minecraft.SharedConstants;
 
 /**
  * Plugin qui désactive les mixins qui sont incompatibles.
- * Les noms de mixins à version sont au format `...Mixin_m[x]M[y]`
- * avec `b[x]` (before) et `a[y]` (after) optionnels, les mixins sont
- * injectées si `y <= dataVersion < x`.
+ * Les noms de mixins à version sont au format `...Mixin_a[x]b[y]`
+ * avec `a[x]` (after) et `b[y]` (before) optionnels, les mixins sont
+ * injectées si `x <= dataVersion < y`.
  * Liste des `dataVersion`s :
  * https://minecraft.gamepedia.com/Data_version#List_of_data_versions
  */
 public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     /** Expression régulière qui matche les versions limites d'un mixin */
-    private static final Pattern CONSTRAINT_PATTERN = Pattern.compile(".*?(?:b([0-9]+))?(?:a([0-9]+))?");
+    private static final Pattern CONSTRAINT_PATTERN = Pattern.compile(".*?(?:a([0-9]+))?(?:b([0-9]+))?");
 
     private static final int GAME_VERSION = SharedConstants.getGameVersion().getWorldVersion();
 
@@ -30,10 +30,10 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         final Matcher matcher = CONSTRAINT_PATTERN.matcher(mixinClassName);
         matcher.matches(); // marche toujours
-        final String beforeStr = matcher.group(1);
-        final String afterStr = matcher.group(2);
-        final int beforeVer = beforeStr == null ? GAME_VERSION + 1 : Integer.parseInt(beforeStr);
+        final String afterStr = matcher.group(1);
+        final String beforeStr = matcher.group(2);
         final int afterVer = afterStr == null ? GAME_VERSION - 1 : Integer.parseInt(afterStr);
+        final int beforeVer = beforeStr == null ? GAME_VERSION + 1 : Integer.parseInt(beforeStr);
 
         return afterVer <= GAME_VERSION && GAME_VERSION < beforeVer;
     }
