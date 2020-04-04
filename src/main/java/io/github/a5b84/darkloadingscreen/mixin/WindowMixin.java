@@ -26,7 +26,8 @@ public abstract class WindowMixin {
     @Shadow private @Final long handle;
 
     /** @see Window#Window */
-    @Redirect(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL;createCapabilities()Lorg/lwjgl/opengl/GLCapabilities;", remap = false), remap = false)
+    @Redirect(method = "<init>",
+        at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL;createCapabilities()Lorg/lwjgl/opengl/GLCapabilities;", remap = false))
     private GLCapabilities onCreateCapabilities() {
         glfwSwapBuffers(handle); // Petit hack qui rend la fenêtre noire
         //      le temps que `GL.createCapabilities()` se fasse
