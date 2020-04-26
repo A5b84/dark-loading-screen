@@ -16,13 +16,28 @@ import net.minecraft.client.util.math.MatrixStack;
  *
  * Liste des dataVersions :
  * https://minecraft.gamepedia.com/Data_version#List_of_data_versions
+ *
  * @see SplashScreen
  */
 public final class SplashScreenMixin {
 
     private SplashScreenMixin() {}
 
-    private static final String FILL_DESCRIPTOR = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
+    /**
+     * Descripteurs pour les mixins
+     * 
+     * Format : {nom}_{version} avec nom le nom (duh) (mais en camelCase)
+     * et version la première version où c'est utilisé (1.14 minimum)
+     */
+    private static final String
+        fill_20w17a = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V",
+        fill_20w10a = "Lnet/minecraft/class_425;method_25294(IIIII)V",
+        fill_1_14 = "Lnet/minecraft/class_425;fill(IIIII)V",
+        render_20w10a = "Lnet/minecraft/class_425;method_25394(IIF)V",
+        render_1_14 = "Lnet/minecraft/class_425;render(IIF)V",
+        renderProgressBar_19w41a = "Lnet/minecraft/class_425;method_18103(IIIIF)V",
+        renderProgressBar_1_14 = "Lnet/minecraft/class_425;method_18103(IIIIFF)V";
+
 
 
 
@@ -35,21 +50,21 @@ public final class SplashScreenMixin {
         @Mixin(SplashScreen.class)
         public static abstract class a2529 {
             @ModifyArg(method = "render",
-                at = @At(value = "INVOKE", target = FILL_DESCRIPTOR), index = 5)
+                at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
             private int adjustBackground(int color) { return Mod.getBackground(color); }
         }
 
-        @Mixin(SplashScreen.class)
+        @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class a2512b2529 {
-            @ModifyArg(method = "Lnet/minecraft/class_425;render(IIF)V", remap = false,
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V"), index = 4)
+            @ModifyArg(method = render_20w10a,
+                at = @At(value = "INVOKE", target = fill_20w10a), index = 4)
             private int adjustBackground(int color) { return Mod.getBackground(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class b2512 {
-            @ModifyArg(method = "Lnet/minecraft/class_425;render(IIF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V"), index = 4)
+            @ModifyArg(method = render_1_14,
+                at = @At(value = "INVOKE", target = fill_1_14), index = 4)
             private int adjustBackground(int color) { return Mod.getBackground(color); }
         }
     }
@@ -74,7 +89,7 @@ public final class SplashScreenMixin {
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class a2210b2529 {
-            @Inject(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V", at = @At("HEAD"))
+            @Inject(method = renderProgressBar_19w41a, at = @At("HEAD"))
             private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, CallbackInfo ci) {
                 Mod.endAnimProgress = progress;
             }
@@ -82,7 +97,7 @@ public final class SplashScreenMixin {
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class b2210 {
-            @Inject(method = "Lnet/minecraft/class_425;method_18103(IIIIFF)V", at = @At("HEAD"))
+            @Inject(method = renderProgressBar_1_14, at = @At("HEAD"))
             private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, float endAnimProgress, CallbackInfo ci) {
                 Mod.endAnimProgress = endAnimProgress;
             }
@@ -102,60 +117,60 @@ public final class SplashScreenMixin {
         @Mixin(SplashScreen.class)
         public static abstract class a2529 {
             @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESCRIPTOR, ordinal = 0), index = 5)
+                at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 0), index = 5)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
 
             @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESCRIPTOR, ordinal = 1), index = 5)
+                at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 1), index = 5)
             private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
 
             @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESCRIPTOR, ordinal = 2), index = 5)
+                at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 2), index = 5)
             private int adjustBarColor(int color) { return Mod.getBarColor(color); }
         }
 
         @Mixin(SplashScreen.class)
         public static abstract class a2512b2529 {
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V", remap = false,
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V", ordinal = 0), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a, remap = false,
+                at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V", remap = false,
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V", ordinal = 1), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a, remap = false,
+                at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 1), index = 4)
             private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V", remap = false,
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(IIIII)V", ordinal = 2), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a, remap = false,
+                at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 2), index = 4)
             private int adjustBarColor(int color) { return Mod.getBarColor(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class a2210b2512 {
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 0), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 1), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 1), index = 4)
             private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 2), index = 4)
+            @ModifyArg(method = renderProgressBar_19w41a,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 2), index = 4)
             private int adjustBarColor(int color) { return Mod.getBarColor(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class b2210 {
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIFF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 0), index = 4)
+            @ModifyArg(method = renderProgressBar_1_14,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIFF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 1), index = 4)
+            @ModifyArg(method = renderProgressBar_1_14,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 1), index = 4)
             private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
 
-            @ModifyArg(method = "Lnet/minecraft/class_425;method_18103(IIIIFF)V",
-                at = @At(value = "INVOKE", target = "Lnet/minecraft/class_425;fill(IIIII)V", ordinal = 2), index = 4)
+            @ModifyArg(method = renderProgressBar_1_14,
+                at = @At(value = "INVOKE", target = fill_1_14, ordinal = 2), index = 4)
             private int adjustBarColor(int color) { return Mod.getBarColor(color); }
         }
     }
