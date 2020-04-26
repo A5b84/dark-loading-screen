@@ -16,7 +16,7 @@ import net.minecraft.MinecraftVersion;
  * Les noms de mixins à version sont au format `...Mixin_a[x]b[y]`
  * avec `a[x]` (after) et `b[y]` (before) optionnels, les mixins sont
  * injectées si `x <= dataVersion < y`.
- * Liste des `dataVersion`s :
+ * Liste des dataVersions :
  * https://minecraft.gamepedia.com/Data_version#List_of_data_versions
  */
 public class MixinConfigPlugin implements IMixinConfigPlugin {

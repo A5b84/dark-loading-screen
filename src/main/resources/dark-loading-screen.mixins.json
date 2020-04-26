@@ -5,11 +5,14 @@
     "compatibilityLevel": "JAVA_8",
     "client": [
         "WindowMixin",
-        "SplashScreenMixin$Bg$a2512",
+        "SplashScreenMixin$Bg$a2529",
+        "SplashScreenMixin$Bg$a2512b2529",
         "SplashScreenMixin$Bg$b2512",
-        "SplashScreenMixin$OnRenderBar$a2210",
+        "SplashScreenMixin$OnRenderBar$a2529",
+        "SplashScreenMixin$OnRenderBar$a2210b2529",
         "SplashScreenMixin$OnRenderBar$b2210",
-        "SplashScreenMixin$Bar$a2512",
+        "SplashScreenMixin$Bar$a2529",
+        "SplashScreenMixin$Bar$a2512b2529",
         "SplashScreenMixin$Bar$a2210b2512",
         "SplashScreenMixin$Bar$b2210"
     ],
