@@ -12,7 +12,7 @@
         {
             "label": "Build + copie",
             "type": "shell",
-            "command": "./gradlew.bat build; scp ./build/libs/dark-loading-screen-1.2.1.jar C:/Users/Nicolas/AppData/Roaming/.minecraft/mods/",
+            "command": "./gradlew.bat build; scp ./build/libs/dark-loading-screen-1.2.2.jar C:/Users/Nicolas/AppData/Roaming/.minecraft/mods/",
             "group": {
                 "kind": "build",
                 "isDefault": true
