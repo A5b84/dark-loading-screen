@@ -115,7 +115,18 @@ public final class SplashScreenMixin {
         private Bar() {}
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2529 {
+        public static abstract class a2555 {
+            @ModifyArg(method = "renderProgressBar",
+                at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
+            private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
+
+            @ModifyArg(method = "renderProgressBar",
+                at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 4), index = 5)
+            private int adjustBarBackground(int color) { return Mod.getBarColor(color); }
+        }
+
+        @Mixin(SplashScreen.class)
+        public static abstract class a2529b2555 {
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 0), index = 5)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }

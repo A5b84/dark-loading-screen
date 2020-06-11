@@ -24,7 +24,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     /** Expression régulière qui matche les versions limites d'un mixin */
     private static final Pattern CONSTRAINT_PATTERN = Pattern.compile(".*?(?:a([0-9]+))?(?:b([0-9]+))?");
 
-    private static final int GAME_VERSION = new MinecraftVersion().getWorldVersion();
+    private static final int GAME_VERSION = MinecraftVersion.create().getWorldVersion();
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
