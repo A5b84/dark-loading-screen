@@ -51,21 +51,21 @@ public final class SplashScreenMixin {
         public static abstract class a2529 {
             @ModifyArg(method = "render",
                 at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
-            private int adjustBackground(int color) { return Mod.getBackground(color); }
+            private int adjustBg(int color) { return Mod.getBg(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class a2512b2529 {
             @ModifyArg(method = render_20w10a,
                 at = @At(value = "INVOKE", target = fill_20w10a), index = 4)
-            private int adjustBackground(int color) { return Mod.getBackground(color); }
+            private int adjustBg(int color) { return Mod.getBg(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
         public static abstract class b2512 {
             @ModifyArg(method = render_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14), index = 4)
-            private int adjustBackground(int color) { return Mod.getBackground(color); }
+            private int adjustBg(int color) { return Mod.getBg(color); }
         }
     }
 
@@ -122,7 +122,7 @@ public final class SplashScreenMixin {
 
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 4), index = 5)
-            private int adjustBarBackground(int color) { return Mod.getBarColor(color); }
+            private int adjustBarBg(int color) { return Mod.getBarColor(color); }
         }
 
         @Mixin(SplashScreen.class)
@@ -133,7 +133,7 @@ public final class SplashScreenMixin {
 
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 1), index = 5)
-            private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
+            private int adjustBarBg(int color) { return Mod.getBarBg(color); }
 
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 2), index = 5)
@@ -148,7 +148,7 @@ public final class SplashScreenMixin {
 
             @ModifyArg(method = renderProgressBar_19w41a, remap = false,
                 at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 1), index = 4)
-            private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
+            private int adjustBarBg(int color) { return Mod.getBarBg(color); }
 
             @ModifyArg(method = renderProgressBar_19w41a, remap = false,
                 at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 2), index = 4)
@@ -163,7 +163,7 @@ public final class SplashScreenMixin {
 
             @ModifyArg(method = renderProgressBar_19w41a,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 1), index = 4)
-            private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
+            private int adjustBarBg(int color) { return Mod.getBarBg(color); }
 
             @ModifyArg(method = renderProgressBar_19w41a,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 2), index = 4)
@@ -178,7 +178,7 @@ public final class SplashScreenMixin {
 
             @ModifyArg(method = renderProgressBar_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 1), index = 4)
-            private int adjustBarBackground(int color) { return Mod.getBarBackground(color); }
+            private int adjustBarBg(int color) { return Mod.getBarBg(color); }
 
             @ModifyArg(method = renderProgressBar_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 2), index = 4)

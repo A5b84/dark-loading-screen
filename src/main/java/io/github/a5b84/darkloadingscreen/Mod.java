@@ -22,7 +22,7 @@ public class Mod implements ClientModInitializer {
 
 
 
-    public static int getBackground(int color) {
+    public static int getBg(int color) {
         return BG_COLOR | (color & 0xff000000);
     }
 
@@ -30,7 +30,7 @@ public class Mod implements ClientModInitializer {
         return colorLerp(endAnimProgress, BG_COLOR, BORDER_COLOR) | 0xff000000;
     }
 
-    public static int getBarBackground(int color) {
+    public static int getBarBg(int color) {
         return BG_COLOR | 0xff000000;
     }
 
