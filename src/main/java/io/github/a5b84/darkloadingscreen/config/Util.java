@@ -18,7 +18,7 @@ public final class Util {
 
         // Format #rrggbb
         if (s.length() == 6) {
-            return Integer.parseInt(s, 16) & 0x00ffffff;
+            return Integer.parseInt(s, 16);
         }
 
         // Autres formats -> erreur
