@@ -148,21 +148,26 @@ public class ConfigScreen extends Screen {
         borderField.render(matrices, mouseX, mouseY, delta);
     }
 
+    /** Version modifiée de ParentElement#mouseClicked qui désélectionne
+     * comme y faut */
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        boolean clicked = false;
+        Element clickedElement = null;
 
         for (final Element child : children) {
-            if (clicked) {
+            if (clickedElement != null) {
                 if (child instanceof TextFieldWidget) {
                     ((TextFieldWidget) child).setSelected(false);
                 }
-            } else {
-                child.mouseClicked(mouseX, mouseY, button);
+            } else if (child.mouseClicked(mouseX, mouseY, button)) {
+                clickedElement = child;
             }
         }
 
-        return clicked;
+        setFocused(clickedElement);
+        if (button == 0) setDragging(true);
+
+        return clickedElement != null;
     }
 
     @Override
