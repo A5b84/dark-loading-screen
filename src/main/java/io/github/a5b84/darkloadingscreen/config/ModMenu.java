@@ -3,6 +3,7 @@ package io.github.a5b84.darkloadingscreen.config;
 import io.github.a5b84.darkloadingscreen.Mod;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
+import net.minecraft.SharedConstants;
 
 public class ModMenu implements ModMenuApi {
 
@@ -13,7 +14,9 @@ public class ModMenu implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> new ConfigScreen(parent);
+        return SharedConstants.getGameVersion().getWorldVersion() >= 2529 // 20w17a (ajout MatrixStack)
+                ? parent -> new ConfigScreen(parent)
+                : parent -> null;
     }
 
 }
