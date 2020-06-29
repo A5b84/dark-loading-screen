@@ -7,7 +7,7 @@ public final class Util {
 
 
     /** @throws NumberFormatException si `s` est pas une couleur au format
-     * #rgb, #rrggbb ou #aarrggbb (en hexadécimal) */
+     * #rgb ou #rrggbb (en hexadécimal) */
     public static int parseColor(String s) throws NumberFormatException {
         // Format #rgb
         if (s.length() == 3) {
@@ -16,8 +16,8 @@ public final class Util {
             return (((color & 0xf00) << 8) + ((color & 0x0f0) << 4) + (color & 0x00f)) * 0x11;
         }
 
-        // Format #rrggbb ou #aarrggbb
-        if (s.length() == 6 || s.length() == 8) {
+        // Format #rrggbb
+        if (s.length() == 6) {
             return Integer.parseInt(s, 16) & 0x00ffffff;
         }
 
