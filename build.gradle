@@ -23,6 +23,9 @@ dependencies {
 
     // API Fabric
     // modCompile "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // Configuration
+    modCompile "io.github.prospector:modmenu:${project.mod_menu_version}"
 }
 
 processResources {

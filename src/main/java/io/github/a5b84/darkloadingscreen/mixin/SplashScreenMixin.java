@@ -25,7 +25,7 @@ public final class SplashScreenMixin {
 
     /**
      * Descripteurs pour les mixins
-     * 
+     *
      * Format : {nom}_{version} avec nom le nom (duh) (mais en camelCase)
      * et version la première version où c'est utilisé (1.14 minimum)
      */

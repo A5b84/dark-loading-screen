@@ -1,5 +1,6 @@
 package io.github.a5b84.darkloadingscreen;
 
+import io.github.a5b84.darkloadingscreen.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.util.math.MathHelper;
 
@@ -8,34 +9,35 @@ public class Mod implements ClientModInitializer {
     public static final String ID = "dark-loading-screen";
 
     @Override
-    public void onInitializeClient() {}
+    public void onInitializeClient() {
+        config = Config.read();
+    }
 
 
 
     // Trucs communs
 
-    public static final int BG_COLOR = 0x14181c;
-    public static final int BORDER_COLOR = 0x303336;
-    public static final int BAR_COLOR = 0xe22837; // Couleur vanilla
+    public static Config config;
 
     public static float endAnimProgress; // Un peu sale mais bon
 
 
 
     public static int getBg(int color) {
-        return BG_COLOR | (color & 0xff000000);
-    }
-
-    public static int getBarBorder(int color) {
-        return colorLerp(endAnimProgress, BG_COLOR, BORDER_COLOR) | 0xff000000;
-    }
-
-    public static int getBarBg(int color) {
-        return BG_COLOR | 0xff000000;
+        return config.bgColor | (color & 0xff000000);
     }
 
     public static int getBarColor(int color) {
-        return colorLerp(endAnimProgress, BG_COLOR, BAR_COLOR) | 0xff000000;
+        return colorLerp(endAnimProgress, config.bgColor, config.barColor) | 0xff000000;
+    }
+
+    public static int getBarBorder(int color) {
+        return colorLerp(endAnimProgress, config.bgColor, config.borderColor) | 0xff000000;
+    }
+
+    /** Utilisé qu'avant la 1.16 */
+    public static int getBarBg(int color) {
+        return config.bgColor | 0xff000000;
     }
 
 
