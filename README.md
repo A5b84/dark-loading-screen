@@ -13,3 +13,5 @@ Colors can be modified in-game using [Mod Menu](https://www.curseforge.com/minec
 ### Manual configuration
 
 Create or edit `[minecraft folder]/config/dark-loading-screen.json`, the default config is `{"background":"14181c1","bar":"e228371","border":"3033361"}`.
+
+Changes are only visible after restarting the game.
