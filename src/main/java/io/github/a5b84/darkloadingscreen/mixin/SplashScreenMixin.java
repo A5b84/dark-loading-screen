@@ -16,7 +16,8 @@ import net.minecraft.client.util.math.MatrixStack;
  *
  * Liste des dataVersions :
  * https://minecraft.gamepedia.com/Data_version#List_of_data_versions
- *
+ * 
+ * @see MixinConfigPlugin
  * @see SplashScreen
  */
 public final class SplashScreenMixin {
@@ -28,6 +29,12 @@ public final class SplashScreenMixin {
      *
      * Format : {nom}_{version} avec nom le nom (duh) (mais en camelCase)
      * et version la première version où c'est utilisé (1.14 minimum)
+     * 
+     * Petit historique des changements :
+     *  - 19w41a : renderProgressBar(IIIIFF)V -> renderProgressBar(IIIIF)V
+     *  - 20w10a : obfuscation de `fill`
+     *  - 20w17a : ajout de MatrixStack en paramètre
+     *  - 20w22a : séparation du contour en 4 rectangles au lieu d'un
      */
     private static final String
         fill_20w17a = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V",
@@ -48,21 +55,21 @@ public final class SplashScreenMixin {
     public static class Bg {
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2529 {
+        public static abstract class a2529 { // >= 20w17a
             @ModifyArg(method = "render",
                 at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
             private int adjustBg(int color) { return Mod.getBg(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class a2512b2529 {
+        public static abstract class a2512b2529 { // 20w10a-20w17a
             @ModifyArg(method = render_20w10a,
                 at = @At(value = "INVOKE", target = fill_20w10a), index = 4)
             private int adjustBg(int color) { return Mod.getBg(color); }
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class b2512 {
+        public static abstract class b2512 { // < 20w10a
             @ModifyArg(method = render_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14), index = 4)
             private int adjustBg(int color) { return Mod.getBg(color); }
@@ -80,7 +87,7 @@ public final class SplashScreenMixin {
         private OnRenderBar() {}
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2529 {
+        public static abstract class a2529 { // >= 20w17a
             @Inject(method = "renderProgressBar", at = @At("HEAD"))
             private void onRenderProgressBar(MatrixStack stack, int minX, int minY, int maxX, int maxY, float progress, CallbackInfo ci) {
                 Mod.endAnimProgress = progress;
@@ -88,7 +95,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class a2210b2529 {
+        public static abstract class a2210b2529 { // 19w41a-20w17a
             @Inject(method = renderProgressBar_19w41a, at = @At("HEAD"))
             private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, CallbackInfo ci) {
                 Mod.endAnimProgress = progress;
@@ -96,7 +103,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class b2210 {
+        public static abstract class b2210 { // < 19w41a
             @Inject(method = renderProgressBar_1_14, at = @At("HEAD"))
             private void onRenderProgressBar(int minX, int minY, int maxX, int maxY, float progress, float endAnimProgress, CallbackInfo ci) {
                 Mod.endAnimProgress = endAnimProgress;
@@ -115,7 +122,7 @@ public final class SplashScreenMixin {
         private Bar() {}
 
         @Mixin(SplashScreen.class)
-        public static abstract class b0oa2555 {
+        public static abstract class b0oa2555 { // OptiFine 20w22a+
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
@@ -126,7 +133,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2555ob0 {
+        public static abstract class a2555ob0 { // Vanilla 20w22a+
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a), index = 5)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
@@ -137,7 +144,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2529b2555 {
+        public static abstract class a2529b2555 { // 20w17a-20w22a
             @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = fill_20w17a, ordinal = 0), index = 5)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
@@ -152,7 +159,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(SplashScreen.class)
-        public static abstract class a2512b2529 {
+        public static abstract class a2512b2529 { // 20w10a-20w17a
             @ModifyArg(method = renderProgressBar_19w41a, remap = false,
                 at = @At(value = "INVOKE", target = fill_20w10a, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
@@ -167,7 +174,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class a2210b2512 {
+        public static abstract class a2210b2512 { // 19w41a-20w10a
             @ModifyArg(method = renderProgressBar_19w41a,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
@@ -182,7 +189,7 @@ public final class SplashScreenMixin {
         }
 
         @Mixin(value = SplashScreen.class, remap = false)
-        public static abstract class b2210 {
+        public static abstract class b2210 { // < 19w41a
             @ModifyArg(method = renderProgressBar_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 0), index = 4)
             private int adjustBarBorder(int color) { return Mod.getBarBorder(color); }
