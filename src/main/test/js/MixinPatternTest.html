@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- Tests pour le pattern pour les mixins -->
+<!-- (dans un fichier HTML pcq c'est plus simple et ça marche) -->
+<html>
+
+<body>
+    <script>
+
+'use strict';
+
+const O = 'O';
+
+function test(exp) {
+    const vals = [
+        ['$', [undefined, undefined, undefined, undefined, undefined]],
+        ['$a123', [123, undefined, undefined, undefined, undefined]],
+        ['$b456', [undefined, 456, undefined, undefined, undefined]],
+        ['$a123b456', [123, 456, undefined, undefined, undefined]],
+        ['$Oa246', [undefined, undefined, O, 246, undefined]],
+        ['$a123Oa246', [123, undefined, O, 246, undefined]],
+        ['$b456Oa246', [undefined, 456, O, 246, undefined]],
+        ['$a123b456Oa246', [123, 456, O, 246, undefined]],
+        ['$Oa246b802', [undefined, undefined, O, 246, 802]],
+        ['$a123Oa246b802', [123, undefined, O, 246, 802]],
+        ['$b456Oa246b802', [undefined, 456, O, 246, 802]],
+        ['$a123b456Oa246b802', [123, 456, O, 246, 802]],
+        ['$Oa246b802', [undefined, undefined, O, 246, 802]],
+        ['$a123Oa246b802', [123, undefined, O, 246, 802]],
+        ['$b456Oa246b802', [undefined, 456, O, 246, 802]],
+        ['$a123b456Oa246b802', [123, 456, O, 246, 802]],
+    ];
+
+    for (const val of vals) {
+        try {
+            const result = val[0].match(exp).slice(1);
+            if (result.every((value, index) => value == val[1][index])) {
+                console.log(val[0], 'ok');
+            } else {
+                console.warn(val[0], val[1], result);
+            }
+        } catch (e) {
+            console.error(val[0], e);
+        }
+    }
+}
+
+    </script>
+</body>
+
+</html>
