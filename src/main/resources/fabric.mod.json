@@ -13,7 +13,7 @@
         "issues": "https://github.com/A5b84/dark-loading-screen/issues",
         "sources": "https://github.com/A5b84/dark-loading-screen"
     },
-    "license": "CC-BY-NC-4.0",
+    "license": "CC-BY-NC-SA-4.0",
 
     "environment": "client",
     "entrypoints": {
