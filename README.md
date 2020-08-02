@@ -22,4 +22,5 @@ Changes are only visible after restarting the game.
 
 ## Credits
 
+- `pl_pl` localization by [DarkKnightComes](https://github.com/DarkKnightComes)
 - `zh_cn` localization by [w5860363](https://github.com/w5860363)
