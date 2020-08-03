@@ -1,5 +1,6 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
+import org.lwjgl.opengl.GL11;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -201,18 +202,24 @@ public final class SplashScreenMixin {
 
 
 
+    /** Logo
+     * @see SplashScreen#render */
     public static final class Logo {
 
         private Logo() {}
 
         @Mixin(SplashScreen.class)
         public static abstract class a2529 { // >= 20w17a
-            @Redirect(
-                method = "render",
-                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.color4f(FFFF)V")
-            )
+            @Redirect(method = "render",
+                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.color4f(FFFF)V"))
             private void color4fProxy(float r, float g, float b, float a) {
                 Mod.logoColor4f(a);
+            }
+
+            @ModifyArg(method = "render", index = 1,
+                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.blendFunc(II)V"))
+            private int adjustDstFactor(int dstFactor) {
+                return GL11.GL_ONE_MINUS_SRC_ALPHA;
             }
 
         }
