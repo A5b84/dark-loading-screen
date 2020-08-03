@@ -28,6 +28,6 @@ Manual changes are only visible after restarting the game.
 
 ## Credits
 
-- Logo coloring suggested by @Minenash
-- `pl_pl` localization by @DarkKnightComes
-- `zh_cn` localization by @w5860363
+- Logo coloring suggested by [Minenash](https://github.com/Minenash)
+- `pl_pl` localization by [DarkKnightComes](https://github.com/DarkKnightComes)
+- `zh_cn` localization by [w5860363](https://github.com/w5860363)
