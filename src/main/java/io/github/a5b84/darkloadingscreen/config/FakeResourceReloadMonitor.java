@@ -4,6 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 import net.minecraft.resource.ResourceReloadMonitor;
 import net.minecraft.util.Unit;
+import net.minecraft.util.math.MathHelper;
 
 /** ResourceReloadMonitor qui se complète seul après une certaine durée */
 public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
@@ -23,11 +24,13 @@ public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
 
     @Override
     public float getProgress() {
-        double progress = Math.min(
+        double progress = MathHelper.clamp(
             (System.currentTimeMillis() - start) / duration,
-            1 // Pour pas que ça dépasse et que ça redescende
+            .1, 1 // min pour compenser un bug vanilla
+            // max pour pas casser la fonction
         );
-        return (float) (.5 * (1 - Math.cos(Math.PI * progress))); // Easing
+
+        return (float) (1 - Math.cos(Math.PI * progress)) / 2; // Easing
     }
 
     @Override

@@ -62,7 +62,7 @@ public class Config {
             logoColor = Util.parseColor(logoStr);
         }
 
-        logoR = (logoColor >> 16) / 255f; // Pas d'alpha -> pas de & 0xff
+        logoR = ((logoColor >> 16) & 0xff) / 255f; // & 0xff overkill mais bon
         logoG = ((logoColor >> 8) & 0xff) / 255f;
         logoB = (logoColor & 0xff) / 255f;
     }
