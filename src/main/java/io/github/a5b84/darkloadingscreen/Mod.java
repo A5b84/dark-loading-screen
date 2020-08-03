@@ -1,5 +1,7 @@
 package io.github.a5b84.darkloadingscreen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+
 import io.github.a5b84.darkloadingscreen.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.util.math.MathHelper;
@@ -23,6 +25,9 @@ public class Mod implements ClientModInitializer {
 
 
 
+    // TODO: enlever colorLerp pour utiliser l'alpha à la place quand y aura
+    // plus besoin de support pour la 1.14/1.15
+
     public static int getBg(int color) {
         return config.bgColor | (color & 0xff000000);
     }
@@ -38,6 +43,12 @@ public class Mod implements ClientModInitializer {
     /** Utilisé qu'avant la 1.16 */
     public static int getBarBg(int color) {
         return config.bgColor | 0xff000000;
+    }
+
+    public static void logoColor4f(float alpha) {
+        RenderSystem.color4f(
+            config.logoR, config.logoG, config.logoB, alpha
+        );
     }
 
 

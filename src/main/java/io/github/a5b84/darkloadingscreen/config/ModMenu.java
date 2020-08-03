@@ -15,8 +15,8 @@ public class ModMenu implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return SharedConstants.getGameVersion().getWorldVersion() >= 2529 // 20w17a (ajout MatrixStack)
-                ? parent -> new ConfigScreen(parent)
-                : parent -> null;
+            ? parent -> new ConfigScreen(parent)
+            : parent -> null;
     }
 
 }

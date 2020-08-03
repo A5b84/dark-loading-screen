@@ -16,7 +16,8 @@
         "SplashScreenMixin$Bar$a2529b2555",
         "SplashScreenMixin$Bar$a2512b2529",
         "SplashScreenMixin$Bar$a2210b2512",
-        "SplashScreenMixin$Bar$b2210"
+        "SplashScreenMixin$Bar$b2210",
+        "SplashScreenMixin$Logo$a2529"
     ],
     "injectors": {
         "defaultRequire": 1

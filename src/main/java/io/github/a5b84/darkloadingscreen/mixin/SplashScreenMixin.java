@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.a5b84.darkloadingscreen.Mod;
@@ -48,10 +49,8 @@ public final class SplashScreenMixin {
 
 
 
-    /**
-     * Fond
-     * @see SplashScreen#render
-     */
+    /** Fond
+     * @see SplashScreen#render */
     public static class Bg {
 
         @Mixin(SplashScreen.class)
@@ -78,10 +77,8 @@ public final class SplashScreenMixin {
 
 
 
-    /**
-     * Màj des variables communes
-     * @see SplashScreen#renderProgressBar
-     */
+    /** Mise à jour des variables communes
+     * @see SplashScreen#renderProgressBar */
     public static final class OnRenderBar {
 
         private OnRenderBar() {}
@@ -113,10 +110,8 @@ public final class SplashScreenMixin {
 
 
 
-    /**
-     * Couleurs de la barre
-     * @see SplashScreen#renderProgressBar
-     */
+    /** Couleurs de la barre
+     * @see SplashScreen#renderProgressBar */
     public static final class Bar {
 
         private Bar() {}
@@ -201,6 +196,25 @@ public final class SplashScreenMixin {
             @ModifyArg(method = renderProgressBar_1_14,
                 at = @At(value = "INVOKE", target = fill_1_14, ordinal = 2), index = 4)
             private int adjustBarColor(int color) { return Mod.getBarColor(color); }
+        }
+    }
+
+
+
+    public static final class Logo {
+
+        private Logo() {}
+
+        @Mixin(SplashScreen.class)
+        public static abstract class a2529 { // >= 20w17a
+            @Redirect(
+                method = "render",
+                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.color4f(FFFF)V")
+            )
+            private void color4fProxy(float r, float g, float b, float a) {
+                Mod.logoColor4f(a);
+            }
+
         }
     }
 

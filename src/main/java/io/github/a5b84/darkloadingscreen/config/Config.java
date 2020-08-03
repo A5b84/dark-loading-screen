@@ -23,34 +23,48 @@ public class Config {
 
     protected static final String CONFIG_PATH = "./config/" + Mod.ID + ".json";
 
-    public static final Config DEFAULT = new Config("14181c", "e22837", "303336", null);
+    public static final Config DEFAULT = new Config(
+        "14181c", "e22837", "303336", "ffffff"
+    );
 
+    // On garde les strings pour la sérialisation + l'écran de config
     public final String bgStr;
     public final String barStr;
     public final String borderStr;
+    public final String logoStr;
     public final int bgColor;
     public final int barColor;
     public final int borderColor;
+    public final int logoColor;
+    public final float logoR;
+    public final float logoG;
+    public final float logoB;
 
 
 
-    /** Constructeur spécial pour la config par défaut (pour éviter une erreur) */
-    private Config(String bg, String bar, String border, Object unused) {
+    public Config(String bg, String bar, String border, String logo) {
         bgStr = bg;
         barStr = bar;
         borderStr = border;
-        bgColor = Util.parseColor(bgStr);
-        barColor = Util.parseColor(barStr);
-        borderColor = Util.parseColor(borderStr);
-    }
+        logoStr = logo;
 
-    public Config(String bg, String bar, String border) {
-        bgStr = bg;
-        barStr = bar;
-        borderStr = border;
-        bgColor = Util.parseColor(bgStr, DEFAULT.bgColor);
-        barColor = Util.parseColor(barStr, DEFAULT.barColor);
-        borderColor = Util.parseColor(borderStr, DEFAULT.borderColor);
+        if (DEFAULT != null) {
+            bgColor = Util.parseColor(bgStr, DEFAULT.bgColor);
+            barColor = Util.parseColor(barStr, DEFAULT.barColor);
+            borderColor = Util.parseColor(borderStr, DEFAULT.borderColor);
+            logoColor = Util.parseColor(logoStr, DEFAULT.logoColor);
+        } else {
+            // Cas à part parce que DEFAULT peut pas se référencer dans son
+            // constructeur
+            bgColor = Util.parseColor(bgStr);
+            barColor = Util.parseColor(barStr);
+            borderColor = Util.parseColor(borderStr);
+            logoColor = Util.parseColor(logoStr);
+        }
+
+        logoR = (logoColor >> 16) / 255f; // Pas d'alpha -> pas de & 0xff
+        logoG = ((logoColor >> 8) & 0xff) / 255f;
+        logoB = (logoColor & 0xff) / 255f;
     }
 
 
@@ -65,7 +79,8 @@ public class Config {
             return new Config(
                 readColor(o, "background", DEFAULT.bgStr),
                 readColor(o, "bar", DEFAULT.barStr),
-                readColor(o, "border", DEFAULT.borderStr)
+                readColor(o, "border", DEFAULT.borderStr),
+                readColor(o, "logo", DEFAULT.logoStr)
             );
         } catch (FileNotFoundException | JsonSyntaxException e) {
             return DEFAULT;
@@ -92,24 +107,33 @@ public class Config {
     public void write() {
         if (equals(DEFAULT)) {
             // On supprime le fichier pour la config par défaut
-            new File(CONFIG_PATH).delete();
+            try {
+                new File(CONFIG_PATH).delete();
+            } catch (SecurityException e) {
+                LOGGER.error("[Dark Loading Screen] Couldn't delete settings at " + CONFIG_PATH);
+                e.printStackTrace();
+            }
             return;
         }
 
         // Écriture
-        try (final FileWriter fw = new FileWriter(CONFIG_PATH)) {
+        try (
+            final FileWriter fw = new FileWriter(CONFIG_PATH);
             final JsonWriter jw = new JsonWriter(fw);
+        ) {
+            jw.setIndent("    ");
             jw.beginObject()
             .name("background").value(bgStr)
             .name("bar").value(barStr)
             .name("border").value(borderStr)
+            .name("logo").value(logoStr)
             .endObject();
-            jw.close();
         } catch (IOException e) {
             LOGGER.error("[Dark Loading Screen] Couldn't write settings to " + CONFIG_PATH);
             e.printStackTrace();
         }
     }
+
 
 
     @Override
@@ -118,8 +142,9 @@ public class Config {
         if (!(obj instanceof Config)) return false;
         final Config config = (Config) obj;
         return bgStr.equals(config.bgStr)
-                && barStr.equals(config.barStr)
-                && borderStr.equals(config.borderStr);
+            && barStr.equals(config.barStr)
+            && borderStr.equals(config.borderStr)
+            && logoStr.equals(config.logoStr);
     }
 
 }

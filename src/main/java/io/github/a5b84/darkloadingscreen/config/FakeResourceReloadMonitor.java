@@ -23,8 +23,10 @@ public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
 
     @Override
     public float getProgress() {
-        double progress = (double) (System.currentTimeMillis() - start) / duration;
-        if (progress > 1) progress = 1; // Pcq après cos ça descend
+        double progress = Math.min(
+            (System.currentTimeMillis() - start) / duration,
+            1 // Pour pas que ça dépasse et que ça redescende
+        );
         return (float) (.5 * (1 - Math.cos(Math.PI * progress))); // Easing
     }
 

@@ -2,9 +2,7 @@
 
 A simple mod to make the loading screen darker.
 
-Requires the [Fabric Mod Loader](https://fabricmc.net)
-
-Also available [on CurseForge](https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen) or as a [resource pack](https://www.curseforge.com/minecraft/texture-packs/dark-loading-screen) (using [OptiFine](https://optifine.net/)).
+Requires the [Fabric Mod Loader](https://fabricmc.net), also available [on CurseForge](https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen) or as a [resource pack](https://www.curseforge.com/minecraft/texture-packs/dark-loading-screen) (using [OptiFine](https://optifine.net/)).
 
 
 
@@ -14,13 +12,22 @@ Colors can be modified in-game using [Mod Menu](https://www.curseforge.com/minec
 
 ### Manual configuration
 
-Create or edit `[minecraft folder]/config/dark-loading-screen.json`, the default config is `{"background":"14181c1","bar":"e228371","border":"3033361"}`.
+Create or edit `[minecraft folder]/config/dark-loading-screen.json`, the default config is
+```json
+{
+    "background": "14181c",
+    "bar": "e22837",
+    "border": "303336",
+    "logo": "ffffff"
+}
+```
 
-Changes are only visible after restarting the game.
+Manual changes are only visible after restarting the game.
 
 
 
 ## Credits
 
-- `pl_pl` localization by [DarkKnightComes](https://github.com/DarkKnightComes)
-- `zh_cn` localization by [w5860363](https://github.com/w5860363)
+- Logo coloring suggested by @Minenash
+- `pl_pl` localization by @DarkKnightComes
+- `zh_cn` localization by @w5860363
