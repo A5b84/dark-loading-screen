@@ -24,13 +24,12 @@ public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
 
     @Override
     public float getProgress() {
-        double progress = MathHelper.clamp(
-            (System.currentTimeMillis() - start) / duration,
-            .1, 1 // min pour compenser un bug vanilla
-            // max pour pas casser la fonction
-        );
+        double progress = (System.currentTimeMillis() - start) / duration;
+        progress = Math.min(MathHelper.lerp(progress, .1, 1), 1);
+        //      lerp pour compenser un bug vanilla (barre qui sort à gauche)
+        //      Pas besoin de max(..., 0) parce que c'est forcément positif
 
-        return (float) (1 - Math.cos(Math.PI * progress)) / 2; // Easing
+        return (float) progress;
     }
 
     @Override
