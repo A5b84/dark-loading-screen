@@ -18,7 +18,7 @@ import io.github.a5b84.darkloadingscreen.Mod;
 import net.minecraft.client.util.Window;
 
 /**
- * Mixin pour changer les couleurs de la fenêtre avant l'écran de chargement
+ * Mixin pour changer la couleur de la fenêtre avant l'écran de chargement
  */
 @Mixin(Window.class)
 public abstract class WindowMixin {
