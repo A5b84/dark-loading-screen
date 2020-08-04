@@ -32,10 +32,15 @@ public class Config {
     public final String barStr;
     public final String borderStr;
     public final String logoStr;
+
     public final int bgColor;
     public final int barColor;
     public final int borderColor;
     public final int logoColor;
+
+    public final float bgR;
+    public final float bgG;
+    public final float bgB;
     public final float logoR;
     public final float logoG;
     public final float logoB;
@@ -62,7 +67,10 @@ public class Config {
             logoColor = Util.parseColor(logoStr);
         }
 
-        logoR = ((logoColor >> 16) & 0xff) / 255f; // & 0xff overkill mais bon
+        bgR = ((bgColor >> 16) & 0xff) / 255f;
+        bgG = ((bgColor >> 8) & 0xff) / 255f;
+        bgB = (bgColor & 0xff) / 255f;
+        logoR = ((logoColor >> 16) & 0xff) / 255f;
         logoG = ((logoColor >> 8) & 0xff) / 255f;
         logoB = (logoColor & 0xff) / 255f;
     }

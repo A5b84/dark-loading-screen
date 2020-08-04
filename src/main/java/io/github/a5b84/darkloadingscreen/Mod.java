@@ -22,6 +22,7 @@ public class Mod implements ClientModInitializer {
     public static Config config;
 
     public static float endAnimProgress; // Un peu sale mais bon
+    public static float alpha;
 
 
 
@@ -45,9 +46,21 @@ public class Mod implements ClientModInitializer {
         return config.bgColor | 0xff000000;
     }
 
-    public static void logoColor4f(float alpha) {
+    public static void logoAddColor4f() {
         RenderSystem.color4f(
-            config.logoR, config.logoG, config.logoB, alpha
+            config.logoR - config.bgR,
+            config.logoG - config.bgG,
+            config.logoB - config.bgB,
+            alpha
+        );
+    }
+
+    public static void logoSubstractColor4f() {
+        RenderSystem.color4f(
+            config.bgR - config.logoR,
+            config.bgG - config.logoG,
+            config.bgB - config.logoB,
+            alpha
         );
     }
 

@@ -1,6 +1,8 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
-import org.lwjgl.opengl.GL11;
+import com.mojang.blaze3d.systems.RenderSystem;
+
+import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -9,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import io.github.a5b84.darkloadingscreen.Mod;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.SplashScreen;
 import net.minecraft.client.util.math.MatrixStack;
 
@@ -210,18 +213,35 @@ public final class SplashScreenMixin {
 
         @Mixin(SplashScreen.class)
         public static abstract class a2529 { // >= 20w17a
+
+            /** Récupère l'alpha pour plus tard */
             @Redirect(method = "render",
-                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.color4f(FFFF)V"))
+                at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;color4f(FFFF)V"))
             private void color4fProxy(float r, float g, float b, float a) {
-                Mod.logoColor4f(a);
+                RenderSystem.color4f(r, g, b, a);
+                Mod.alpha = a;
             }
 
-            @ModifyArg(method = "render", index = 1,
-                at = @At(value = "INVOKE", target = "com/mojang/blaze3d/systems/RenderSystem.blendFunc(II)V"))
-            private int adjustDstFactor(int dstFactor) {
-                return GL11.GL_ONE_MINUS_SRC_ALPHA;
-            }
+            @Redirect(method = "render",
+                at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
+            private void drawTextureProxy(
+                MatrixStack matrices, int x, int y, int width, int height,
+                float u, float v, int regionWidth, int regionHeight,
+                int textureWidth, int textureHeight
+            ) {
+                // On ajoute/soustrait la différence entre le logo et le fond
+                // (selon que ça soit plus clair ou plus sombre)
+                // On peut pas juste utiliser
+                // RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)
+                // parce que ça fait un contour moche qui est visible :(
 
+                Mod.logoAddColor4f();
+                DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
+                RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
+                Mod.logoSubstractColor4f();
+                DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
+                RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
+            }
         }
     }
 
