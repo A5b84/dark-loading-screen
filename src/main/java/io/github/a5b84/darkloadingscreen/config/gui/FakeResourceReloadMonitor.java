@@ -1,4 +1,4 @@
-package io.github.a5b84.darkloadingscreen.config;
+package io.github.a5b84.darkloadingscreen.config.gui;
 
 import java.util.concurrent.CompletableFuture;
 

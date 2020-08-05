@@ -1,4 +1,4 @@
-package io.github.a5b84.darkloadingscreen.config;
+package io.github.a5b84.darkloadingscreen.config.gui;
 
 import io.github.a5b84.darkloadingscreen.Mod;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;

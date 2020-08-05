@@ -1,8 +1,5 @@
 package io.github.a5b84.darkloadingscreen.config;
 
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.resource.language.I18n;
-
 public final class Util {
 
     private Util() {}
@@ -38,19 +35,6 @@ public final class Util {
         } catch (NumberFormatException e) {
             return fallback;
         }
-    }
-
-
-
-    public static int maxTextWidth(TextRenderer textRenderer, String... keys) {
-        int max = 0;
-
-        for (final String key : keys) {
-            final int width = textRenderer.getWidth(I18n.translate(key));
-            if (width > max) max = width;
-        }
-
-        return max;
     }
 
 }
