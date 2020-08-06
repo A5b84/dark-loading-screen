@@ -1,7 +1,5 @@
 package io.github.a5b84.darkloadingscreen.config;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.ParentElement;
 
@@ -48,11 +46,6 @@ public final class Util {
 
 
 
-    @FunctionalInterface
-    public static interface MouseClickedMethod {
-        boolean apply(double mouseX, double mouseY, int button);
-    }
-
     /**
      * Fonction qui appelle mouseClicked et qui désélectionne comme y faut
      * @param parent this
@@ -64,7 +57,7 @@ public final class Util {
         ParentElement parent, MouseClickedMethod superMouseClicked,
         double mouseX, double mouseY, int button
     ) {
-        final @Nullable Element oldFocused = parent.getFocused();
+        final Element oldFocused = parent.getFocused();
         final boolean result = superMouseClicked.apply(mouseX, mouseY, button);
 
         if (oldFocused != null && oldFocused != parent.getFocused()) {
@@ -74,6 +67,11 @@ public final class Util {
         }
 
         return result;
+    }
+
+    @FunctionalInterface
+    public static interface MouseClickedMethod {
+        boolean apply(double mouseX, double mouseY, int button);
     }
 
 }

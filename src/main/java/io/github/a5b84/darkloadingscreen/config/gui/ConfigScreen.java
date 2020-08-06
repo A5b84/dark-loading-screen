@@ -62,11 +62,11 @@ public class ConfigScreen extends Screen {
         barEntry = new RgbSettingEntry(options, label("bar"), Config.DEFAULT.barStr, textRenderer);
         borderEntry = new RgbSettingEntry(options, label("border"), Config.DEFAULT.borderStr, textRenderer);
         logoEntry = new RgbSettingEntry(options, label("logo"), Config.DEFAULT.logoStr, textRenderer);
-        options.add(bgEntry);
-        options.add(barEntry);
-        options.add(borderEntry);
-        options.add(logoEntry);
-        options.add(new ButtonEntry(
+        options.addEntry(bgEntry);
+        options.addEntry(barEntry);
+        options.addEntry(borderEntry);
+        options.addEntry(logoEntry);
+        options.addEntry(new ButtonEntry(
             options, Util.BUTTON_HEIGHT, label("try"), button -> test())
         );
 

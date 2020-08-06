@@ -24,9 +24,7 @@ public class BareConfig {
 
     protected static final String CONFIG_PATH = "./config/" + Mod.ID + ".json";
 
-    public static final Config DEFAULT = new Config(
-        "14181c", "e22837", "303336", "ffffff"
-    );
+    public static final Config DEFAULT = new Config("14181c", "e22837", "303336", "ffffff");
 
     // Strings pour la sérialisation + l'écran de config
     public final String bgStr;
@@ -104,6 +102,7 @@ public class BareConfig {
             .name("border").value(borderStr)
             .name("logo").value(logoStr)
             .endObject();
+
         } catch (IOException e) {
             LOGGER.error("[Dark Loading Screen] Couldn't write settings to " + CONFIG_PATH);
             e.printStackTrace();

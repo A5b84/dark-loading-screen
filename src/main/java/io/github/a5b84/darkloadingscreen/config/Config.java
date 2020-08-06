@@ -25,6 +25,7 @@ public class Config extends BareConfig {
             barColor = Util.parseColor(barStr, DEFAULT.barColor);
             borderColor = Util.parseColor(borderStr, DEFAULT.borderColor);
             logoColor = Util.parseColor(logoStr, DEFAULT.logoColor);
+
         } else {
             // Cas à part parce que DEFAULT peut pas se référencer dans son
             // constructeur
@@ -41,4 +42,5 @@ public class Config extends BareConfig {
         logoG = ((logoColor >> 8) & 0xff) / 255f;
         logoB = (logoColor & 0xff) / 255f;
     }
+
 }

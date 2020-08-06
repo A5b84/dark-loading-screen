@@ -1,6 +1,5 @@
 package io.github.a5b84.darkloadingscreen.config.gui.widget;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io.github.a5b84.darkloadingscreen.config.Util;
@@ -27,7 +26,8 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
 
 
-    public int add(@Nonnull Entry entry) {
+    @Override
+    public int addEntry(Entry entry) {
         final int entryLabelWidth = entry.getLabelWidth();
         if (entryLabelWidth > labelWidth) labelWidth = entryLabelWidth;
         final int entryInputWidth = entry.getInputWidth();
@@ -83,10 +83,10 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 		public void setDragging(boolean dragging) { this.dragging = dragging; }
 
 		@Override
-		public Element getFocused() { return focused; }
+		public @Nullable Element getFocused() { return focused; }
 
 		@Override
-		public void setFocused(Element focused) { this.focused = focused; }
+		public void setFocused(@Nullable Element focused) { this.focused = focused; }
 
     }
 

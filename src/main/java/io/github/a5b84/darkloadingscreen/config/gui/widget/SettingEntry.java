@@ -1,9 +1,8 @@
 package io.github.a5b84.darkloadingscreen.config.gui.widget;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -20,23 +19,20 @@ public class SettingEntry extends OptionListWidget.Entry {
 
 
 
-    public SettingEntry(
-        @Nonnull OptionListWidget list, @Nonnull Text label,
-        @Nonnull TextFieldWidget input, @Nonnull String defaultValue
-    ) {
+    public SettingEntry(OptionListWidget list, Text label, TextFieldWidget input, String defaultValue) {
         super(list);
         this.label = label;
         this.input = input;
         resetButton = new ResetButton(input.x, input.y, input, defaultValue);
+
         input.setText(defaultValue);
         input.setChangedListener(
             text -> resetButton.active = !defaultValue.equals(text)
         );
+
         resetButton.active = false;
 
-        children = new ArrayList<>(2);
-        children.add(input);
-        children.add(resetButton);
+        children = ImmutableList.of(input, resetButton);
     }
 
 

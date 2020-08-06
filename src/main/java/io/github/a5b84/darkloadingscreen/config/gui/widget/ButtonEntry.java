@@ -3,7 +3,6 @@ package io.github.a5b84.darkloadingscreen.config.gui.widget;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import io.github.a5b84.darkloadingscreen.config.gui.ConfigScreen;
@@ -15,7 +14,7 @@ import net.minecraft.text.Text;
 
 public class ButtonEntry extends OptionListWidget.Entry {
 
-    public final @Nonnull ButtonWidget button;
+    public final ButtonWidget button;
     private final List<? extends Element> children;
 
     public ButtonEntry(OptionListWidget list, int height, Text message, @Nullable PressAction onPress) {
@@ -30,8 +29,11 @@ public class ButtonEntry extends OptionListWidget.Entry {
 
 
     @Override
-    public void render(MatrixStack matrices, int index, int y, int x, int entryWidth, int entryHeight, int mouseX,
-            int mouseY, boolean hovered, float tickDelta) {
+    public void render(
+        MatrixStack matrices, int index, int y, int x,
+        int entryWidth, int entryHeight, int mouseX, int mouseY,
+        boolean hovered, float tickDelta
+    ) {
         button.x = x + (entryWidth - button.getWidth()) / 2;
         button.y = y;
         button.render(matrices, mouseX, mouseY, tickDelta);
