@@ -97,6 +97,25 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+        options.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, textRenderer, title, width / 2, 12, 0xffffffff);
+        super.render(matrices, mouseX, mouseY, delta);
+    }
+
+    @Override
+    public void resize(MinecraftClient client, int width, int height) {
+        // super.resize appelle init donc efface tout
+        preReloadConfig = getCurrentBareConfig(); // Rechargé dans init
+        super.resize(client, width, height);
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return Util.unselectingMouseClicked(this, super::mouseClicked, mouseX, mouseY, button);
+    }
+
+    @Override
     public void onClose() {
         client.openScreen(parent);
     }
@@ -105,28 +124,6 @@ public class ConfigScreen extends Screen {
     public void removed() {
         super.removed();
         client.keyboard.enableRepeatEvents(false);
-    }
-
-
-
-    @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        // renderBackground(matrices);
-        options.render(matrices, mouseX, mouseY, delta);
-        drawCenteredString(matrices, textRenderer, title, width / 2, 12, 0xffffffff);
-        super.render(matrices, mouseX, mouseY, delta);
-    }
-
-
-    @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        return Util.unselectingMouseClicked(this, super::mouseClicked, mouseX, mouseY, button);
-    }
-
-    @Override
-    public void resize(MinecraftClient client, int width, int height) {
-        preReloadConfig = getCurrentBareConfig();
-        super.resize(client, width, height); // Efface tous les champs (init)
     }
 
 
