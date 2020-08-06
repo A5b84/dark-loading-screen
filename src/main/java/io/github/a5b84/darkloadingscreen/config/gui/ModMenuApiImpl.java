@@ -5,7 +5,7 @@ import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
 import net.minecraft.SharedConstants;
 
-public class ModMenu implements ModMenuApi {
+public class ModMenuApiImpl implements ModMenuApi {
 
     @Override
     public String getModId() {
