@@ -50,7 +50,7 @@ public class SettingEntry extends OptionListWidget.Entry {
         // Label
         list.textRenderer.draw(
             matrices, label,
-            x, y + (entryHeight + list.textRenderer.fontHeight) / 2,
+            x, y + (entryHeight - list.textRenderer.fontHeight) / 2,
             0xffffffff
         );
 
