@@ -1,7 +1,11 @@
 package io.github.a5b84.darkloadingscreen.config.gui.widget;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
+import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -12,6 +16,7 @@ public class SettingEntry extends OptionListWidget.Entry {
     public final Text label;
     public final TextFieldWidget input;
     public final ButtonWidget resetButton;
+    private final List<Element> children;
 
 
 
@@ -22,12 +27,16 @@ public class SettingEntry extends OptionListWidget.Entry {
         super(list);
         this.label = label;
         this.input = input;
-        input.setText(defaultValue);
         resetButton = new ResetButton(input.x, input.y, input, defaultValue);
-
+        input.setText(defaultValue);
         input.setChangedListener(
-            text -> resetButton.active = defaultValue.equals(text)
+            text -> resetButton.active = !defaultValue.equals(text)
         );
+        resetButton.active = false;
+
+        children = new ArrayList<>(2);
+        children.add(input);
+        children.add(resetButton);
     }
 
 
@@ -64,6 +73,13 @@ public class SettingEntry extends OptionListWidget.Entry {
     @Override
     public int getInputWidth() {
         return input.getWidth();
+    }
+
+
+
+    @Override
+    public List<? extends Element> children() {
+        return children;
     }
 
 }

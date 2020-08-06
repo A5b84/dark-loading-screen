@@ -29,6 +29,7 @@ public class ConfigScreen extends Screen {
     private final Screen parent;
 
     protected final String title = I18n.translate("darkLoadingScreen.config.title");
+    //      Pas static au cas où la langue change
 
     protected final Config oldConfig = Mod.config; // Pour si on annule
     protected @Nullable BareConfig preReloadConfig = null; // Pour quand on

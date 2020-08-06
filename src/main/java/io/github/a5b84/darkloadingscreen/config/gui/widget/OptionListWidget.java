@@ -1,9 +1,12 @@
 package io.github.a5b84.darkloadingscreen.config.gui.widget;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.ParentElement;
 import net.minecraft.client.gui.widget.EntryListWidget;
 
 public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
@@ -45,9 +48,12 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
 
 
-    public static abstract class Entry extends EntryListWidget.Entry<Entry> {
+    public static abstract class Entry extends EntryListWidget.Entry<Entry>
+    implements ParentElement {
 
         public final OptionListWidget list;
+        private boolean dragging = false;
+        private @Nullable Element focused;
 
         public Entry(OptionListWidget list) {
             this.list = list;
@@ -55,6 +61,18 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
         public abstract int getLabelWidth();
         public abstract int getInputWidth();
+
+		@Override
+		public boolean isDragging() { return dragging; }
+
+		@Override
+		public void setDragging(boolean dragging) { this.dragging = dragging; }
+
+		@Override
+		public Element getFocused() { return focused; }
+
+		@Override
+		public void setFocused(Element focused) { this.focused = focused; }
 
     }
 
