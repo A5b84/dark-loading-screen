@@ -1,5 +1,10 @@
 package io.github.a5b84.darkloadingscreen.config;
 
+import javax.annotation.Nullable;
+
+import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.ParentElement;
+
 public final class Util {
 
     public static final int BUTTON_HEIGHT = 20;
@@ -39,6 +44,36 @@ public final class Util {
         } catch (NumberFormatException e) {
             return fallback;
         }
+    }
+
+
+
+    @FunctionalInterface
+    public static interface MouseClickedMethod {
+        boolean apply(double mouseX, double mouseY, int button);
+    }
+
+    /**
+     * Fonction qui appelle mouseClicked et qui désélectionne comme y faut
+     * @param parent this
+     * @param superMouseClicked super::mouseClicked (ou le mouseClicked à
+     *      appeler)
+     * @return Le résultat de superMouseClicked
+     */
+    public static boolean unselectingMouseClicked(
+        ParentElement parent, MouseClickedMethod superMouseClicked,
+        double mouseX, double mouseY, int button
+    ) {
+        final @Nullable Element oldFocused = parent.getFocused();
+        final boolean result = superMouseClicked.apply(mouseX, mouseY, button);
+
+        if (oldFocused != null && oldFocused != parent.getFocused()) {
+            // mouseClicked sur l'élément qui vient d'être désélectionné
+            // pour qu'il s'affiche bien comme y faut
+            oldFocused.mouseClicked(mouseX, mouseY, button);
+        }
+
+        return result;
     }
 
 }

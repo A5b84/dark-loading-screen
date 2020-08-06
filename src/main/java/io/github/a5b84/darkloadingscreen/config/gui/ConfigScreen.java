@@ -10,12 +10,10 @@ import io.github.a5b84.darkloadingscreen.config.gui.widget.ButtonEntry;
 import io.github.a5b84.darkloadingscreen.config.gui.widget.OptionListWidget;
 import io.github.a5b84.darkloadingscreen.config.gui.widget.RgbSettingEntry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.ScreenTexts;
 import net.minecraft.client.gui.screen.SplashScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -113,36 +111,16 @@ public class ConfigScreen extends Screen {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        renderBackground(matrices);
-        super.render(matrices, mouseX, mouseY, delta);
-
-        // Titre
-        drawCenteredString(matrices, textRenderer, title, width / 2, 20, 0xffffffff);
-
-        // Options
+        // renderBackground(matrices);
         options.render(matrices, mouseX, mouseY, delta);
+        drawCenteredString(matrices, textRenderer, title, width / 2, 12, 0xffffffff);
+        super.render(matrices, mouseX, mouseY, delta);
     }
 
-    /** Version modifiée de ParentElement#mouseClicked qui désélectionne
-     * comme y faut */
+
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        Element clickedElement = null;
-
-        for (final Element child : children) {
-            if (clickedElement != null) {
-                if (child instanceof TextFieldWidget) {
-                    ((TextFieldWidget) child).setSelected(false);
-                }
-            } else if (child.mouseClicked(mouseX, mouseY, button)) {
-                clickedElement = child;
-            }
-        }
-
-        setFocused(clickedElement);
-        if (button == 0) setDragging(true);
-
-        return clickedElement != null;
+        return Util.unselectingMouseClicked(this, super::mouseClicked, mouseX, mouseY, button);
     }
 
     @Override

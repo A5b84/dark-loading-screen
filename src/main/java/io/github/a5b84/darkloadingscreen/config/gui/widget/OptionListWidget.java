@@ -3,6 +3,7 @@ package io.github.a5b84.darkloadingscreen.config.gui.widget;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import io.github.a5b84.darkloadingscreen.config.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.Element;
@@ -48,6 +49,13 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
 
 
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        return Util.unselectingMouseClicked(this, super::mouseClicked, mouseX, mouseY, button);
+    }
+
+
+
     public static abstract class Entry extends EntryListWidget.Entry<Entry>
     implements ParentElement {
 
@@ -61,6 +69,12 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
         public abstract int getLabelWidth();
         public abstract int getInputWidth();
+
+        public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            return Util.unselectingMouseClicked(
+                this, ParentElement.super::mouseClicked, mouseX, mouseY, button
+            );
+        }
 
 		@Override
 		public boolean isDragging() { return dragging; }
