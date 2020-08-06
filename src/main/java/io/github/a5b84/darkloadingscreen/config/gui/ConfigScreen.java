@@ -5,6 +5,7 @@ import javax.annotation.Nullable;
 import io.github.a5b84.darkloadingscreen.Mod;
 import io.github.a5b84.darkloadingscreen.config.BareConfig;
 import io.github.a5b84.darkloadingscreen.config.Config;
+import io.github.a5b84.darkloadingscreen.config.Util;
 import io.github.a5b84.darkloadingscreen.config.gui.widget.ButtonEntry;
 import io.github.a5b84.darkloadingscreen.config.gui.widget.OptionListWidget;
 import io.github.a5b84.darkloadingscreen.config.gui.widget.RgbSettingEntry;
@@ -22,8 +23,7 @@ import net.minecraft.text.TranslatableText;
 
 public class ConfigScreen extends Screen {
 
-    protected static final int BUTTON_WIDTH = 100;
-    protected static final int BUTTON_HEIGHT = 20;
+    public static final int BUTTON_WIDTH = 100;
     protected static final int SPACING = 8;
 
     private final Screen parent;
@@ -58,7 +58,7 @@ public class ConfigScreen extends Screen {
         super.init();
         client.keyboard.enableRepeatEvents(true);
 
-        options = new OptionListWidget(client, width, height, 32, height - 32, 25);
+        options = new OptionListWidget(client, width, height, 32, height - 32);
 
         bgEntry = new RgbSettingEntry(options, label("background"), Config.DEFAULT.bgStr, textRenderer);
         barEntry = new RgbSettingEntry(options, label("bar"), Config.DEFAULT.barStr, textRenderer);
@@ -69,7 +69,7 @@ public class ConfigScreen extends Screen {
         options.add(borderEntry);
         options.add(logoEntry);
         options.add(new ButtonEntry(
-            options, BUTTON_HEIGHT, label("try"), button -> test())
+            options, Util.BUTTON_HEIGHT, label("try"), button -> test())
         );
 
         children.add(options);
@@ -83,16 +83,16 @@ public class ConfigScreen extends Screen {
         }
 
         // Boutons
-        final int bottomButtonsY = height - (32 + BUTTON_HEIGHT) / 2;
+        final int bottomButtonsY = height - (32 + Util.BUTTON_HEIGHT) / 2;
         cancelButton = addButton(new ButtonWidget(
             (width - SPACING) / 2 - BUTTON_WIDTH, bottomButtonsY,
-            BUTTON_WIDTH, BUTTON_HEIGHT,
+            BUTTON_WIDTH, Util.BUTTON_HEIGHT,
             ScreenTexts.CANCEL,
             button -> undoAndClose()
         ));
         saveButton = addButton(new ButtonWidget(
             cancelButton.x + cancelButton.getWidth() + SPACING, bottomButtonsY,
-            BUTTON_WIDTH, BUTTON_HEIGHT,
+            BUTTON_WIDTH, Util.BUTTON_HEIGHT,
             ScreenTexts.DONE,
             button -> saveAndClose()
         ));

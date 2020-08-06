@@ -2,6 +2,10 @@ package io.github.a5b84.darkloadingscreen.config;
 
 public final class Util {
 
+    public static final int BUTTON_HEIGHT = 20;
+
+
+
     private Util() {}
 
 

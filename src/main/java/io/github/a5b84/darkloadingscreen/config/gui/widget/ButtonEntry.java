@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import io.github.a5b84.darkloadingscreen.config.gui.ConfigScreen;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ButtonWidget.PressAction;
@@ -20,7 +21,7 @@ public class ButtonEntry extends OptionListWidget.Entry {
     public ButtonEntry(OptionListWidget list, int height, Text message, @Nullable PressAction onPress) {
         super(list);
         button = new ButtonWidget(
-            0, 0, list.textRenderer.getWidth(message) + 24, height,
+            0, 0, ConfigScreen.BUTTON_WIDTH, height,
             message, onPress
         );
         children = Collections.singletonList(button);

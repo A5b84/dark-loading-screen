@@ -13,15 +13,15 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
     public final TextRenderer textRenderer = client.textRenderer;
     public static final int SPACING = 20;
-    public static final int ENTRY_HEIGHT = 20;
+    public static final int ENTRY_HEIGHT = 25;
 
     protected int labelWidth = 0;
     protected int inputWidth = 0;
 
 
 
-    public OptionListWidget(MinecraftClient client, int width, int height, int top, int bottom, int itemHeight) {
-        super(client, width, height, top, bottom, itemHeight);
+    public OptionListWidget(MinecraftClient client, int width, int height, int top, int bottom) {
+        super(client, width, height, top, bottom, ENTRY_HEIGHT);
     }
 
 

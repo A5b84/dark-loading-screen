@@ -1,5 +1,6 @@
 package io.github.a5b84.darkloadingscreen.config.gui.widget;
 
+import io.github.a5b84.darkloadingscreen.config.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -12,7 +13,7 @@ public class ResetButton extends ButtonWidget {
 
     public ResetButton(int x, int y, TextFieldWidget input, String defaultValue) {
         super(
-            x, y, getButtonWidth(), OptionListWidget.ENTRY_HEIGHT,
+            x, y, getButtonWidth(), Util.BUTTON_HEIGHT,
             RESET_TEXT, btn -> input.setText(defaultValue)
         );
     }

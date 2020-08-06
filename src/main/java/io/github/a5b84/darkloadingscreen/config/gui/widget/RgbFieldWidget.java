@@ -17,7 +17,7 @@ public class RgbFieldWidget extends TextFieldWidget {
 
     public RgbFieldWidget(TextRenderer textRenderer, int x, int y, Text text) {
         super(textRenderer, x, y, 64, HEIGHT, text);
-        setMaxLength(9); // Pour laisser de la marge
+        setMaxLength(9); // 9 pour laisser de la marge
     }
 
 
@@ -60,13 +60,13 @@ public class RgbFieldWidget extends TextFieldWidget {
 
     @Override
     public int getWidth() {
-        return width + SPACING + HEIGHT;
+        return width + SPACING + PREVIEW_WIDTH;
     }
 
 
 
     /** Affiche les contours d'un rectangle qui passe par 2 points donnés */
-    private void drawRectangle(MatrixStack matrices, int x1, int y1, int x2, int y2, int color) {
+    private static void drawRectangle(MatrixStack matrices, int x1, int y1, int x2, int y2, int color) {
         fill(matrices, x1, y1, x2 + 1, y1 + 1, color); // Haut
         fill(matrices, x1, y2, x2 + 1, y2 + 1, color); // Bas
         fill(matrices, x1, y1 + 1, x1 + 1, y2, color); // Gauche

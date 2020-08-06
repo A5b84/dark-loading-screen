@@ -7,8 +7,8 @@ public class RgbSettingEntry extends SettingEntry {
 
     public RgbSettingEntry(OptionListWidget list, Text label, String defaultValue, TextRenderer textRenderer) {
         super(
-            list, label,
-            new RgbFieldWidget(textRenderer, 0, 0, label), defaultValue
+            list, label, new RgbFieldWidget(textRenderer, 0, 0, label),
+            defaultValue
         );
     }
 
