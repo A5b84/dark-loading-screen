@@ -54,7 +54,7 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        client.keyboard.enableRepeatEvents(true);
+        client.keyboard.setRepeatEvents(true);
 
         options = new OptionListWidget(client, width, height, 32, height - 32);
 
@@ -123,7 +123,7 @@ public class ConfigScreen extends Screen {
     @Override
     public void removed() {
         super.removed();
-        client.keyboard.enableRepeatEvents(false);
+        client.keyboard.setRepeatEvents(false);
     }
 
 

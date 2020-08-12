@@ -5,7 +5,7 @@
     "version": "${version}",
 
     "name": "Dark Loading Screen",
-    "description": "Makes the loading screen darker\n\nIn-game configuration is only available in 1.16 and later.",
+    "description": "Makes the loading screen darker\n\nIn-game configuration is only available in 1.16.2 and later.",
     "icon": "assets/dark-loading-screen/icon.png",
     "authors": ["Neecko"],
     "contact": {
@@ -20,9 +20,5 @@
         "client": ["io.github.a5b84.darkloadingscreen.Mod"],
         "modmenu": ["io.github.a5b84.darkloadingscreen.config.gui.ModMenuApiImpl"]
     },
-    "mixins": ["dark-loading-screen.mixins.json"],
-
-    "custom": {
-        "modmenu:clientsideOnly": true
-    }
+    "mixins": ["dark-loading-screen.mixins.json"]
 }
