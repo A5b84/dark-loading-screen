@@ -1,8 +1,8 @@
 {
-    "darkLoadingScreen.config.title": "暗加载屏幕配置",
-    "darkLoadingScreen.config.background": "背景色",
-    "darkLoadingScreen.config.bar": "条形图颜色",
-    "darkLoadingScreen.config.border": "边框颜色",
-    "darkLoadingScreen.config.logo": "Logo Color",
-    "darkLoadingScreen.config.try": "试用"
+    "darkLoadingScreen.config.title": "Dark Loading Screen配置",
+    "darkLoadingScreen.config.background": "背景颜色",
+    "darkLoadingScreen.config.bar": "进度条颜色",
+    "darkLoadingScreen.config.border": "进度条边框颜色",
+    "darkLoadingScreen.config.logo": "Logo颜色",
+    "darkLoadingScreen.config.try": "预览"
 }
