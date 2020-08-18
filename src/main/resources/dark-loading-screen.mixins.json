@@ -5,19 +5,19 @@
     "compatibilityLevel": "JAVA_8",
     "client": [
         "WindowMixin",
-        "SplashScreenMixin$Bg$a2529",
-        "SplashScreenMixin$Bg$a2512b2529",
-        "SplashScreenMixin$Bg$b2512",
-        "SplashScreenMixin$OnRenderBar$a2529",
-        "SplashScreenMixin$OnRenderBar$a2210b2529",
-        "SplashScreenMixin$OnRenderBar$b2210",
-        "SplashScreenMixin$Bar$b0oa2555",
-        "SplashScreenMixin$Bar$a2555ob0",
-        "SplashScreenMixin$Bar$a2529b2555",
-        "SplashScreenMixin$Bar$a2512b2529",
-        "SplashScreenMixin$Bar$a2210b2512",
-        "SplashScreenMixin$Bar$b2210",
-        "SplashScreenMixin$Logo$a2529"
+        "SplashScreenMixin$Bg$Post20w17a",
+        "SplashScreenMixin$Bg$Post20w10aPre20w17a",
+        "SplashScreenMixin$Bg$Pre20w10a",
+        "SplashScreenMixin$OnRenderBar$Post20w17a",
+        "SplashScreenMixin$OnRenderBar$Post19w41aPre20w17a",
+        "SplashScreenMixin$OnRenderBar$Pre19w41a",
+        "SplashScreenMixin$Bar$OptifinePost20w22a",
+        "SplashScreenMixin$Bar$VanillaPost20w22a",
+        "SplashScreenMixin$Bar$Post20w17aPre20w22a",
+        "SplashScreenMixin$Bar$Post20w10aPre20w17a",
+        "SplashScreenMixin$Bar$Post19w41aPre20w10a",
+        "SplashScreenMixin$Bar$Pre19w41a",
+        "SplashScreenMixin$Logo$Post20w17a"
     ],
     "injectors": {
         "defaultRequire": 1
