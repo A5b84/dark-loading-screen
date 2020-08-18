@@ -1,16 +1,22 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.MinecraftVersion;
 
 /**
  * Plugin qui désactive des mixins selon la version du jeu.
@@ -54,8 +60,25 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         + ")?"
     );
 
-    private static final int GAME_VERSION = MinecraftVersion.create().getWorldVersion();
+    private static final int GAME_VERSION = getGameVersion();
     private static final boolean HAS_OPTIFINE = FabricLoader.getInstance().isModLoaded("optifabric");
+
+
+
+    /** Lit la version du jeu depuis le version.json dans le jar */
+    private static int getGameVersion() {
+        try (
+            final InputStream stream = MixinConfigPlugin.class.getResourceAsStream("/version.json");
+            final Reader reader = new InputStreamReader(stream);
+        ) {
+            final JsonObject versions = new JsonParser().parse(reader).getAsJsonObject();
+            return versions.get("world_version").getAsInt();
+        } catch (IOException | NullPointerException e) {
+            throw new RuntimeException("[Dark Loading Screen] Couldn't get the game version", e);
+        }
+    }
+
+
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

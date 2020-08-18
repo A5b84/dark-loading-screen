@@ -2,6 +2,10 @@
 
 <!-- ### Unreleased -->
 
+### [1.4.4]
+- Fixed some potential incompatibilities with other mods
+- `zh_cn` localization updated by [@Hambaka](https://github.com/Hambaka) ([#7](https://github.com/A5b84/dark-loading-screen/pull/7))
+
 ### [1.4.3]
 - Fixed crashing when opening the config screen in 1.16.2
     - The config screen is now only available in 1.16.2 and later (was 1.16 and later)
@@ -91,3 +95,4 @@ Compatible with Fabric 1.14-20w16a
 [1.4.1]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.1
 [1.4.2]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.2
 [1.4.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.3
+[1.4.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.4
