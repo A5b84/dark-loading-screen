@@ -30,8 +30,8 @@ Manual changes are only visible after restarting the game.
 
 
 ## Credits
-
 - Logo coloring suggested by [@Minenash](https://github.com/Minenash)
+- Bar background coloring suggested by [@Chrisblox](https://github.com/Chrisblox)
 - `es_xx` localizations by [@Haseck](https://github.com/Haseck)
 - `pl_pl` localization by [@DarkKnightComes](https://github.com/DarkKnightComes)
 - `zh_cn` localization by [@w5860363](https://github.com/w5860363) and [@Hambaka](https://github.com/Hambaka)
