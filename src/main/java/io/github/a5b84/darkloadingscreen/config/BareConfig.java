@@ -24,19 +24,21 @@ public class BareConfig {
 
     protected static final String CONFIG_PATH = "./config/" + Mod.ID + ".json";
 
-    public static final Config DEFAULT = new Config("14181c", "e22837", "303336", "ffffff");
+    public static final Config DEFAULT = new Config("14181c", "e22837", "14181c", "303336", "ffffff");
 
     // Strings pour la sérialisation + l'écran de config
     public final String bgStr;
     public final String barStr;
+    public final String barBgStr;
     public final String borderStr;
     public final String logoStr;
 
 
 
-    public BareConfig(String bg, String bar, String border, String logo) {
+    public BareConfig(String bg, String bar, String barBg, String border, String logo) {
         bgStr = bg;
         barStr = bar;
+        barBgStr = barBg;
         borderStr = border;
         logoStr = logo;
     }
@@ -50,9 +52,12 @@ public class BareConfig {
             if (!el.isJsonObject()) return DEFAULT;
 
             final JsonObject o = el.getAsJsonObject();
+            final String bgStr = readColor(o, "background", DEFAULT.bgStr);
             return new Config(
-                readColor(o, "background", DEFAULT.bgStr),
+                bgStr,
                 readColor(o, "bar", DEFAULT.barStr),
+                readColor(o, "barBackground", bgStr), // Pour pas casser les
+                //      vieilles configs en mettant le mod à jour
                 readColor(o, "border", DEFAULT.borderStr),
                 readColor(o, "logo", DEFAULT.logoStr)
             );
@@ -99,6 +104,7 @@ public class BareConfig {
             jw.beginObject()
             .name("background").value(bgStr)
             .name("bar").value(barStr)
+            .name("barBackground").value(barBgStr)
             .name("border").value(borderStr)
             .name("logo").value(logoStr)
             .endObject();
@@ -111,13 +117,13 @@ public class BareConfig {
 
 
 
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if (!(obj instanceof Config)) return false;
-        final Config config = (Config) obj;
+    public boolean equals(BareConfig config) {
+        if (config == null) return false;
+        if (config == this) return true;
+
         return bgStr.equals(config.bgStr)
             && barStr.equals(config.barStr)
+            && barBgStr.equals(config.barBgStr)
             && borderStr.equals(config.borderStr)
             && logoStr.equals(config.logoStr);
     }

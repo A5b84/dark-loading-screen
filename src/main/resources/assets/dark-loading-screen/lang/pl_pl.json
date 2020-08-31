@@ -2,6 +2,7 @@
     "darkLoadingScreen.config.title": "Konfiguracja ciemnego ekranu ładowania",
     "darkLoadingScreen.config.background": "Kolor tła",
     "darkLoadingScreen.config.bar": "Kolor paska",
+    "darkLoadingScreen.config.barBackground": "Bar Background Color",
     "darkLoadingScreen.config.border": "Kolor krawędzi",
     "darkLoadingScreen.config.logo": "Logo Color",
     "darkLoadingScreen.config.try": "Wypróbuj"

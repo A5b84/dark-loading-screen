@@ -2,6 +2,7 @@
     "darkLoadingScreen.config.title": "Dark Loading Screen配置",
     "darkLoadingScreen.config.background": "背景颜色",
     "darkLoadingScreen.config.bar": "进度条颜色",
+    "darkLoadingScreen.config.barBackground": "Bar Background Color",
     "darkLoadingScreen.config.border": "进度条边框颜色",
     "darkLoadingScreen.config.logo": "Logo颜色",
     "darkLoadingScreen.config.try": "预览"

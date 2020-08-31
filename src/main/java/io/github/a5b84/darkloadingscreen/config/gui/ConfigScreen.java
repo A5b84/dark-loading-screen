@@ -38,6 +38,7 @@ public class ConfigScreen extends Screen {
 
     protected RgbSettingEntry bgEntry;
     protected RgbSettingEntry barEntry;
+    protected RgbSettingEntry barBgEntry;
     protected RgbSettingEntry borderEntry;
     protected RgbSettingEntry logoEntry;
 
@@ -60,10 +61,12 @@ public class ConfigScreen extends Screen {
 
         bgEntry = new RgbSettingEntry(options, label("background"), Config.DEFAULT.bgStr, textRenderer);
         barEntry = new RgbSettingEntry(options, label("bar"), Config.DEFAULT.barStr, textRenderer);
+        barBgEntry = new RgbSettingEntry(options, label("barBackground"), Config.DEFAULT.barBgStr, textRenderer);
         borderEntry = new RgbSettingEntry(options, label("border"), Config.DEFAULT.borderStr, textRenderer);
         logoEntry = new RgbSettingEntry(options, label("logo"), Config.DEFAULT.logoStr, textRenderer);
         options.addEntry(bgEntry);
         options.addEntry(barEntry);
+        options.addEntry(barBgEntry);
         options.addEntry(borderEntry);
         options.addEntry(logoEntry);
         options.addEntry(new ButtonEntry(
@@ -131,20 +134,23 @@ public class ConfigScreen extends Screen {
     public BareConfig getCurrentBareConfig() {
         return new BareConfig(
             bgEntry.input.getText(), barEntry.input.getText(),
-            borderEntry.input.getText(), logoEntry.input.getText()
+            barBgEntry.input.getText(), borderEntry.input.getText(),
+            logoEntry.input.getText()
         );
     }
 
     public Config getCurrentConfig() {
         return new Config(
             bgEntry.input.getText(), barEntry.input.getText(),
-            borderEntry.input.getText(), logoEntry.input.getText()
+            barBgEntry.input.getText(), borderEntry.input.getText(),
+            logoEntry.input.getText()
         );
     }
 
     public void loadConfig(BareConfig config) {
         bgEntry.input.setText(config.bgStr);
         barEntry.input.setText(config.barStr);
+        barBgEntry.input.setText(config.barBgStr);
         borderEntry.input.setText(config.borderStr);
         logoEntry.input.setText(config.logoStr);
     }

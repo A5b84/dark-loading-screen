@@ -19,6 +19,7 @@ Create or edit `[minecraft folder]/config/dark-loading-screen.json`. The default
 {
     "background": "14181c",
     "bar": "e22837",
+    "barBackground": "14181c",
     "border": "303336",
     "logo": "ffffff"
 }

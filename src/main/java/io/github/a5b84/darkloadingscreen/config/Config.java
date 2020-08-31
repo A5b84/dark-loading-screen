@@ -5,6 +5,7 @@ public class Config extends BareConfig {
 
     public final int bgColor;
     public final int barColor;
+    public final int barBgColor;
     public final int borderColor;
     public final int logoColor;
 
@@ -17,12 +18,13 @@ public class Config extends BareConfig {
 
 
 
-    public Config(String bg, String bar, String border, String logo) {
-        super(bg, bar, border, logo);
+    public Config(String bg, String bar, String barBg, String border, String logo) {
+        super(bg, bar, barBg, border, logo);
 
         if (DEFAULT != null) {
             bgColor = Util.parseColor(bgStr, DEFAULT.bgColor);
             barColor = Util.parseColor(barStr, DEFAULT.barColor);
+            barBgColor = Util.parseColor(barBgStr, DEFAULT.barBgColor);
             borderColor = Util.parseColor(borderStr, DEFAULT.borderColor);
             logoColor = Util.parseColor(logoStr, DEFAULT.logoColor);
 
@@ -31,6 +33,7 @@ public class Config extends BareConfig {
             // constructeur
             bgColor = Util.parseColor(bgStr);
             barColor = Util.parseColor(barStr);
+            barBgColor = Util.parseColor(barBgStr);
             borderColor = Util.parseColor(borderStr);
             logoColor = Util.parseColor(logoStr);
         }

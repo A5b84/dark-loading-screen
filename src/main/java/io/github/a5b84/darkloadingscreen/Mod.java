@@ -33,17 +33,16 @@ public class Mod implements ClientModInitializer {
         return config.bgColor | (color & 0xff000000);
     }
 
-    public static int getBarColor(int color) {
+    public static int getBarColor() {
         return colorLerp(endAnimProgress, config.bgColor, config.barColor) | 0xff000000;
     }
 
-    public static int getBarBorder(int color) {
+    public static int getBarBorder() {
         return colorLerp(endAnimProgress, config.bgColor, config.borderColor) | 0xff000000;
     }
 
-    /** Utilisé qu'avant la 1.16 */
-    public static int getBarBg(int color) {
-        return config.bgColor | 0xff000000;
+    public static int getBarBg() {
+        return colorLerp(endAnimProgress, config.bgColor, config.barBgColor) | 0xff000000;
     }
 
     public static void logoAddColor4f() {

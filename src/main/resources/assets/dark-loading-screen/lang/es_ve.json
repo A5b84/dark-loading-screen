@@ -2,6 +2,7 @@
   "darkLoadingScreen.config.title": "Configuraci\u00f3n de pantalla oscura",
   "darkLoadingScreen.config.background": "Color de fondo",
   "darkLoadingScreen.config.bar": "Color de la barra",
+  "darkLoadingScreen.config.barBackground": "Bar Background Color",
   "darkLoadingScreen.config.border": "Color del borde",
   "darkLoadingScreen.config.logo": "Color del logo",
   "darkLoadingScreen.config.try": "Probar"
