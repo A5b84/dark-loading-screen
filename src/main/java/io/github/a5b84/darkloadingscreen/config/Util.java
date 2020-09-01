@@ -6,6 +6,7 @@ import net.minecraft.client.gui.ParentElement;
 public final class Util {
 
     public static final int BUTTON_HEIGHT = 20;
+    public static final int SCROLLBAR_WIDTH = 6;
 
 
 

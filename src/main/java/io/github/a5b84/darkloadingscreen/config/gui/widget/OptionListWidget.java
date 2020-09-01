@@ -44,6 +44,13 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
             + SPACING + ResetButton.getButtonWidth();
     }
 
+    @Override
+    protected int getScrollbarPositionX() {
+        // Affiche la barre pour scroller tout à droite
+        // (vanilla c'est à une distance fixe du milieu, donc pas bon)
+        return width - Util.SCROLLBAR_WIDTH;
+    }
+
     public int getLabelWidth() { return labelWidth; }
     public int getInputWidth() { return inputWidth; }
 

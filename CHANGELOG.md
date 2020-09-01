@@ -2,6 +2,7 @@
 
 ### Unreleased
 - Added an option to change the bar background color ([#8](https://github.com/A5b84/dark-loading-screen/issues/8), suggested by [@Chrisblox](https://github.com/Chrisblox))
+- Fixed the reset buttons sometime not working
 
 ### [1.4.4]
 - Fixed some potential incompatibilities with other mods
