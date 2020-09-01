@@ -11,9 +11,9 @@ import net.minecraft.client.gui.widget.EntryListWidget;
 
 public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
-    public final TextRenderer textRenderer = client.textRenderer;
     public static final int SPACING = 20;
-    public static final int ENTRY_HEIGHT = 25;
+
+    public final TextRenderer textRenderer = client.textRenderer;
 
     protected int labelWidth = 0;
     protected int inputWidth = 0;
@@ -21,7 +21,7 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
 
 
     public OptionListWidget(MinecraftClient client, int width, int height, int top, int bottom) {
-        super(client, width, height, top, bottom, ENTRY_HEIGHT);
+        super(client, width, height, top, bottom, 25);
     }
 
 
@@ -50,9 +50,6 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
         // (vanilla c'est à une distance fixe du milieu, donc pas bon)
         return width - Util.SCROLLBAR_WIDTH;
     }
-
-    public int getLabelWidth() { return labelWidth; }
-    public int getInputWidth() { return inputWidth; }
 
 
 

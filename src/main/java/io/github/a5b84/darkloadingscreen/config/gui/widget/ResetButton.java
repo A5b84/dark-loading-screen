@@ -13,8 +13,8 @@ public class ResetButton extends ButtonWidget {
 
     public ResetButton(int x, int y, TextFieldWidget input, String defaultValue) {
         super(
-            x, y, getButtonWidth(), Util.BUTTON_HEIGHT,
-            RESET_TEXT, btn -> input.setText(defaultValue)
+            x, y, getButtonWidth(), Util.BUTTON_HEIGHT, RESET_TEXT,
+            btn -> input.setText(defaultValue)
         );
     }
 

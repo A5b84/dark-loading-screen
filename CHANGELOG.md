@@ -1,8 +1,9 @@
 # Changelog
 
-### Unreleased
+### [1.5.0]
 - Added an option to change the bar background color ([#8](https://github.com/A5b84/dark-loading-screen/issues/8), suggested by [@Chrisblox](https://github.com/Chrisblox))
 - Fixed the reset buttons sometime not working
+- `zh_cn` localization updated by [@Hambaka](https://github.com/Hambaka) ([#9](https://github.com/A5b84/dark-loading-screen/pull/9))
 
 ### [1.4.4]
 - Fixed some potential incompatibilities with other mods
@@ -80,3 +81,4 @@
 [1.4.2]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.2
 [1.4.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.3
 [1.4.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.4
+[1.5.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.5.0

@@ -49,19 +49,19 @@ public final class Util {
 
     /**
      * Fonction qui appelle mouseClicked et qui désélectionne comme y faut
-     * @param parent this
+     * @param targetElement this
      * @param superMouseClicked super::mouseClicked (ou le mouseClicked à
      *      appeler)
      * @return Le résultat de superMouseClicked
      */
     public static boolean unselectingMouseClicked(
-        ParentElement parent, MouseClickedMethod superMouseClicked,
+        ParentElement targetElement, MouseClickedMethod superMouseClicked,
         double mouseX, double mouseY, int button
     ) {
-        final Element oldFocused = parent.getFocused();
+        final Element oldFocused = targetElement.getFocused();
         final boolean result = superMouseClicked.apply(mouseX, mouseY, button);
 
-        if (oldFocused != null && oldFocused != parent.getFocused()) {
+        if (oldFocused != null && oldFocused != targetElement.getFocused()) {
             // mouseClicked sur l'élément qui vient d'être désélectionné
             // pour qu'il s'affiche bien comme y faut
             oldFocused.mouseClicked(mouseX, mouseY, button);

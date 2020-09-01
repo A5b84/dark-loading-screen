@@ -24,6 +24,7 @@ public class SettingEntry extends OptionListWidget.Entry {
         this.label = label;
         this.input = input;
         resetButton = new ResetButton(input.x, input.y, input, defaultValue);
+        //      Position temporaire (modifiée dans #render)
 
         input.setText(defaultValue);
         input.setChangedListener(
