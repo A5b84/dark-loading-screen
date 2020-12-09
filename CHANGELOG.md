@@ -1,5 +1,8 @@
 # Changelog
 
+### Unreleased
+- Fixed invalid formatting in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
+
 ### [1.5.0]
 - Added an option to change the bar background color ([#8](https://github.com/A5b84/dark-loading-screen/issues/8), suggested by [@Chrisblox](https://github.com/Chrisblox))
 - Fixed the reset buttons sometimes not working
@@ -57,12 +60,12 @@
 
 
 ## Compatibility comparison
-| Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2+ |
-|--:|:-:|:-:|:-:|:-:|
+| Version     | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2+ |
+|------------:|:-----------:|:-------------:|:-------------:|:-------:|
 | 1.0.0-1.2.0 | X
-| 1.2.1 | X | X
-| 1.2.2-1.4.2 | X | X | X
-| 1.4.3+ | X | X | X | X
+| 1.2.1       | X           | X
+| 1.2.2-1.4.2 | X           | X             | X
+| 1.4.3+      | X           | X             | X             | X
 
 
 
