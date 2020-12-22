@@ -80,17 +80,17 @@ public class OptionListWidget extends EntryListWidget<OptionListWidget.Entry> {
             );
         }
 
-		@Override
-		public boolean isDragging() { return dragging; }
+        @Override
+        public boolean isDragging() { return dragging; }
 
-		@Override
-		public void setDragging(boolean dragging) { this.dragging = dragging; }
+        @Override
+        public void setDragging(boolean dragging) { this.dragging = dragging; }
 
-		@Override
-		public @Nullable Element getFocused() { return focused; }
+        @Override
+        public @Nullable Element getFocused() { return focused; }
 
-		@Override
-		public void setFocused(@Nullable Element focused) { this.focused = focused; }
+        @Override
+        public void setFocused(@Nullable Element focused) { this.focused = focused; }
 
     }
 
