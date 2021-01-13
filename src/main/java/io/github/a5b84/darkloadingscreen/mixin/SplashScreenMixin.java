@@ -1,7 +1,11 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
+import io.github.a5b84.darkloadingscreen.Mod;
+import io.github.a5b84.darkloadingscreen.config.PreviewSplashScreen;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.screen.SplashScreen;
+import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -10,13 +14,8 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import io.github.a5b84.darkloadingscreen.Mod;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.screen.SplashScreen;
-import net.minecraft.client.util.math.MatrixStack;
-
 /**
- * Grosse classe pour contenir des sous-classes qui contiennent les mixins
+ * Grosse classe qui contenient des sous-classes qui contiennent les mixins
  * qui changent les couleurs de l'écran de chargement
  *
  * Liste des dataVersions :
@@ -24,7 +23,8 @@ import net.minecraft.client.util.math.MatrixStack;
  * 
  * @see MixinConfigPlugin
  */
-public final class SplashScreenMixin {
+@Mixin(SplashScreen.class)
+public abstract class SplashScreenMixin {
 
     private SplashScreenMixin() {}
 
@@ -256,6 +256,18 @@ public final class SplashScreenMixin {
                 DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
                 RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
             }
+        }
+    }
+
+
+
+    @Inject(method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
+    private void onDone(CallbackInfo info) {
+        //noinspection ConstantConditions
+        if ((Object) this instanceof PreviewSplashScreen) {
+            // Cast en objet pour qu'IntelliJ fasse pas chier
+            ((PreviewSplashScreen) (Object) this).onDone();
         }
     }
 

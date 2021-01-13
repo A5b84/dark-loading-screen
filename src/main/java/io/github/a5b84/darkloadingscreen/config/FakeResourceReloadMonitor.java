@@ -1,10 +1,10 @@
-package io.github.a5b84.darkloadingscreen.config.gui;
-
-import java.util.concurrent.CompletableFuture;
+package io.github.a5b84.darkloadingscreen.config;
 
 import net.minecraft.resource.ResourceReloadMonitor;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.concurrent.CompletableFuture;
 
 /** ResourceReloadMonitor qui se complète seul après une certaine durée */
 public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
@@ -24,12 +24,9 @@ public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
 
     @Override
     public float getProgress() {
-        double progress = (System.currentTimeMillis() - start) / duration;
-        progress = Math.min(MathHelper.lerp(progress, .1, 1), 1);
-        //      lerp pour compenser un bug vanilla (barre qui sort à gauche)
-        //      Pas besoin de max(..., 0) parce que c'est forcément positif
-
-        return (float) progress;
+        return MathHelper.clamp(
+                (float) (System.currentTimeMillis() - start) / duration, 0, 1
+        );
     }
 
     @Override

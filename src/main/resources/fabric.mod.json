@@ -18,7 +18,7 @@
     "environment": "client",
     "entrypoints": {
         "client": ["io.github.a5b84.darkloadingscreen.Mod"],
-        "modmenu": ["io.github.a5b84.darkloadingscreen.config.gui.ModMenuApiImpl"]
+        "modmenu": ["io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl"]
     },
     "mixins": ["dark-loading-screen.mixins.json"]
 }

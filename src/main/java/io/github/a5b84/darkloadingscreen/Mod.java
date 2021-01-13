@@ -1,7 +1,6 @@
 package io.github.a5b84.darkloadingscreen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import io.github.a5b84.darkloadingscreen.config.Config;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.util.math.MathHelper;
@@ -30,22 +29,23 @@ public class Mod implements ClientModInitializer {
     // plus besoin de support pour la 1.14/1.15
 
     public static int getBg(int color) {
-        return config.bgColor | (color & 0xff000000);
+        return config.bg | (color & 0xff000000);
     }
 
     public static int getBarColor() {
-        return colorLerp(endAnimProgress, config.bgColor, config.barColor) | 0xff000000;
+        return colorLerp(endAnimProgress, config.bg, config.bar) | 0xff000000;
     }
 
     public static int getBarBorder() {
-        return colorLerp(endAnimProgress, config.bgColor, config.borderColor) | 0xff000000;
+        return colorLerp(endAnimProgress, config.bg, config.border) | 0xff000000;
     }
 
     public static int getBarBg() {
-        return colorLerp(endAnimProgress, config.bgColor, config.barBgColor) | 0xff000000;
+        return colorLerp(endAnimProgress, config.bg, config.barBg) | 0xff000000;
     }
 
     public static void logoAddColor4f() {
+        //noinspection deprecation
         RenderSystem.color4f(
             config.logoR - config.bgR,
             config.logoG - config.bgG,
@@ -55,6 +55,7 @@ public class Mod implements ClientModInitializer {
     }
 
     public static void logoSubstractColor4f() {
+        //noinspection deprecation
         RenderSystem.color4f(
             config.bgR - config.logoR,
             config.bgG - config.logoG,

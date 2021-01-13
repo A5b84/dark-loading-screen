@@ -5,6 +5,7 @@
     "compatibilityLevel": "JAVA_8",
     "client": [
         "WindowMixin",
+        "SplashScreenMixin",
         "SplashScreenMixin$Bg$a2529",
         "SplashScreenMixin$Bg$a2512b2529",
         "SplashScreenMixin$Bg$b2512",

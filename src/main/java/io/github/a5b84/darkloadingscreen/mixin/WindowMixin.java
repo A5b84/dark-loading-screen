@@ -34,12 +34,7 @@ public abstract class WindowMixin {
 
         final GLCapabilities result = GL.createCapabilities();
 
-        glClearColor(
-            (Mod.config.bgColor & 0xff0000) / (float) 0xff0000,
-            (Mod.config.bgColor & 0x00ff00) / (float) 0x00ff00,
-            (Mod.config.bgColor & 0x0000ff) / (float) 0x0000ff,
-            1
-        );
+        glClearColor(Mod.config.bgR, Mod.config.bgG, Mod.config.bgB, 1);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glfwSwapBuffers(handle);
 

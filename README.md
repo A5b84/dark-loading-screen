@@ -10,7 +10,7 @@ Also available [on CurseForge](https://www.curseforge.com/minecraft/mc-mods/dark
 
 ## Color configuration
 
-Colors can be modified in-game using [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) in 1.16.2 and later. Changing the Mojang logo color is only supported in 1.16 and later.
+Colors can be modified in-game in 1.16.2 and later if both [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are installed. Changing the Mojang logo color is only supported in 1.16 and later.
 
 ### Manual configuration
 
