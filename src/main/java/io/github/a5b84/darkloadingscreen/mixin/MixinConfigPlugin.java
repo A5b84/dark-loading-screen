@@ -55,7 +55,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
         ".*?" // Pcq ça rajoute un /^/ devant automatiquement
         + PAIR_PATTERN
         + "(?:"
-            + "o()" // Parenthèses pour savoir si c'est différent pour OptiFine
+            + "(o)" // Parenthèses pour savoir si y a une version OptiFine
             + PAIR_PATTERN
         + ")?"
     );
@@ -69,7 +69,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     private static int getGameVersion() {
         try (
             final InputStream stream = MixinConfigPlugin.class.getResourceAsStream("/version.json");
-            final Reader reader = new InputStreamReader(stream);
+            final Reader reader = new InputStreamReader(stream)
         ) {
             final JsonObject versions = new JsonParser().parse(reader).getAsJsonObject();
             return versions.get("world_version").getAsInt();
@@ -83,6 +83,7 @@ public class MixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         final Matcher matcher = CONSTRAINT_PATTERN.matcher(mixinClassName);
+        //noinspection ResultOfMethodCallIgnored
         matcher.matches(); // Marche toujours parce que tout est optionnel
 
         if (HAS_OPTIFINE && matcher.group(3) != null) { // 3 -> groupe après le o

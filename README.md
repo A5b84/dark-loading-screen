@@ -1,12 +1,6 @@
 # Dark Loading Screen
 
-A simple mod to make the loading screen darker.
-
-Requires the [Fabric Mod Loader](https://fabricmc.net).
-
-Also available [on CurseForge](https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen) or as a [resource pack](https://www.curseforge.com/minecraft/texture-packs/dark-loading-screen) (using [OptiFine](https://optifine.net/)).
-
-
+A simple [Fabric](https://fabricmc.net) mod to make the loading screen darker.
 
 ## Color configuration
 
@@ -14,7 +8,7 @@ Colors can be modified in-game in 1.16.2 and later if both [Mod Menu](https://ww
 
 ### Manual configuration
 
-Create or edit `[minecraft folder]/config/dark-loading-screen.json`. The default config is
+Create or edit `.minecraft/config/dark-loading-screen.json`. The default config is
 ```json
 {
     "background": "14181c",
@@ -26,14 +20,6 @@ Create or edit `[minecraft folder]/config/dark-loading-screen.json`. The default
 ```
 
 Manual changes are only visible after restarting the game.
-
-
-
-## Alternatives
-- [Splash](https://www.curseforge.com/minecraft/mc-mods/splash)
-- [OptiFine](https://optifine.net/) + resource packs ([dArk GUI](https://www.planetminecraft.com/texture-pack/dark-gui-4698161/), [Dark Loading Screen](https://www.curseforge.com/minecraft/texture-packs/dark-loading-screen), probably others)
-- [Darker Loading Screen](https://www.curseforge.com/minecraft/mc-mods/darker-loading-screen) (for forge)
-- Maybe stuff from [LambdAurora's 'Recommended Optifine alternatives on Fabric' list](https://gist.github.com/LambdAurora/1f6a4a99af374ce500f250c6b42e8754), depending on when you're reading this
 
 
 

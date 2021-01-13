@@ -1,6 +1,6 @@
 plugins {
     id "fabric-loom" version "0.5-SNAPSHOT"
-    id "maven-publish"
+    // id "maven-publish"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -17,8 +17,8 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // API Fabric
-    // modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // Fabric API
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     // Configuration
     modImplementation("io.github.prospector:modmenu:${project.mod_menu_version}") {
@@ -67,22 +67,22 @@ jar {
 }
 
 // configure the maven publication
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            // add all the jars that should be included when publishing to maven
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
-        }
-    }
-
-    // Select the repositories you want to publish to
-    // To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
-    repositories {
-        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    }
-}
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            // add all the jars that should be included when publishing to maven
+//            artifact(remapJar) {
+//                builtBy remapJar
+//            }
+//            artifact(sourcesJar) {
+//                builtBy remapSourcesJar
+//            }
+//        }
+//    }
+//
+//    // Select the repositories you want to publish to
+//    // To publish to maven local, no extra repositories are necessary. Just use the task `publishToMavenLocal`.
+//    repositories {
+//        // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+//    }
+//}

@@ -51,9 +51,8 @@ public abstract class SplashScreenMixin {
 
 
 
-
     /** Fond */
-    public static class Bg {
+    public static abstract class Bg {
 
         @Mixin(SplashScreen.class)
         public static abstract class a2529 { // >= 20w17a
@@ -80,7 +79,7 @@ public abstract class SplashScreenMixin {
 
 
     /** Mise à jour des variables communes */
-    public static final class OnRenderBar {
+    public static abstract class OnRenderBar {
 
         private OnRenderBar() {}
 
@@ -112,7 +111,7 @@ public abstract class SplashScreenMixin {
 
 
     /** Couleurs de la barre */
-    public static final class Bar {
+    public static abstract class Bar {
 
         private Bar() {}
 
@@ -202,7 +201,7 @@ public abstract class SplashScreenMixin {
 
 
     /** Fond de la barre (dans 'Bar' avant la 20w22a) */
-    public static final class BarBg {
+    public static abstract class BarBg {
 
         private BarBg() {}
 
@@ -221,7 +220,7 @@ public abstract class SplashScreenMixin {
 
 
     /** Logo */
-    public static final class Logo {
+    public static abstract class Logo {
 
         private Logo() {}
 
@@ -232,6 +231,7 @@ public abstract class SplashScreenMixin {
             @Redirect(method = "render",
                 at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;color4f(FFFF)V"))
             private void color4fProxy(float r, float g, float b, float a) {
+                //noinspection deprecation
                 RenderSystem.color4f(r, g, b, a);
                 Mod.alpha = a;
             }
