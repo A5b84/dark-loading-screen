@@ -5,7 +5,7 @@
     "version": "${version}",
 
     "name": "Dark Loading Screen",
-    "description": "Makes the loading screen darker\\n\\nIn-game configuration is only available in 1.16.2 and later.",
+    "description": "Makes the loading screen darker\\nIn-game configuration requires Mod Menu and Cloth Config",
     "icon": "assets/dark-loading-screen/icon.png",
     "authors": ["Neecko"],
     "contact": {

@@ -4,11 +4,11 @@ A simple [Fabric](https://fabricmc.net) mod to make the loading screen darker.
 
 ## Color configuration
 
-Colors can be modified in-game in 1.16.2 and later if both [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are installed. Changing the Mojang logo color is only supported in 1.16 and later.
+Colors can be modified in-game if both [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are installed.
 
 ### Manual configuration
 
-Create or edit `.minecraft/config/dark-loading-screen.json`. The default config is
+Create or edit `.minecraft/config/dark-loading-screen.json`, the default config is
 ```json
 {
     "background": "14181c",
@@ -22,8 +22,6 @@ Create or edit `.minecraft/config/dark-loading-screen.json`. The default config 
 ```
 
 Manual changes are only visible after restarting the game.
-
-
 
 ## Credits
 - Logo coloring suggested by [@Minenash](https://github.com/Minenash)
