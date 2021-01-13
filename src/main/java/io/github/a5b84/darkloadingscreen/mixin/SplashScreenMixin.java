@@ -23,7 +23,6 @@ import net.minecraft.client.util.math.MatrixStack;
  * https://minecraft.gamepedia.com/Data_version#List_of_data_versions
  * 
  * @see MixinConfigPlugin
- * @see SplashScreen
  */
 public final class SplashScreenMixin {
 
@@ -53,8 +52,7 @@ public final class SplashScreenMixin {
 
 
 
-    /** Fond
-     * @see SplashScreen#render */
+    /** Fond */
     public static class Bg {
 
         @Mixin(SplashScreen.class)
@@ -81,8 +79,7 @@ public final class SplashScreenMixin {
 
 
 
-    /** Mise à jour des variables communes
-     * @see SplashScreen#renderProgressBar */
+    /** Mise à jour des variables communes */
     public static final class OnRenderBar {
 
         private OnRenderBar() {}
@@ -114,8 +111,7 @@ public final class SplashScreenMixin {
 
 
 
-    /** Couleurs de la barre
-     * @see SplashScreen#renderProgressBar */
+    /** Couleurs de la barre */
     public static final class Bar {
 
         private Bar() {}
@@ -205,8 +201,7 @@ public final class SplashScreenMixin {
 
 
 
-    /** Fond de la barre (dans 'Bar' avant la 20w22a)
-     * @see SplashScreen#renderProgressBar */
+    /** Fond de la barre (dans 'Bar' avant la 20w22a) */
     public static final class BarBg {
 
         private BarBg() {}
@@ -225,8 +220,7 @@ public final class SplashScreenMixin {
 
 
 
-    /** Logo
-     * @see SplashScreen#render */
+    /** Logo */
     public static final class Logo {
 
         private Logo() {}

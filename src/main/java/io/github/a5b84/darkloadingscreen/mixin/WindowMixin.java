@@ -25,7 +25,6 @@ public abstract class WindowMixin {
 
     @Shadow private @Final long handle;
 
-    /** @see Window#Window */
     @Redirect(method = "<init>",
         at = @At(value = "INVOKE", target = "Lorg/lwjgl/opengl/GL;createCapabilities()Lorg/lwjgl/opengl/GLCapabilities;", remap = false))
     private GLCapabilities onCreateCapabilities() {
