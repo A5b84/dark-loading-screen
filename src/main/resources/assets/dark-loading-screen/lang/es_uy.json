@@ -1,9 +1,11 @@
 {
-  "darkLoadingScreen.config.title": "Configuraci\u00f3n de pantalla oscura",
-  "darkLoadingScreen.config.background": "Color de fondo",
-  "darkLoadingScreen.config.bar": "Color de la barra",
-  "darkLoadingScreen.config.barBackground": "Bar Background Color",
-  "darkLoadingScreen.config.border": "Color del borde",
-  "darkLoadingScreen.config.logo": "Color del logo",
-  "darkLoadingScreen.config.try": "Probar"
+    "darkLoadingScreen.config.title": "Configuraci\u00f3n de pantalla oscura",
+    "darkLoadingScreen.config.entry.background": "Color de fondo",
+    "darkLoadingScreen.config.entry.bar": "Color de la barra",
+    "darkLoadingScreen.config.entry.barBackground": "Bar Background Color",
+    "darkLoadingScreen.config.entry.border": "Color del borde",
+    "darkLoadingScreen.config.entry.logo": "Color del logo",
+    "darkLoadingScreen.config.entry.preview": "Probar",
+    "darkLoadingScreen.config.entry.fadeIn": "Fade In Duration",
+    "darkLoadingScreen.config.entry.fadeOut": "Fade Out Duration"
 }

@@ -9,10 +9,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -42,6 +39,7 @@ public abstract class SplashScreenMixin {
     @Inject(method = "renderProgressBar", at = @At("HEAD"))
     private void onRenderProgressBar(MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity, CallbackInfo info) {
         Mod.progressBarAlpha = (int) (0xff * opacity) << 24;
+        // TODO séparer en 4 fill() pour pas afficher derrière la barre
         DrawableHelper.fill(
                 matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
                 Mod.config.barBg | Mod.progressBarAlpha
@@ -116,6 +114,18 @@ public abstract class SplashScreenMixin {
     /** @return une couleur avec la transparence d'une autre */
     private static int colorWithAlpha(int color, int alpha) {
         return color | (alpha & 0xff000000);
+    }
+
+
+
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_IN_TIME))
+    private float getFadeInTime(float old) {
+        return Mod.config.fadeInMs;
+    }
+
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_OUT_TIME))
+    private float getFadeOutTime(float old) {
+        return Mod.config.fadeOutMs;
     }
 
 

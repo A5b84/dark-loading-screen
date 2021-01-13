@@ -1,7 +1,9 @@
 # Changelog
 
 ### Unreleased
-- The config screen now uses [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) (not required but only visible if installed)
+- The config screen now uses [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
+    - It will only show up if Cloth Config is installed
+- Added options to control the fade in/out durations
 - Fixed invalid formatting in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
 
 ### [1.5.0]

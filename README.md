@@ -15,7 +15,9 @@ Create or edit `.minecraft/config/dark-loading-screen.json`. The default config 
     "bar": "e22837",
     "barBackground": "14181c",
     "border": "303336",
-    "logo": "ffffff"
+    "logo": "ffffff",
+    "fadeIn": 1.0,
+    "fadeOut": 2.0
 }
 ```
 

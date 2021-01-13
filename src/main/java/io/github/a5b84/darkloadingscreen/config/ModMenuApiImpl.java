@@ -1,21 +1,26 @@
 package io.github.a5b84.darkloadingscreen.config;
 
-import io.github.a5b84.darkloadingscreen.Mod;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.ColorEntry;
+import me.shedaniel.clothconfig2.gui.entries.FloatListEntry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+
+import static io.github.a5b84.darkloadingscreen.Mod.config;
+import static io.github.a5b84.darkloadingscreen.config.Config.DEFAULT;
 
 public class ModMenuApiImpl implements ModMenuApi {
 
     private static final ConfigScreenFactory<?> FACTORY = FabricLoader.getInstance().isModLoaded("cloth-config2")
-            ? new ConfigScreenFactoryImpl() : parent -> null;
+            ? new ConfigScreenFactoryImpl() : null;
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
@@ -34,53 +39,93 @@ public class ModMenuApiImpl implements ModMenuApi {
 
             // On garde l'ancienne config pour pouvoir enlever la nouvelle
             // après l'avoir testé (au cas où on sauvegarde pas à la fin)
-            final Config oldConfig = Mod.config;
+            final Config oldConfig = config;
 
             // Champs
-            final ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-            final ColorEntry bgField = createColorField(entryBuilder, "background", Mod.config.bg, Config.DEFAULT.bg);
-            final ColorEntry barField = createColorField(entryBuilder, "bar", Mod.config.bar, Config.DEFAULT.bar);
-            final ColorEntry barBgField = createColorField(entryBuilder, "barBackground", Mod.config.barBg, Config.DEFAULT.barBg);
-            final ColorEntry borderField = createColorField(entryBuilder, "border", Mod.config.border, Config.DEFAULT.border);
-            final ColorEntry logoField = createColorField(entryBuilder, "logo", Mod.config.logo, Config.DEFAULT.logo);
-
-            builder.getOrCreateCategory(new LiteralText(""))
-                    .addEntry(bgField)
-                    .addEntry(barField)
-                    .addEntry(barBgField)
-                    .addEntry(borderField)
-                    .addEntry(logoField)
-                    .addEntry(new ButtonEntry(new TranslatableText("darkLoadingScreen.config.try"), button -> {
-                        // Essai
-                        Mod.config = new Config(
-                                bgField.getValue(), barField.getValue(),
-                                barBgField.getValue(), borderField.getValue(),
-                                logoField.getValue()
-                        );
-                        final MinecraftClient client = MinecraftClient.getInstance();
-                        client.setOverlay(new PreviewSplashScreen(
-                                500, () -> Mod.config = oldConfig
-                        ));
-                    }));
+            final ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
+            final ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
+            category.addEntry(new ButtonEntry(fieldName("preview"), button -> {
+                // Essai
+                config = entries.createConfig();
+                MinecraftClient.getInstance().setOverlay(
+                        new PreviewSplashScreen(500, () -> config = oldConfig)
+                );
+            }));
 
             builder.setSavingRunnable(() -> {
                 // Sauvegarde
-                Mod.config = new Config(
-                        bgField.getValue(), barField.getValue(),
-                        barBgField.getValue(), borderField.getValue(),
-                        logoField.getValue()
-                );
-                Mod.config.write();
+                config = entries.createConfig();
+                config.write();
             });
 
             // Fini
             return builder.build();
         }
 
-        private static ColorEntry createColorField(ConfigEntryBuilder entryBuilder, String id, int value, int defaultValue) {
-            return entryBuilder.startColorField(new TranslatableText("darkLoadingScreen.config." + id), value)
-                    .setDefaultValue(defaultValue)
-                    .build();
+
+
+        /** @return un {@link Text} à utiliser pour créer des champs */
+        private static Text fieldName(String id) {
+            return new TranslatableText("darkLoadingScreen.config.entry." + id);
+        }
+
+
+
+        /** Classe qui contient et gère tous les champs */
+        private static class ConfigEntries {
+
+            private final ConfigEntryBuilder builder;
+            private final ConfigCategory category;
+            private final ColorEntry bgField, barField, barBgField, borderField, logoField;
+            private final FloatListEntry fadeInField, fadeOutField;
+
+            /** Crée les champs et les ajoute à une catégorie
+             * @param category Catégorie où sont ajoutés les champs */
+            public ConfigEntries(ConfigEntryBuilder builder, ConfigCategory category) {
+                this.builder = builder;
+                this.category = category;
+
+                bgField =     createColorField("background",    config.bg,     DEFAULT.bg);
+                barField =    createColorField("bar",           config.bar,    DEFAULT.bar);
+                barBgField =  createColorField("barBackground", config.barBg,  DEFAULT.barBg);
+                borderField = createColorField("border",        config.border, DEFAULT.border);
+                logoField =   createColorField("logo",          config.logo,   DEFAULT.logo);
+                fadeInField =  createFadeTimeField("fadeIn",  config.fadeIn,  DEFAULT.fadeIn);
+                fadeOutField = createFadeTimeField("fadeOut", config.fadeOut, DEFAULT.fadeOut);
+            }
+
+
+
+            public Config createConfig() {
+                return new Config(
+                        bgField.getValue(), barField.getValue(), barBgField.getValue(),
+                        borderField.getValue(), logoField.getValue(),
+                        fadeInField.getValue(), fadeOutField.getValue()
+                );
+            }
+
+
+
+            // Méthodes pour créer des entrées
+
+            private ColorEntry createColorField(String id, int value, int defaultValue) {
+                final ColorEntry entry = builder.startColorField(fieldName(id), value)
+                        .setDefaultValue(defaultValue)
+                        .build();
+                category.addEntry(entry);
+                return entry;
+            }
+
+            private FloatListEntry createFadeTimeField(String id, float value, float defaultValue) {
+                // Division par 1000 pour convertir de ms en sec
+                final FloatListEntry entry = builder.startFloatField(fieldName(id), value)
+                        .setDefaultValue(defaultValue)
+                        .setMin(0).setMax(Config.MAX_FADE_TIME)
+                        .build();
+                category.addEntry(entry);
+                return entry;
+            }
         }
     }
+
 }

@@ -9,37 +9,76 @@ import io.github.a5b84.darkloadingscreen.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /** Paramètres du mods */
 public class Config {
 
-    public static final Config DEFAULT = new Config(0x14181c, 0xe22837, 0x14181c, 0x303336, 0xffffff);
-
     protected static final Logger LOGGER = LogManager.getLogger();
     protected static final String CONFIG_PATH = "./config/" + Mod.ID + ".json";
 
+    // Couleurs
     public final int bg, bar, barBg, border, logo;
     // Canaux séparés de certaines couleurs
     public final float bgR, bgG, bgB;
     public final float logoR, logoG, logoB;
 
+    // Durées
+    public final float fadeIn, fadeOut;
+    public final float fadeInMs, fadeOutMs;
+    /** Facteur pour passer d'une durée de fondu de l'UI (sec) en ms
+     * ({@code 1000 / 2} puisque le jeu attend le double de la durée) */
+    public static final float FADE_TIME_FACTOR = 1000f / 2;
+    /** Durée maximale des fondus (en sec, pour éviter les regrets) */
+    public static final float MAX_FADE_TIME = 5;
 
 
-    public Config(int bg, int bar, int barBg, int border, int logo) {
+
+    public static final Config DEFAULT = new Config(
+            0x14181c, 0xe22837, 0x14181c, 0x303336, 0xffffff,
+            Mod.VANILLA_FADE_IN_TIME / FADE_TIME_FACTOR,
+            Mod.VANILLA_FADE_OUT_TIME / FADE_TIME_FACTOR
+    );
+
+
+    /** @param fadeIn Durée d'apparition en secondes
+     * @param fadeOut Durée de disparition en secondes */
+    public Config(
+            int bg, int bar, int barBg, int border, int logo,
+            float fadeIn, float fadeOut
+    ) {
         this.bg = bg;
         this.bar = bar;
         this.barBg = barBg;
         this.border = border;
         this.logo = logo;
+        this.fadeIn = Math.min(fadeIn, MAX_FADE_TIME);
+        this.fadeOut = Math.min(fadeOut, MAX_FADE_TIME);
 
         // Séparation de certaines couleurs en 3 floats
-        bgR = ((bg >> 16) & 0xff) / 255f;
-        bgG = ((bg >> 8) & 0xff) / 255f;
-        bgB = (bg & 0xff) / 255f;
-        logoR = ((logo >> 16) & 0xff) / 255f;
-        logoG = ((logo >> 8) & 0xff) / 255f;
-        logoB = (logo & 0xff) / 255f;
+        bgR = getChannel(bg, 16);
+        bgG = getChannel(bg, 8);
+        bgB = getChannel(bg, 0);
+        logoR = getChannel(logo, 16);
+        logoG = getChannel(logo, 8);
+        logoB = getChannel(logo, 0);
+
+        // Calculs de durées
+        fadeInMs = fadeIn * FADE_TIME_FACTOR;
+        fadeOutMs = fadeOut * FADE_TIME_FACTOR;
+    }
+
+    /**
+     * Récupère un canal de 8 bit d'une couleur
+     * @param offset Décalage du canal en nombre de bits
+     * @return la valeur du canal entre {@code 0} et {@code 1}
+     */
+    private static float getChannel(int color, int offset) {
+        return ((color >> offset) & 0xff) / 255f;
     }
 
 
@@ -52,11 +91,13 @@ public class Config {
 
             final JsonObject o = el.getAsJsonObject();
             return new Config(
-                    readColor(o, "background", DEFAULT.bg),
-                    readColor(o, "bar", DEFAULT.bar),
+                    readColor(o, "background",    DEFAULT.bg),
+                    readColor(o, "bar",           DEFAULT.bar),
                     readColor(o, "barBackground", DEFAULT.barBg),
-                    readColor(o, "border", DEFAULT.border),
-                    readColor(o, "logo", DEFAULT.logo)
+                    readColor(o, "border",        DEFAULT.border),
+                    readColor(o, "logo",          DEFAULT.logo),
+                    readFloat(o, "fadeIn",        DEFAULT.fadeIn),
+                    readFloat(o, "fadeOut",       DEFAULT.fadeOut)
             );
         } catch (FileNotFoundException | JsonSyntaxException e) {
             return DEFAULT;
@@ -76,7 +117,7 @@ public class Config {
         String str;
         try {
             str = el.getAsString();
-        } catch (ClassCastException e) {
+        } catch (ClassCastException | IllegalStateException e) {
             return fallback;
         }
 
@@ -98,15 +139,30 @@ public class Config {
         return fallback; // Erreur ou format non reconnu
     }
 
+    private static float readFloat(JsonObject o, String key, float fallback) {
+        // Lecture
+        final JsonElement el = o.get(key);
+        if (el == null) return fallback;
+
+        try {
+            return el.getAsFloat();
+        } catch (ClassCastException | IllegalStateException e) {
+            return fallback;
+        }
+    }
+
+
+
     public void write() {
         if (equals(DEFAULT)) {
             // On supprime le fichier pour la config par défaut
             try {
-                if (!new File(CONFIG_PATH).delete()) {
-                    LOGGER.error("[Dark Loading Screen] Couldn't delete settings at " + CONFIG_PATH);
+                final File file = new File(CONFIG_PATH);
+                if (file.exists() && !file.delete()) {
+                    LOGGER.error("[Dark Loading Screen] Couldn't delete settings file " + CONFIG_PATH);
                 }
             } catch (SecurityException e) {
-                LOGGER.error("[Dark Loading Screen] Couldn't delete settings at " + CONFIG_PATH);
+                LOGGER.error("[Dark Loading Screen] Couldn't delete settings file " + CONFIG_PATH);
                 e.printStackTrace();
             }
             return;
@@ -124,6 +180,8 @@ public class Config {
             .name("barBackground").value(colorToString(barBg))
             .name("border").value(colorToString(border))
             .name("logo").value(colorToString(logo))
+            .name("fadeIn").value(fadeIn)
+            .name("fadeOut").value(fadeOut)
             .endObject();
 
         } catch (IOException e) {
@@ -149,7 +207,9 @@ public class Config {
             && bar == config.bar
             && barBg == config.barBg
             && border == config.border
-            && logo == config.logo;
+            && logo == config.logo
+            && fadeIn == config.fadeIn
+            && fadeOut == config.fadeOut;
     }
 
 }
