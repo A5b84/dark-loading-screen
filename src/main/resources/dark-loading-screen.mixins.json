@@ -6,20 +6,8 @@
     "client": [
         "WindowMixin",
         "SplashScreenMixin",
-        "SplashScreenMixin$Bg$a2529",
-        "SplashScreenMixin$Bg$a2512b2529",
-        "SplashScreenMixin$Bg$b2512",
-        "SplashScreenMixin$OnRenderBar$a2529",
-        "SplashScreenMixin$OnRenderBar$a2210b2529",
-        "SplashScreenMixin$OnRenderBar$b2210",
-        "SplashScreenMixin$Bar$b0oa2555",
-        "SplashScreenMixin$Bar$a2555ob0",
-        "SplashScreenMixin$Bar$a2529b2555",
-        "SplashScreenMixin$Bar$a2512b2529",
-        "SplashScreenMixin$Bar$a2210b2512",
-        "SplashScreenMixin$Bar$b2210",
-        "SplashScreenMixin$BarBg$a2555",
-        "SplashScreenMixin$Logo$a2529"
+        "SplashScreenMixin$NoOptifine",
+        "SplashScreenMixin$OptifineOnly"
     ],
     "injectors": {
         "defaultRequire": 1

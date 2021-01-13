@@ -1,13 +1,19 @@
 package io.github.a5b84.darkloadingscreen;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.a5b84.darkloadingscreen.config.Config;
 import net.fabricmc.api.ClientModInitializer;
-import net.minecraft.util.math.MathHelper;
 
 public class Mod implements ClientModInitializer {
 
     public static final String ID = "dark-loading-screen";
+    public static Config config;
+
+    /** Transparence de la barre de chargement au format {@code 0xAA000000} */
+    // (Stocké ici vu qu'on en a besoin dans plusieurs mixins mais qu'elles
+    // peuvent pas s'entre-référencer)
+    public static int progressBarAlpha;
+
+
 
     @Override
     public void onInitializeClient() {
@@ -16,70 +22,14 @@ public class Mod implements ClientModInitializer {
 
 
 
-    // Trucs communs
-
-    public static Config config;
-
-    public static float endAnimProgress; // Un peu sale mais bon
-    public static float alpha;
-
-
-
-    // TODO: enlever colorLerp pour utiliser l'alpha à la place quand y aura
-    // plus besoin de support pour la 1.14/1.15
-
-    public static int getBg(int color) {
-        return config.bg | (color & 0xff000000);
-    }
-
+    /** @return la couleur de la barre avec transparence */
     public static int getBarColor() {
-        return colorLerp(endAnimProgress, config.bg, config.bar) | 0xff000000;
+        return config.bar | progressBarAlpha;
     }
 
-    public static int getBarBorder() {
-        return colorLerp(endAnimProgress, config.bg, config.border) | 0xff000000;
-    }
-
-    public static int getBarBg() {
-        return colorLerp(endAnimProgress, config.bg, config.barBg) | 0xff000000;
-    }
-
-    public static void logoAddColor4f() {
-        //noinspection deprecation
-        RenderSystem.color4f(
-            config.logoR - config.bgR,
-            config.logoG - config.bgG,
-            config.logoB - config.bgB,
-            alpha
-        );
-    }
-
-    public static void logoSubstractColor4f() {
-        //noinspection deprecation
-        RenderSystem.color4f(
-            config.bgR - config.logoR,
-            config.bgG - config.logoG,
-            config.bgB - config.logoB,
-            alpha
-        );
-    }
-
-
-
-    // Méthodes sur les couleurs
-
-    /** Interpolation linéaire entre deux couleurs */
-    private static int colorLerp(float val, int col1, int col2) {
-        return channelLerp(val, col1, col2, 16)
-            | channelLerp(val, col1, col2, 8)
-            | channelLerp(val, col1, col2, 0);
-    }
-
-    /** Interpolation linéaire entre deux cannaux de 8 bits de deux couleurs */
-    private static int channelLerp(float val, int col1, int col2, int offset) {
-        return Math.round(
-            MathHelper.lerp(val, (col1 >> offset) & 0xff, (col2 >> offset) & 0xff)
-        ) << offset;
+    /** @return la couleur du contour la barre avec transparence */
+    public static int getBarBorderColor() {
+        return config.border | progressBarAlpha;
     }
 
 }

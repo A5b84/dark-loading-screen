@@ -20,5 +20,6 @@
         "client": ["io.github.a5b84.darkloadingscreen.Mod"],
         "modmenu": ["io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl"]
     },
-    "mixins": ["dark-loading-screen.mixins.json"]
+    "mixins": ["dark-loading-screen.mixins.json"],
+    "depends": { "minecraft": ">=1.16-" }
 }
