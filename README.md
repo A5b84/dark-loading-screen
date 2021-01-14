@@ -2,12 +2,12 @@
 
 A simple [Fabric](https://fabricmc.net) mod to make the loading screen darker.
 
-## Color configuration
+A changelog is available [here](CHANGELOG.md).
 
+## Color configuration
 Colors can be modified in-game if both [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config) are installed.
 
 ### Manual configuration
-
 Create or edit `.minecraft/config/dark-loading-screen.json`, the default config is
 ```json
 {

@@ -1,10 +1,12 @@
 # Changelog
 
-### Unreleased
+- [Compatibility table](#compatibility-table)
+
+### [1.6.0]
 - The config screen now uses [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
     - It will only show up if Cloth Config is installed
 - Added options to control the fade in/out durations
-- Fixed invalid formatting in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
+- Fixed invalid data in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
 
 ### [1.5.0]
 - Added an option to change the bar background color ([#8](https://github.com/A5b84/dark-loading-screen/issues/8), suggested by [@Chrisblox](https://github.com/Chrisblox))
@@ -62,7 +64,7 @@
 
 
 
-## Compatibility comparison
+### Compatibility table
 | Version     | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2+ |
 |------------:|:-----------:|:-------------:|:-------------:|:-------:|
 | 1.0.0-1.2.0 | X
@@ -89,3 +91,4 @@
 [1.4.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.3
 [1.4.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.4
 [1.5.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.5.0
+[1.6.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.0
