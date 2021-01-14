@@ -3,9 +3,9 @@
 - [Compatibility table](#compatibility-table)
 
 ### [1.6.0]
+- Added options to control the fade in/out durations
 - The config screen now uses [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
     - It will only show up if Cloth Config is installed
-- Added options to control the fade in/out durations
 - Fixed invalid data in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
 
 ### [1.5.0]

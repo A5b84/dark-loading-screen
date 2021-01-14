@@ -5,7 +5,7 @@
     "darkLoadingScreen.config.entry.barBackground": "进度条背景颜色",
     "darkLoadingScreen.config.entry.border": "进度条边框颜色",
     "darkLoadingScreen.config.entry.logo": "Logo 颜色",
-    "darkLoadingScreen.config.entry.preview": "预览",
     "darkLoadingScreen.config.entry.fadeIn": "Fade In Duration",
-    "darkLoadingScreen.config.entry.fadeOut": "Fade Out Duration"
+    "darkLoadingScreen.config.entry.fadeOut": "Fade Out Duration",
+    "darkLoadingScreen.config.entry.preview": "预览"
 }
