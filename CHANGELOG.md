@@ -1,6 +1,17 @@
 # Changelog
 
+### TL;DR
+- [1.0.0](#100): Initial release
+- [1.1.0](#110): Different colors
+- [1.2.0](#120): Made the window black before the loading screen appears
+- [1.3.0](#130): Config Screen
+- [1.4.0](#140): Mojang logo color
+- [1.5.0](#150): Bar background color
+- [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
+
+### [1.6.1]
+- Fixed a crash on startup if Mod Menu is installed but not Cloth Config
 
 ### [1.6.0]
 - Added options to control the fade in/out durations
@@ -92,3 +103,4 @@
 [1.4.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.4.4
 [1.5.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.5.0
 [1.6.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.0
+[1.6.1]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.1

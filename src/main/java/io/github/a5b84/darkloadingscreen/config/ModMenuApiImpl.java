@@ -20,7 +20,8 @@ import static io.github.a5b84.darkloadingscreen.config.Config.DEFAULT;
 public class ModMenuApiImpl implements ModMenuApi {
 
     private static final ConfigScreenFactory<?> FACTORY = FabricLoader.getInstance().isModLoaded("cloth-config2")
-            ? new ConfigScreenFactoryImpl() : null;
+            ? new ConfigScreenFactoryImpl()
+            : parent -> null;
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
