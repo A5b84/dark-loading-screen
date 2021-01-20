@@ -10,6 +10,9 @@
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
 
+### [1.6.2]
+- Added `ru_ru` translation by [Felix14-v2](https://github.com/Felix14-v2) ([#12](https://github.com/A5b84/dark-loading-screen/issues/12))
+
 ### [1.6.1]
 - Fixed a crash on startup if Mod Menu is installed but not Cloth Config
 

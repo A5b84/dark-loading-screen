@@ -1,0 +1,11 @@
+{
+    "darkLoadingScreen.config.title": "Настройки Dark Loading Screen",
+    "darkLoadingScreen.config.entry.background": "Цвет фона",
+    "darkLoadingScreen.config.entry.bar": "Цвет заполненной панели",
+    "darkLoadingScreen.config.entry.barBackground": "Цвет фона панели",
+    "darkLoadingScreen.config.entry.border": "Цвет границ панели",
+    "darkLoadingScreen.config.entry.logo": "Цвет логотипа",
+    "darkLoadingScreen.config.entry.fadeIn": "Длительность появления",
+    "darkLoadingScreen.config.entry.fadeOut": "Длительность растворения",
+    "darkLoadingScreen.config.entry.preview": "Предпросмотр"
+}
