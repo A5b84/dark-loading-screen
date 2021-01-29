@@ -10,6 +10,9 @@
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
 
+### [1.6.3]
+- Added `sv_se` translation by [Luracasmus](https://github.com/Luracasmus) ([#13](https://github.com/A5b84/dark-loading-screen/pull/13))
+
 ### [1.6.2]
 - Added `ru_ru` translation by [Felix14-v2](https://github.com/Felix14-v2) ([#12](https://github.com/A5b84/dark-loading-screen/issues/12))
 
@@ -107,3 +110,5 @@
 [1.5.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.5.0
 [1.6.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.0
 [1.6.1]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.1
+[1.6.2]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.2
+[1.6.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.3
