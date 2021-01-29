@@ -25,12 +25,12 @@ Manual changes are only visible after restarting the game.
 
 ## Credits
 - Config screen made using [shedaniel](https://www.curseforge.com/members/shedaniel/projects)'s [Cloth Config]
-- Logo coloring suggested by [@Minenash](https://github.com/Minenash)
-- Bar background coloring suggested by [@Chrisblox](https://github.com/Chrisblox)
-- `es_xx` translations by [@Haseck](https://github.com/Haseck)
-- `pl_pl` translation by [@DarkKnightComes](https://github.com/DarkKnightComes)
-- `ru_ru` translation by [@Felix14-v2](https://github.com/Felix14-v2)
-- `sv_se` translation by [@Luracasmus](https://github.com/Luracasmus)
-- `zh_cn` translation by [@w5860363](https://github.com/w5860363) and [@Hambaka](https://github.com/Hambaka)
+- Logo coloring suggested by [Minenash](https://github.com/Minenash)
+- Bar background coloring suggested by [Chrisblox](https://github.com/Chrisblox)
+- `es_xx` translations by [Haseck](https://github.com/Haseck)
+- `pl_pl` translation by [DarkKnightComes](https://github.com/DarkKnightComes)
+- `ru_ru` translation by [Felix14-v2](https://github.com/Felix14-v2)
+- `sv_se` translation by [Luracasmus](https://github.com/Luracasmus)
+- `zh_cn` translation by [Hambaka](https://github.com/Hambaka) and [w5860363](https://github.com/w5860363)
 
 [Cloth Config]: https://www.curseforge.com/minecraft/mc-mods/cloth-config
