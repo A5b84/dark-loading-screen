@@ -9,7 +9,12 @@ import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
@@ -18,15 +23,14 @@ public abstract class SplashScreenMixin {
 
     private SplashScreenMixin() {}
 
-    /** Descripteur de {@link SplashScreen#fill(MatrixStack, int, int, int, int, int)} */
+    /** Descriptor for {@link SplashScreen#fill(MatrixStack, int, int, int, int, int)} */
     private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
 
-    /** Transparence du logo (entre {@code 0} et {@code 1} */
     @Unique private float logoAlpha = 1f;
 
 
 
-    /** Fond */
+    /** Background */
     @ModifyArg(method = "render",
             at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
     private int adjustBg(int color) {
@@ -35,11 +39,11 @@ public abstract class SplashScreenMixin {
 
 
 
-    /** Calcule la transparence de la barre et affiche le fond */
+    /** Updates the bar alpha and renders its background */
     @Inject(method = "renderProgressBar", at = @At("HEAD"))
     private void onRenderProgressBar(MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity, CallbackInfo info) {
         Mod.progressBarAlpha = (int) (0xff * opacity) << 24;
-        // TODO séparer en 4 fill() pour pas afficher derrière la barre
+        // TODO split in 4 fill()'s
         DrawableHelper.fill(
                 matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
                 Mod.config.barBg | Mod.progressBarAlpha
@@ -50,7 +54,7 @@ public abstract class SplashScreenMixin {
 
     // Logo
 
-    /** Récupère la transparence du logo */
+    /** Gets the logo alpha */
     @Inject(method = "render", locals = LocalCapture.CAPTURE_FAILSOFT,
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V"))
     private void storeLogoAlpha(
@@ -61,7 +65,7 @@ public abstract class SplashScreenMixin {
         logoAlpha = alpha;
     }
 
-    /** Modifie la couleur du logo */
+    /** Changes the logo color */
     @Redirect(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
     private void drawTextureProxy(
@@ -69,11 +73,9 @@ public abstract class SplashScreenMixin {
         float u, float v, int regionWidth, int regionHeight,
         int textureWidth, int textureHeight
     ) {
-        // On ajoute/soustrait la différence entre le logo et le fond
-        // (selon que ça soit plus clair ou plus sombre)
-        // On peut pas juste utiliser
-        // RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)
-        // parce que ça fait un contour moche qui est visible :(
+        // `RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)`
+        // causes an ugly outline so we add/substract the difference between
+        // the logo and the background instead
 
         //noinspection deprecation
         RenderSystem.color4f(
@@ -97,8 +99,7 @@ public abstract class SplashScreenMixin {
 
 
 
-    /** Appelle {@link PreviewSplashScreen#onDone()} quand l'écran de
-     * chargement est fermé */
+    /** Calls {@link PreviewSplashScreen#onDone()} when the screen disappears */
     @Inject(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
     private void onSetOverlay(CallbackInfo info) {
@@ -111,48 +112,48 @@ public abstract class SplashScreenMixin {
 
 
 
-    /** @return une couleur avec la transparence d'une autre */
+    /** @return {@code color} with the alpha channel of {@code alpha} */
     private static int colorWithAlpha(int color, int alpha) {
         return color | (alpha & 0xff000000);
     }
 
 
 
-    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_IN_TIME))
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_IN_DURATION))
     private float getFadeInTime(float old) {
         return Mod.config.fadeInMs;
     }
 
-    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_OUT_TIME))
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_OUT_DURATION))
     private float getFadeOutTime(float old) {
         return Mod.config.fadeOutMs;
     }
 
 
 
-    /** Mixins appliquées que si OptiFine est installé */
+    /** Mixins applied only with OptiFine */
     @Mixin(SplashScreen.class)
     public static abstract class OptifineOnly {
-        /** Contour de la barre */
+        /** Bar border */
         @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
         private int adjustBarBorder(int color) { return Mod.getBarBorderColor(); }
 
-        /** Contenu de la barre */
+        /** Bar content */
         @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 5), index = 5)
         private int adjustBarColor(int color) { return Mod.getBarColor(); }
     }
 
-    /** Mixins appliquées que si OptiFine est pas installé */
+    /** Mixins applied only without OptiFine */
     @Mixin(SplashScreen.class)
     public static abstract class NoOptifine {
-        /** Contour de la barre */
+        /** Bar border */
         @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
         private int adjustBarBorder(int color) { return Mod.getBarBorderColor(); }
 
-        /** Contenu de la barre */
+        /** Bar content */
         @ModifyArg(method = "renderProgressBar",
                 at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 4), index = 5)
         private int adjustBarColor(int color) { return Mod.getBarColor(); }

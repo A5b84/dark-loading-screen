@@ -7,10 +7,9 @@ public class PreviewSplashScreen extends SplashScreen {
 
     private final Runnable onDone;
 
-    /** @param onDone Fonction appelée quand l'écran se ferme */
     public PreviewSplashScreen(long durationMs, Runnable onDone) {
         super(
-                MinecraftClient.getInstance(), new FakeResourceReloadMonitor(500),
+                MinecraftClient.getInstance(), new FakeResourceReloadMonitor(durationMs),
                 optional -> {}, true
         );
         this.onDone = onDone;
