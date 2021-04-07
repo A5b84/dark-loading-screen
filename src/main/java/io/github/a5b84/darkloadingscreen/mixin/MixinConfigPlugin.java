@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-/** Active/désactive {@link SplashScreenMixin.OptifineOnly} et {@link SplashScreenMixin.NoOptifine}
- * selon qu'OptiFabric soit installé ou non */
+/** Cancels {@link SplashScreenMixin.OptifineOnly} or {@link SplashScreenMixin.NoOptifine}
+ * depending on wether OptiFabric is installed */
 public class MixinConfigPlugin implements IMixinConfigPlugin {
 
     private static final boolean HAS_OPTIFABRIC = FabricLoader.getInstance().isModLoaded("optifabric");

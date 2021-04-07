@@ -6,7 +6,7 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.concurrent.CompletableFuture;
 
-/** ResourceReloadMonitor qui se complète seul après une certaine durée */
+/** ReesourceReloadMonitor that automatically completes after some time */
 public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
 
     protected final long start;

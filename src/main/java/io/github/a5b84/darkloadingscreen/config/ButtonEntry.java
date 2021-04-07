@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/** Bouton utilisable par Cloth Config */
+/** Button entry for Cloth Config */
 public class ButtonEntry extends AbstractConfigListEntry<Object> {
 
     private static final int HEIGHT = 20;

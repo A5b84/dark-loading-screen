@@ -28,8 +28,8 @@ public class ModMenuApiImpl implements ModMenuApi {
         return FACTORY;
     }
 
-    /** Classe interne pcq ça a l'air de permettre de pas charger les classes
-     * de Cloth Config (et donc de pas faire crasher le jeu quand il y est pas) */
+    // Nested class in order not to load Cloth Config classes and crash
+    // the game when it's not installed
     private static class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
 
         @Override
@@ -38,41 +38,40 @@ public class ModMenuApiImpl implements ModMenuApi {
                     .setParentScreen(parent)
                     .setTitle(new TranslatableText("darkLoadingScreen.config.title"));
 
-            // On garde l'ancienne config pour pouvoir enlever la nouvelle
-            // après l'avoir testé (au cas où on sauvegarde pas à la fin)
+            // Keep the old config in case the user wants to close without saving
             final Config oldConfig = config;
 
-            // Champs
+            // Fields
             final ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
             final ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
             category.addEntry(new ButtonEntry(fieldName("preview"), button -> {
-                // Essai
+                // 'Try' button
                 config = entries.createConfig();
                 MinecraftClient.getInstance().setOverlay(
                         new PreviewSplashScreen(500, () -> config = oldConfig)
                 );
             }));
 
+            // Saving
             builder.setSavingRunnable(() -> {
-                // Sauvegarde
                 config = entries.createConfig();
                 config.write();
             });
 
-            // Fini
+            // Done
             return builder.build();
         }
 
 
 
-        /** @return un {@link Text} à utiliser pour créer des champs */
+        /** @return a {@link Text} that indentifies a field */
         private static Text fieldName(String id) {
             return new TranslatableText("darkLoadingScreen.config.entry." + id);
         }
 
 
 
-        /** Classe qui contient et gère tous les champs */
+        /** Class that holds/handles all the fields */
         private static class ConfigEntries {
 
             private final ConfigEntryBuilder builder;
@@ -80,8 +79,7 @@ public class ModMenuApiImpl implements ModMenuApi {
             private final ColorEntry bgField, barField, barBgField, borderField, logoField;
             private final FloatListEntry fadeInField, fadeOutField;
 
-            /** Crée les champs et les ajoute à une catégorie
-             * @param category Catégorie où sont ajoutés les champs */
+            /** Creates all the fields and adds them to {@code category} */
             public ConfigEntries(ConfigEntryBuilder builder, ConfigCategory category) {
                 this.builder = builder;
                 this.category = category;
@@ -107,7 +105,7 @@ public class ModMenuApiImpl implements ModMenuApi {
 
 
 
-            // Méthodes pour créer des entrées
+            // Methods that create entries
 
             private ColorEntry createColorField(String id, int value, int defaultValue) {
                 final ColorEntry entry = builder.startColorField(fieldName(id), value)
@@ -118,15 +116,16 @@ public class ModMenuApiImpl implements ModMenuApi {
             }
 
             private FloatListEntry createFadeTimeField(String id, float value, float defaultValue) {
-                // Division par 1000 pour convertir de ms en sec
                 final FloatListEntry entry = builder.startFloatField(fieldName(id), value)
                         .setDefaultValue(defaultValue)
-                        .setMin(0).setMax(Config.MAX_FADE_TIME)
+                        .setMin(0).setMax(Config.MAX_FADE_DURATION)
                         .build();
                 category.addEntry(entry);
                 return entry;
             }
+
         }
+
     }
 
 }
