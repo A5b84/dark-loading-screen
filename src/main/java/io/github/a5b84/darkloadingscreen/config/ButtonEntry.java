@@ -3,6 +3,7 @@ package io.github.a5b84.darkloadingscreen.config;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
+import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 /** Button entry for Cloth Config */
-public class ButtonEntry extends AbstractConfigListEntry<Object> {
+public class ButtonEntry extends AbstractConfigListEntry<Void> {
 
     private static final int HEIGHT = 20;
     private final ButtonWidget button;
@@ -32,17 +33,22 @@ public class ButtonEntry extends AbstractConfigListEntry<Object> {
     }
 
     @Override
-    public Object getValue() { return null; }
+    public Void getValue() { return null; }
 
     @Override
-    public Optional<Object> getDefaultValue() { return Optional.empty(); }
+    public Optional<Void> getDefaultValue() { return Optional.empty(); }
 
     @Override
     public void save() {}
 
-    @Override
-    public List<? extends Element> children() {
+    private List<ButtonWidget> ch() {
         return Collections.singletonList(button);
     }
+
+    @Override
+    public List<? extends Element> children() { return ch(); }
+
+    @Override
+    public List<? extends Selectable> narratables() { return ch(); }
 
 }

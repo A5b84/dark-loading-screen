@@ -1,13 +1,13 @@
 package io.github.a5b84.darkloadingscreen.config;
 
-import net.minecraft.resource.ResourceReloadMonitor;
+import net.minecraft.resource.ResourceReload;
 import net.minecraft.util.Unit;
 import net.minecraft.util.math.MathHelper;
 
 import java.util.concurrent.CompletableFuture;
 
 /** ReesourceReloadMonitor that automatically completes after some time */
-public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
+public class FakeResourceReloadMonitor implements ResourceReload {
 
     protected final long start;
     protected final long duration;
@@ -30,16 +30,13 @@ public class FakeResourceReloadMonitor implements ResourceReloadMonitor {
     }
 
     @Override
-    public boolean isPrepareStageComplete() {
-        return isApplyStageComplete();
-    }
-
-    @Override
-    public boolean isApplyStageComplete() {
+    public boolean isComplete() {
         return System.currentTimeMillis() - start >= duration;
     }
 
     @Override
-    public void throwExceptions() {}
+    public void throwException() {
+
+    }
 
 }
