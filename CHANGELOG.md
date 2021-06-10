@@ -10,6 +10,10 @@
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
 
+### [1.6.4]
+- Updated to 1.17
+- Added translators to the authors
+
 ### [1.6.3]
 - Added `sv_se` translation by [Luracasmus](https://github.com/Luracasmus) ([#13](https://github.com/A5b84/dark-loading-screen/pull/13))
 
@@ -82,13 +86,14 @@
 
 
 ### Compatibility table
-| Version     | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2+ |
-|------------:|:-----------:|:-------------:|:-------------:|:-------:|
+|     Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2-1.16.5 | 1.17+ |
+|------------:|:-----------:|:-------------:|:-------------:|:-------------:|:-----:|
 | 1.0.0-1.2.0 | X
-| 1.2.1       | X           | X
+|       1.2.1 | X           | X
 | 1.2.2-1.4.2 | X           | X             | X
 | 1.4.3-1.5.0 | X           | X             | X             | X
-| 1.6.0+      |             |               | X             | X
+| 1.6.0-1.6.3 |             |               | X             | X
+| 1.6.0-1.6.4 |             |               |               |               | X
 
 
 
@@ -112,3 +117,4 @@
 [1.6.1]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.1
 [1.6.2]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.2
 [1.6.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.3
+[1.6.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.4

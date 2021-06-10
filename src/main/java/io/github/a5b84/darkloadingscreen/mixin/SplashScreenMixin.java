@@ -7,8 +7,10 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.SplashScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL14;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,25 +18,26 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import java.util.function.IntSupplier;
 
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin {
 
-    private SplashScreenMixin() {}
+    @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
+
+
 
     /** Descriptor for {@link SplashScreen#fill(MatrixStack, int, int, int, int, int)} */
     private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
 
-    @Unique private float logoAlpha = 1f;
-
 
 
     /** Background */
-    @ModifyArg(method = "render",
-            at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
-    private int adjustBg(int color) {
-        return colorWithAlpha(Mod.config.bg, color);
+    @SuppressWarnings("UnresolvedMixinReference")
+    @Inject(method = "<clinit>", at = @At("RETURN"))
+    private static void adjustBg(CallbackInfo ci) {
+        BRAND_ARGB = () -> Mod.config.bg | 0xff000000;
     }
 
 
@@ -42,7 +45,7 @@ public abstract class SplashScreenMixin {
     /** Updates the bar alpha and renders its background */
     @Inject(method = "renderProgressBar", at = @At("HEAD"))
     private void onRenderProgressBar(MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity, CallbackInfo info) {
-        Mod.progressBarAlpha = (int) (0xff * opacity) << 24;
+        Mod.progressBarAlpha = Math.round(0xff * opacity) << 24;
         // TODO split in 4 fill()'s
         DrawableHelper.fill(
                 matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
@@ -53,17 +56,6 @@ public abstract class SplashScreenMixin {
 
 
     // Logo
-
-    /** Gets the logo alpha */
-    @Inject(method = "render", locals = LocalCapture.CAPTURE_FAILSOFT,
-            at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;enableBlend()V"))
-    private void storeLogoAlpha(
-            MatrixStack matrices, int mouseX, int mouseY, float delta,
-            CallbackInfo info, int scaledWidth, int scaledHeight,
-            long measuringTime, float f, float g, float alpha, int p, int q, double d, int r, double e, int s
-    ) {
-        logoAlpha = alpha;
-    }
 
     /** Changes the logo color */
     @Redirect(method = "render",
@@ -77,24 +69,27 @@ public abstract class SplashScreenMixin {
         // causes an ugly outline so we add/substract the difference between
         // the logo and the background instead
 
-        //noinspection deprecation
-        RenderSystem.color4f(
+        float alpha = RenderSystem.getShaderColor()[3];
+
+        RenderSystem.setShaderColor(
                 Mod.config.logoR - Mod.config.bgR,
                 Mod.config.logoG - Mod.config.bgG,
                 Mod.config.logoB - Mod.config.bgB,
-                logoAlpha
+                alpha
         );
         DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
+
         RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
-        //noinspection deprecation
-        RenderSystem.color4f(
+        RenderSystem.setShaderColor(
                 Mod.config.bgR - Mod.config.logoR,
                 Mod.config.bgG - Mod.config.logoG,
                 Mod.config.bgB - Mod.config.logoB,
-                logoAlpha
+                alpha
         );
         DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
+
         RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
+        RenderSystem.setShaderColor(1, 1, 1, alpha);
     }
 
 
@@ -104,17 +99,10 @@ public abstract class SplashScreenMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
     private void onSetOverlay(CallbackInfo info) {
         //noinspection ConstantConditions
-        if ((Object) this instanceof PreviewSplashScreen) {
-            // Cast en objet pour qu'IntelliJ fasse pas chier
-            ((PreviewSplashScreen) (Object) this).onDone();
+        if ((Object) this instanceof PreviewSplashScreen previewScreen) {
+            // Casting because SplashScreenMixin doesn't extend PreviewSplashScreen
+            previewScreen.onDone();
         }
-    }
-
-
-
-    /** @return {@code color} with the alpha channel of {@code alpha} */
-    private static int colorWithAlpha(int color, int alpha) {
-        return color | (alpha & 0xff000000);
     }
 
 
@@ -155,7 +143,7 @@ public abstract class SplashScreenMixin {
 
         /** Bar content */
         @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 4), index = 5)
+                at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 0), index = 5)
         private int adjustBarColor(int color) { return Mod.getBarColor(); }
     }
 
