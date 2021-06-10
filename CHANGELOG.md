@@ -13,6 +13,7 @@
 ### [1.6.4]
 - Updated to 1.17
 - Added translators to the authors
+- May not be compatible with OptiFine anymore idk ¯\\\_(ツ)_/¯
 
 ### [1.6.3]
 - Added `sv_se` translation by [Luracasmus](https://github.com/Luracasmus) ([#13](https://github.com/A5b84/dark-loading-screen/pull/13))

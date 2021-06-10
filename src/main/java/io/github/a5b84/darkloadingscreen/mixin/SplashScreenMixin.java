@@ -24,12 +24,16 @@ import java.util.function.IntSupplier;
 @Mixin(SplashScreen.class)
 public abstract class SplashScreenMixin {
 
-    @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
-
-
-
     /** Descriptor for {@link SplashScreen#fill(MatrixStack, int, int, int, int, int)} */
     private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
+
+
+
+    @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
+
+    @Shadow private static int withAlpha(int color, int alpha) {
+        return 0;
+    }
 
 
 
@@ -42,25 +46,35 @@ public abstract class SplashScreenMixin {
 
 
 
-    /** Updates the bar alpha and renders its background */
-    @Inject(method = "renderProgressBar", at = @At("HEAD"))
-    private void onRenderProgressBar(MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity, CallbackInfo info) {
-        Mod.progressBarAlpha = Math.round(0xff * opacity) << 24;
-        // TODO split in 4 fill()'s
+    // Progress bar
+
+    /** Changes the progress bar border color and draws its background */
+    @Redirect(method = "renderProgressBar",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/BackgroundHelper$ColorMixer;getArgb(IIII)I"))
+    private int progressBarBorderProxy(int a, int r, int g, int b, MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity) {
+        // Bar background
         DrawableHelper.fill(
                 matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
-                Mod.config.barBg | Mod.progressBarAlpha
+                withAlpha(Mod.config.barBg, a)
         );
+
+        // Bar border
+        return withAlpha(Mod.config.border, a);
+    }
+
+    /** Modifies the bar color */
+    @ModifyArg(method = "renderProgressBar",
+            at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 0), index = 5)
+    private int adjustBarColor(int color) {
+        return Mod.config.bar | color & 0xff000000;
     }
 
 
 
-    // Logo
-
     /** Changes the logo color */
     @Redirect(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
-    private void drawTextureProxy(
+    private void drawLogoProxy(
         MatrixStack matrices, int x, int y, int width, int height,
         float u, float v, int regionWidth, int regionHeight,
         int textureWidth, int textureHeight
@@ -115,36 +129,6 @@ public abstract class SplashScreenMixin {
     @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_OUT_DURATION))
     private float getFadeOutTime(float old) {
         return Mod.config.fadeOutMs;
-    }
-
-
-
-    /** Mixins applied only with OptiFine */
-    @Mixin(SplashScreen.class)
-    public static abstract class OptifineOnly {
-        /** Bar border */
-        @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
-        private int adjustBarBorder(int color) { return Mod.getBarBorderColor(); }
-
-        /** Bar content */
-        @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 5), index = 5)
-        private int adjustBarColor(int color) { return Mod.getBarColor(); }
-    }
-
-    /** Mixins applied only without OptiFine */
-    @Mixin(SplashScreen.class)
-    public static abstract class NoOptifine {
-        /** Bar border */
-        @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESC), index = 5)
-        private int adjustBarBorder(int color) { return Mod.getBarBorderColor(); }
-
-        /** Bar content */
-        @ModifyArg(method = "renderProgressBar",
-                at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 0), index = 5)
-        private int adjustBarColor(int color) { return Mod.getBarColor(); }
     }
 
 }

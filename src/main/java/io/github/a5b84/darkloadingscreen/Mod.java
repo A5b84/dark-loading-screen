@@ -22,21 +22,4 @@ public class Mod implements ClientModInitializer {
         config = Config.read();
     }
 
-
-
-    // Stuff shared between multiple mixins
-
-    /** Progress bar alpha in {@code 0xAA000000} format */
-    public static int progressBarAlpha;
-
-    /** @return la couleur de la barre avec transparence */
-    public static int getBarColor() {
-        return config.bar | progressBarAlpha;
-    }
-
-    /** @return la couleur du contour la barre avec transparence */
-    public static int getBarBorderColor() {
-        return config.border | progressBarAlpha;
-    }
-
 }

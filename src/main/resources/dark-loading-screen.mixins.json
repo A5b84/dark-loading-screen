@@ -2,13 +2,10 @@
   "required": true,
   "minVersion": "0.8",
   "package": "io.github.a5b84.darkloadingscreen.mixin",
-  "plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinConfigPlugin",
   "compatibilityLevel": "JAVA_16",
   "client": [
     "WindowMixin",
-    "SplashScreenMixin",
-    "SplashScreenMixin$NoOptifine",
-    "SplashScreenMixin$OptifineOnly"
+    "SplashScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
