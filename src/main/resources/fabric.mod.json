@@ -5,7 +5,15 @@
 
   "name": "Dark Loading Screen",
   "description": "Makes the loading screen darker\\nIn-game configuration requires Mod Menu and Cloth Config",
-  "authors": ["Neecko5b84"],
+  "authors": [
+    "Neecko5b84",
+    "Haseck",
+    "DarkKnightComes",
+    "Felix14",
+    "Luracasmus",
+    "Hambaka",
+    "w5860363"
+  ],
   "contact": {
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen",
     "issues": "https://github.com/A5b84/dark-loading-screen/issues",
@@ -22,5 +30,5 @@
   },
   "mixins": ["dark-loading-screen.mixins.json"],
 
-  "depends": { "minecraft": ">=1.16-" }
+  "depends": { "minecraft": ">=1.17-" }
 }
