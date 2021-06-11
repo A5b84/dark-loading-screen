@@ -72,8 +72,8 @@ public abstract class SplashScreenMixin {
 
 
     /** Changes the logo color */
-    @Redirect(method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
+    // @Redirect(method = "render",
+    //         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
     private void drawLogoProxy(
         MatrixStack matrices, int x, int y, int width, int height,
         float u, float v, int regionWidth, int regionHeight,

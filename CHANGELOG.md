@@ -5,13 +5,14 @@
 - [1.1.0](#110): Different colors
 - [1.2.0](#120): Made the window black before the loading screen appears
 - [1.3.0](#130): Config Screen
-- [1.4.0](#140): Mojang logo color
+- [1.4.0](#140): Mojang logo recoloring
 - [1.5.0](#150): Bar background color
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
 
 ### [1.6.4]
 - Updated to 1.17
+- Temporarily disabled logo recoloring
 - Added translators to the authors
 - May not be compatible with OptiFine anymore idk ¯\\\_(ツ)_/¯
 
