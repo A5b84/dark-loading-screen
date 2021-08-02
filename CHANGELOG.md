@@ -10,6 +10,9 @@
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
 
+### [1.6.6]
+- Added `de_de` translation by [@Der_Anderl](https://www.curseforge.com/members/der_anderl/)
+
 ### [1.6.5]
 - `pl_pl` translation updated by [@goodideagiver](https://github.com/goodideagiver) ([#16](https://github.com/A5b84/dark-loading-screen/pull/16))
 
@@ -124,3 +127,4 @@
 [1.6.3]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.3
 [1.6.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.4
 [1.6.5]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.5
+[1.6.6]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.6

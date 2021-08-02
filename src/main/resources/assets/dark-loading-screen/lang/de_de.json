@@ -1,0 +1,11 @@
+{
+    "darkLoadingScreen.config.title": "Dunkler Ladebildeschirm Konfiguration",
+    "darkLoadingScreen.config.entry.background": "Hintergrundfarbe",
+    "darkLoadingScreen.config.entry.bar": "Balken Farbe",
+    "darkLoadingScreen.config.entry.barBackground": "Balken Hintergrundfarbe",
+    "darkLoadingScreen.config.entry.border": "Balken Randfarbe",
+    "darkLoadingScreen.config.entry.logo": "Logo Farbe",
+    "darkLoadingScreen.config.entry.fadeIn": "Einblenden dauer",
+    "darkLoadingScreen.config.entry.fadeOut": "Ausblenden dauer",
+    "darkLoadingScreen.config.entry.preview": "Vorschau"
+}
