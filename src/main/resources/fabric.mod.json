@@ -5,14 +5,14 @@
 
   "name": "Dark Loading Screen",
   "description": "Makes the loading screen darker\\nIn-game configuration requires Mod Menu and Cloth Config",
-  "authors": [
-    "Neecko5b84",
-    "Haseck",
+  "authors": ["Neecko5b84"],
+  "contributors": [
     "DarkKnightComes",
-    "goodideagiver",
     "Felix14-v2",
-    "Luracasmus",
+    "goodideagiver",
     "Hambaka",
+    "Haseck",
+    "Luracasmus",
     "w5860363"
   ],
   "contact": {
