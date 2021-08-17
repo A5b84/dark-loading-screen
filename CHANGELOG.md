@@ -1,6 +1,6 @@
 # Changelog
 
-### TL;DR
+## TL;DR
 - [1.0.0](#100): Initial release
 - [1.1.0](#110): Different colors
 - [1.2.0](#120): Made the window black before the loading screen appears
@@ -9,6 +9,11 @@
 - [1.5.0](#150): Bar background color
 - [1.6.0](#160): Fade in/out durations
 - [Compatibility table](#compatibility-table)
+
+---
+
+### [1.6.7]
+- Fixed a rare(?) crash on startup ([#18](https://github.com/A5b84/dark-loading-screen/issues/18))
 
 ### [1.6.6]
 - Added `de_de` translation by [@Der_Anderl](https://www.curseforge.com/members/der_anderl/)
@@ -37,10 +42,14 @@
   - It will only show up if Cloth Config is installed
 - Fixed invalid data in compiled `fabric.mod.json` ([#10](https://github.com/A5b84/dark-loading-screen/pull/10))
 
+---
+
 ### [1.5.0]
 - Added an option to change the bar background color ([#8](https://github.com/A5b84/dark-loading-screen/issues/8), suggested by [@Chrisblox](https://github.com/Chrisblox))
 - Fixed the reset buttons sometimes not working
 - `zh_cn` translation updated by [@Hambaka](https://github.com/Hambaka) ([#9](https://github.com/A5b84/dark-loading-screen/pull/9))
+
+---
 
 ### [1.4.4]
 - Fixed some potential incompatibilities with other mods
@@ -61,6 +70,8 @@
 - Added an option to change the Mojang logo color ([#3](https://github.com/A5b84/dark-loading-screen/issues/3), suggested by [@Minenash](https://github.com/Minenash))
 - Made the config file indented instead of on a single line
 
+---
+
 ### [1.3.3]
 - Added `pl_pl` translation by [@DarkKnightComes](https://github.com/DarkKnightComes) ([#4](https://github.com/A5b84/dark-loading-screen/pull/4))
 
@@ -73,6 +84,8 @@
 ### [1.3.0]
 - Added a config screen (only available in 1.16 and later)
 
+---
+
 ### [1.2.2]
 - Fixed the bar borders being the wrong colors in 20w22a and later
 
@@ -82,19 +95,23 @@
 ### [1.2.0]
 - Made the window black before the loading screen appears
 
+---
+
 ### [1.1.1]
 - Made a potential crash on startup less likely
 
 ### [1.1.0]
 - Made the colors a little more blue
 
+---
+
 ### [1.0.0]
 - Initial release
 
-
+---
 
 ### Compatibility table
-|     Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2-1.16.5 | 1.17+ |
+|     Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2-1.16.5 | 1.17 |
 |------------:|:-----------:|:-------------:|:-------------:|:-------------:|:-----:|
 | 1.0.0-1.2.0 | X
 |       1.2.1 | X           | X
@@ -128,3 +145,4 @@
 [1.6.4]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.4
 [1.6.5]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.5
 [1.6.6]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.6
+[1.6.7]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.7

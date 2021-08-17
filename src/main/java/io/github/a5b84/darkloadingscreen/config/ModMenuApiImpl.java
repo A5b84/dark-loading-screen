@@ -45,7 +45,7 @@ public class ModMenuApiImpl implements ModMenuApi {
             ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
             ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
             category.addEntry(new ButtonEntry(fieldName("preview"), button -> {
-                // 'Try' button
+                // Preview button
                 config = entries.createConfig();
                 MinecraftClient.getInstance().setOverlay(
                         new PreviewSplashOverlay(500, () -> config = oldConfig)
