@@ -14,7 +14,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
-import static io.github.a5b84.darkloadingscreen.Mod.config;
+import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
 import static io.github.a5b84.darkloadingscreen.config.Config.DEFAULT;
 
 public class ModMenuApiImpl implements ModMenuApi {
@@ -34,21 +34,21 @@ public class ModMenuApiImpl implements ModMenuApi {
 
         @Override
         public Screen create(Screen parent) {
-            final ConfigBuilder builder = ConfigBuilder.create()
+            ConfigBuilder builder = ConfigBuilder.create()
                     .setParentScreen(parent)
                     .setTitle(new TranslatableText("darkLoadingScreen.config.title"));
 
             // Keep the old config in case the user wants to close without saving
-            final Config oldConfig = config;
+            Config oldConfig = config;
 
             // Fields
-            final ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
-            final ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
+            ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
+            ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
             category.addEntry(new ButtonEntry(fieldName("preview"), button -> {
                 // 'Try' button
                 config = entries.createConfig();
                 MinecraftClient.getInstance().setOverlay(
-                        new PreviewSplashScreen(500, () -> config = oldConfig)
+                        new PreviewSplashOverlay(500, () -> config = oldConfig)
                 );
             }));
 
@@ -63,12 +63,10 @@ public class ModMenuApiImpl implements ModMenuApi {
         }
 
 
-
         /** @return a {@link Text} that indentifies a field */
         private static Text fieldName(String id) {
             return new TranslatableText("darkLoadingScreen.config.entry." + id);
         }
-
 
 
         /** Class that holds/handles all the fields */
@@ -76,7 +74,7 @@ public class ModMenuApiImpl implements ModMenuApi {
 
             private final ConfigEntryBuilder builder;
             private final ConfigCategory category;
-            private final ColorEntry bgField, barField, barBgField, borderField/*, logoField*/;
+            private final ColorEntry bgField, barField, barBgField, borderField/*, logoField*/; // TODO Uncomment this when logo recoloring is fixed
             private final FloatListEntry fadeInField, fadeOutField;
 
             /** Creates all the fields and adds them to {@code category} */
@@ -88,27 +86,25 @@ public class ModMenuApiImpl implements ModMenuApi {
                 barField =    createColorField("bar",           config.bar,    DEFAULT.bar);
                 barBgField =  createColorField("barBackground", config.barBg,  DEFAULT.barBg);
                 borderField = createColorField("border",        config.border, DEFAULT.border);
-                // logoField =   createColorField("logo",          config.logo,   DEFAULT.logo);
+                // logoField =   createColorField("logo",          config.logo,   DEFAULT.logo); // TODO Uncomment this when logo recoloring is fixed
                 fadeInField =  createFadeTimeField("fadeIn",  config.fadeIn,  DEFAULT.fadeIn);
                 fadeOutField = createFadeTimeField("fadeOut", config.fadeOut, DEFAULT.fadeOut);
             }
 
 
-
             public Config createConfig() {
                 return new Config(
                         bgField.getValue(), barField.getValue(), barBgField.getValue(),
-                        borderField.getValue(), config.logo, // logoField.getValue(),
+                        borderField.getValue(), config.logo, // logoField.getValue(), // TODO Uncomment this and remove 'config.logo' when logo recoloring is fixed
                         fadeInField.getValue(), fadeOutField.getValue()
                 );
             }
 
 
-
             // Methods that create entries
 
             private ColorEntry createColorField(String id, int value, int defaultValue) {
-                final ColorEntry entry = builder.startColorField(fieldName(id), value)
+                ColorEntry entry = builder.startColorField(fieldName(id), value)
                         .setDefaultValue(defaultValue)
                         .build();
                 category.addEntry(entry);
@@ -116,7 +112,7 @@ public class ModMenuApiImpl implements ModMenuApi {
             }
 
             private FloatListEntry createFadeTimeField(String id, float value, float defaultValue) {
-                final FloatListEntry entry = builder.startFloatField(fieldName(id), value)
+                FloatListEntry entry = builder.startFloatField(fieldName(id), value)
                         .setDefaultValue(defaultValue)
                         .setMin(0).setMax(Config.MAX_FADE_DURATION)
                         .build();

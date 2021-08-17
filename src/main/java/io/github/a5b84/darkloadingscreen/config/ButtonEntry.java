@@ -20,7 +20,7 @@ public class ButtonEntry extends AbstractConfigListEntry<Void> {
 
     public ButtonEntry(Text fieldName, ButtonWidget.PressAction onPress) {
         super(fieldName, false);
-        final int width = MinecraftClient.getInstance().textRenderer.getWidth(fieldName) + 24;
+        int width = MinecraftClient.getInstance().textRenderer.getWidth(fieldName) + 24;
         button = new ButtonWidget(0, 0, width, HEIGHT, fieldName, onPress);
     }
 

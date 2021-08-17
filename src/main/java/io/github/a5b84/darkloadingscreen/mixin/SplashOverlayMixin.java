@@ -1,10 +1,10 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.github.a5b84.darkloadingscreen.Mod;
-import io.github.a5b84.darkloadingscreen.config.PreviewSplashScreen;
+import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
+import io.github.a5b84.darkloadingscreen.config.PreviewSplashOverlay;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.screen.SplashScreen;
+import net.minecraft.client.gui.screen.SplashOverlay;
 import net.minecraft.client.util.math.MatrixStack;
 import org.lwjgl.opengl.GL14;
 import org.spongepowered.asm.mixin.Final;
@@ -21,12 +21,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.IntSupplier;
 
-@Mixin(SplashScreen.class)
-public abstract class SplashScreenMixin {
+import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
 
-    /** Descriptor for {@link SplashScreen#fill(MatrixStack, int, int, int, int, int)} */
-    private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashScreen;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
+@Mixin(SplashOverlay.class)
+public abstract class SplashOverlayMixin {
 
+    /** Descriptor for {@link SplashOverlay#fill(MatrixStack, int, int, int, int, int)} */
+    private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashOverlay;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
 
 
     @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
@@ -36,14 +37,12 @@ public abstract class SplashScreenMixin {
     }
 
 
-
     /** Background */
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void adjustBg(CallbackInfo ci) {
-        BRAND_ARGB = () -> Mod.config.bg | 0xff000000;
+        BRAND_ARGB = () -> config.bg | 0xff000000;
     }
-
 
 
     // Progress bar
@@ -55,25 +54,25 @@ public abstract class SplashScreenMixin {
         // Bar background
         DrawableHelper.fill(
                 matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
-                withAlpha(Mod.config.barBg, a)
+                withAlpha(config.barBg, a)
         );
 
         // Bar border
-        return withAlpha(Mod.config.border, a);
+        return withAlpha(config.border, a);
     }
 
     /** Modifies the bar color */
     @ModifyArg(method = "renderProgressBar",
             at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 0), index = 5)
     private int adjustBarColor(int color) {
-        return Mod.config.bar | color & 0xff000000;
+        return config.bar | color & 0xff000000;
     }
 
 
-
     /** Changes the logo color */
+    // TODO Fix logo recoloring (broke in 1.17)
     // @Redirect(method = "render",
-    //         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashScreen;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
+    //         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
     private void drawLogoProxy(
         MatrixStack matrices, int x, int y, int width, int height,
         float u, float v, int regionWidth, int regionHeight,
@@ -86,18 +85,18 @@ public abstract class SplashScreenMixin {
         float alpha = RenderSystem.getShaderColor()[3];
 
         RenderSystem.setShaderColor(
-                Mod.config.logoR - Mod.config.bgR,
-                Mod.config.logoG - Mod.config.bgG,
-                Mod.config.logoB - Mod.config.bgB,
+                config.logoR - config.bgR,
+                config.logoG - config.bgG,
+                config.logoB - config.bgB,
                 alpha
         );
         DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
 
         RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
         RenderSystem.setShaderColor(
-                Mod.config.bgR - Mod.config.logoR,
-                Mod.config.bgG - Mod.config.logoG,
-                Mod.config.bgB - Mod.config.logoB,
+                config.bgR - config.logoR,
+                config.bgG - config.logoG,
+                config.bgB - config.logoB,
                 alpha
         );
         DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
@@ -107,28 +106,25 @@ public abstract class SplashScreenMixin {
     }
 
 
-
-    /** Calls {@link PreviewSplashScreen#onDone()} when the screen disappears */
+    /** Calls {@link PreviewSplashOverlay#onDone()} when the screen disappears */
     @Inject(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
     private void onSetOverlay(CallbackInfo info) {
         //noinspection ConstantConditions
-        if ((Object) this instanceof PreviewSplashScreen previewScreen) {
-            // Casting because SplashScreenMixin doesn't extend PreviewSplashScreen
+        if ((Object) this instanceof PreviewSplashOverlay previewScreen) {
             previewScreen.onDone();
         }
     }
 
 
-
-    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_IN_DURATION))
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = DarkLoadingScreen.VANILLA_FADE_IN_DURATION))
     private float getFadeInTime(float old) {
-        return Mod.config.fadeInMs;
+        return config.fadeInMs;
     }
 
-    @ModifyConstant(method = "render", constant = @Constant(floatValue = Mod.VANILLA_FADE_OUT_DURATION))
+    @ModifyConstant(method = "render", constant = @Constant(floatValue = DarkLoadingScreen.VANILLA_FADE_OUT_DURATION))
     private float getFadeOutTime(float old) {
-        return Mod.config.fadeOutMs;
+        return config.fadeOutMs;
     }
 
 }

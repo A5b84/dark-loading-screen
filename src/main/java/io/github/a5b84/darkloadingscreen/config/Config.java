@@ -5,7 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonWriter;
-import io.github.a5b84.darkloadingscreen.Mod;
+import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,12 +19,12 @@ import java.io.IOException;
 public class Config {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve(Mod.ID + ".json").toFile();
+    private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve(DarkLoadingScreen.MOD_ID + ".json").toFile();
 
     /** Factor to convert UI time (seconds) to ms */
     // (Dividing by 2 because the game waits twice as long)
-    public static final float FADE_DURATION_FACTOR = Mod.VANILLA_FADE_OUT_DURATION / 2;
-    /** Maximum fade duration (for safety) */
+    public static final float FADE_DURATION_FACTOR = DarkLoadingScreen.VANILLA_FADE_OUT_DURATION / 2;
+    /** Maximum fade duration (just in case) */
     public static final float MAX_FADE_DURATION = 5;
 
     // Colors
@@ -38,11 +38,10 @@ public class Config {
     public final float fadeInMs, fadeOutMs;
 
 
-
     public static final Config DEFAULT = new Config(
             0x14181c, 0xe22837, 0x14181c, 0x303336, 0xffffff,
-            Mod.VANILLA_FADE_IN_DURATION / FADE_DURATION_FACTOR,
-            Mod.VANILLA_FADE_OUT_DURATION / FADE_DURATION_FACTOR
+            DarkLoadingScreen.VANILLA_FADE_IN_DURATION / FADE_DURATION_FACTOR,
+            DarkLoadingScreen.VANILLA_FADE_OUT_DURATION / FADE_DURATION_FACTOR
     );
 
 
@@ -80,14 +79,13 @@ public class Config {
     }
 
 
-
     /** Reads the config in the config folder */
     public static Config read() {
-        try (final FileReader fr = new FileReader(CONFIG_FILE)) {
-            final JsonElement el = new JsonParser().parse(fr);
+        try (FileReader reader = new FileReader(CONFIG_FILE)) {
+            JsonElement el = new JsonParser().parse(reader);
             if (!el.isJsonObject()) return DEFAULT;
 
-            final JsonObject o = el.getAsJsonObject();
+            JsonObject o = el.getAsJsonObject();
             return new Config(
                     readColor(o, "background",    DEFAULT.bg),
                     readColor(o, "bar",           DEFAULT.bar),
@@ -97,9 +95,9 @@ public class Config {
                     readFloat(o, "fadeIn",        DEFAULT.fadeIn),
                     readFloat(o, "fadeOut",       DEFAULT.fadeOut)
             );
-        } catch (FileNotFoundException | JsonSyntaxException e) {
+        } catch (FileNotFoundException e) {
             return DEFAULT;
-        } catch (IOException e) {
+        } catch (IOException | JsonSyntaxException e) {
             LOGGER.error("[Dark Loading Screen] Couldn't read " + CONFIG_FILE + ", using default settings instead");
             e.printStackTrace();
             return DEFAULT;
@@ -109,7 +107,7 @@ public class Config {
     /** Reads a color from a {@link JsonObject} */
     private static int readColor(JsonObject o, String key, int fallback) {
         // Reading
-        final JsonElement el = o.get(key);
+        JsonElement el = o.get(key);
         if (el == null) return fallback;
 
         String str;
@@ -139,7 +137,7 @@ public class Config {
 
     private static float readFloat(JsonObject o, String key, float fallback) {
         // Reading
-        final JsonElement el = o.get(key);
+        JsonElement el = o.get(key);
         if (el == null) return fallback;
 
         try {
@@ -150,12 +148,11 @@ public class Config {
     }
 
 
-
     public void write() {
         if (equals(DEFAULT)) {
             // Delete the config file when using the default one
             try {
-                final File file = CONFIG_FILE;
+                File file = CONFIG_FILE;
                 if (file.exists() && !file.delete()) {
                     LOGGER.error("[Dark Loading Screen] Couldn't delete settings file " + CONFIG_FILE);
                 }
@@ -168,11 +165,11 @@ public class Config {
 
         // Writing
         try (
-                final FileWriter fw = new FileWriter(CONFIG_FILE);
-                final JsonWriter jw = new JsonWriter(fw)
+                FileWriter fileWriter = new FileWriter(CONFIG_FILE);
+                JsonWriter jsonWriter = new JsonWriter(fileWriter)
         ) {
-            jw.setIndent("    ");
-            jw.beginObject()
+            jsonWriter.setIndent("    ");
+            jsonWriter.beginObject()
             .name("background").value(colorToString(bg))
             .name("bar").value(colorToString(bar))
             .name("barBackground").value(colorToString(barBg))
@@ -181,7 +178,6 @@ public class Config {
             .name("fadeIn").value(fadeIn)
             .name("fadeOut").value(fadeOut)
             .endObject();
-
         } catch (IOException e) {
             LOGGER.error("[Dark Loading Screen] Couldn't write settings to " + CONFIG_FILE);
             e.printStackTrace();
@@ -189,26 +185,25 @@ public class Config {
     }
 
     private static String colorToString(int color) {
-        // TODO replace with String#repeat when moving to Java 11+
-        final String s = "00000" + Integer.toString(color, 16);
-        return s.substring(s.length() - 6); // Last 6 characters
+        String s = Integer.toString(color, 16);
+        int leadingZeroes = 6 - s.length();
+        return leadingZeroes > 0 ? "0".repeat(leadingZeroes) + s : s;
+        // leadingZeroes should always be >= 0 but just in case
     }
-
 
 
     @Override
     public boolean equals(Object o) {
-        if (o == this) return true;
-        if (!(o instanceof Config)) return false;
+        if (this == o) return true;
+        if (!(o instanceof Config config)) return false;
 
-        final Config config = (Config) o;
         return bg == config.bg
-            && bar == config.bar
-            && barBg == config.barBg
-            && border == config.border
-            && logo == config.logo
-            && fadeIn == config.fadeIn
-            && fadeOut == config.fadeOut;
+                && bar == config.bar
+                && barBg == config.barBg
+                && border == config.border
+                && logo == config.logo
+                && fadeIn == config.fadeIn
+                && fadeOut == config.fadeOut;
     }
 
 }
