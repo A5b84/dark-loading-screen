@@ -12,7 +12,7 @@
 
 ---
 
-### [1.6.8]
+### [1.6.8] & [1.6.9]
 - Fixed logo recoloring
 
 ### [1.6.7]
@@ -150,3 +150,4 @@
 [1.6.6]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.6
 [1.6.7]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.7
 [1.6.8]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.8
+[1.6.9]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.9

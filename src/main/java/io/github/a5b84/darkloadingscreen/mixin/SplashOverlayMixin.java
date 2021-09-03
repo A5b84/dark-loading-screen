@@ -73,13 +73,9 @@ public abstract class SplashOverlayMixin {
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V", ordinal = 0))
     private void onBeforeRenderLogo(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         float[] shaderColor = RenderSystem.getShaderColor();
-        if (skipNextLogoAndBarRendering) {
-            shaderColor[0] = shaderColor[1] = shaderColor[2] = 0;
-        } else {
-            shaderColor[0] = config.logoR - config.bgR;
-            shaderColor[1] = config.logoG - config.bgG;
-            shaderColor[2] = config.logoB - config.bgB;
-        }
+        shaderColor[0] = config.logoR - config.bgR;
+        shaderColor[1] = config.logoG - config.bgG;
+        shaderColor[2] = config.logoB - config.bgB;
     }
 
     /**
@@ -102,18 +98,14 @@ public abstract class SplashOverlayMixin {
             locals = LocalCapture.CAPTURE_FAILEXCEPTION)
     private void drawLogoProxy(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci, int scaledWidth, int scaledHeight, long now, float fadeOutProgress, float fadeInProgress, float alpha, int x, int y, double height, int halfHeight, double width, int halfWidth) {
         float[] shaderColor = RenderSystem.getShaderColor();
+        RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
+        shaderColor[0] *= -1;
+        shaderColor[1] *= -1;
+        shaderColor[2] *= -1;
+        DrawableHelper.drawTexture(matrices, x - halfWidth, y - halfHeight, halfWidth, (int) height, -0.0625F, 0, 120, 60, 120, 120);
+        DrawableHelper.drawTexture(matrices, x, y - halfHeight, halfWidth, (int) height, 0.0625F, 60, 120, 60, 120, 120);
 
-        if (!skipNextLogoAndBarRendering) {
-            RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
-            shaderColor[0] *= -1;
-            shaderColor[1] *= -1;
-            shaderColor[2] *= -1;
-            DrawableHelper.drawTexture(matrices, x - halfWidth, y - halfHeight, halfWidth, (int)height, -0.0625F, 0.0F, 120, 60, 120, 120);
-            DrawableHelper.drawTexture(matrices, x, y - halfHeight, halfWidth, (int)height, 0.0625F, 60.0F, 120, 60, 120, 120);
-
-            RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
-        }
-
+        RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
         shaderColor[0] = 1;
         shaderColor[1] = 1;
         shaderColor[2] = 1;
@@ -158,16 +150,13 @@ public abstract class SplashOverlayMixin {
         }
     }
 
-    @Inject(method = "renderProgressBar", at = @At("HEAD"), cancellable = true)
-    private void onBeforeRenderProgressBar(CallbackInfo ci) {
+    @Inject(method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getWindow()Lnet/minecraft/client/util/Window;", ordinal = 2), cancellable = true)
+    private void onBeforeBeforeLogo(CallbackInfo ci) {
         if (skipNextLogoAndBarRendering) {
             ci.cancel();
+            skipNextLogoAndBarRendering = false;
         }
-    }
-
-    @Inject(method = "render", at = @At("RETURN"))
-    private void onAfterRender(CallbackInfo ci) {
-        skipNextLogoAndBarRendering = false;
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
