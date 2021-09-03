@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.IntSupplier;
@@ -28,12 +29,15 @@ public abstract class SplashOverlayMixin {
 
     @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
 
+    @Shadow @Final private boolean reloading;
+
+
 
     /** Changes the background color */
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void adjustBg(CallbackInfo ci) {
-        BRAND_ARGB = () -> config.bg | 0xff000000;
+        BRAND_ARGB = () -> config.bg;
     }
 
 
@@ -64,14 +68,15 @@ public abstract class SplashOverlayMixin {
 
     /** Changes the logo color */
     // TODO Fix logo recoloring (broke in 1.17)
-    // @Redirect(method = "render",
-    //         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
-    @Unique
+    @Redirect(method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
     private void drawLogoProxy(
         MatrixStack matrices, int x, int y, int width, int height,
         float u, float v, int regionWidth, int regionHeight,
         int textureWidth, int textureHeight
     ) {
+        if (skipNextLogoAndBarRendering) return;
+
         // `RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)`
         // causes an ugly outline so we add/substract the difference between
         // the logo and the background instead
@@ -119,6 +124,43 @@ public abstract class SplashOverlayMixin {
     @ModifyConstant(method = "render", constant = @Constant(floatValue = DarkLoadingScreen.VANILLA_FADE_OUT_DURATION))
     private float getFadeOutTime(float old) {
         return config.fadeOutMs;
+    }
+
+
+    // Hacky stuff about skipping rendering
+    // TODO: find a way to remove this eventually
+
+    @Unique private boolean skipNextLogoAndBarRendering;
+    @Unique private boolean initialReloadComplete;
+
+    /** Skips the next frame to prevent the logo from getting rendered twice
+     * (for whatever reason) causing it to render twice as bright */
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V"))
+    private void onRenderScreen(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (!initialReloadComplete) {
+            initialReloadComplete = true;
+            skipNextLogoAndBarRendering = true;
+        }
+    }
+
+    @Inject(method = "renderProgressBar", at = @At("HEAD"), cancellable = true)
+    private void onBeforeRenderProgressBar(CallbackInfo ci) {
+        if (skipNextLogoAndBarRendering) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "render", at = @At("RETURN"))
+    private void onAfterRender(CallbackInfo ci) {
+        skipNextLogoAndBarRendering = false;
+    }
+
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(CallbackInfo ci) {
+        // The logo renders black the first frame when RenderSystem#blendEquation
+        // is called, so we just skip the frame
+        skipNextLogoAndBarRendering = !reloading;
+        initialReloadComplete = reloading;
     }
 
 }

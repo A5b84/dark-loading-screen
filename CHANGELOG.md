@@ -12,6 +12,9 @@
 
 ---
 
+### [1.6.8]
+- Fixed logo recoloring
+
 ### [1.6.7]
 - Fixed a rare(?) crash on startup ([#18](https://github.com/A5b84/dark-loading-screen/issues/18))
 
@@ -146,3 +149,4 @@
 [1.6.5]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.5
 [1.6.6]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.6
 [1.6.7]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.7
+[1.6.8]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.8

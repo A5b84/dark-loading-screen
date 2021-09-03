@@ -74,7 +74,7 @@ public class ModMenuApiImpl implements ModMenuApi {
 
             private final ConfigEntryBuilder builder;
             private final ConfigCategory category;
-            private final ColorEntry bgField, barField, barBgField, borderField/*, logoField*/; // TODO Uncomment this when logo recoloring is fixed
+            private final ColorEntry bgField, barField, barBgField, borderField, logoField;
             private final FloatListEntry fadeInField, fadeOutField;
 
             /** Creates all the fields and adds them to {@code category} */
@@ -86,7 +86,7 @@ public class ModMenuApiImpl implements ModMenuApi {
                 barField =    createColorField("bar",           config.bar,    DEFAULT.bar);
                 barBgField =  createColorField("barBackground", config.barBg,  DEFAULT.barBg);
                 borderField = createColorField("border",        config.border, DEFAULT.border);
-                // logoField =   createColorField("logo",          config.logo,   DEFAULT.logo); // TODO Uncomment this when logo recoloring is fixed
+                logoField =   createColorField("logo",          config.logo,   DEFAULT.logo);
                 fadeInField =  createFadeTimeField("fadeIn",  config.fadeIn,  DEFAULT.fadeIn);
                 fadeOutField = createFadeTimeField("fadeOut", config.fadeOut, DEFAULT.fadeOut);
             }
@@ -95,7 +95,7 @@ public class ModMenuApiImpl implements ModMenuApi {
             public Config createConfig() {
                 return new Config(
                         bgField.getValue(), barField.getValue(), barBgField.getValue(),
-                        borderField.getValue(), config.logo, // logoField.getValue(), // TODO Uncomment this and remove 'config.logo' when logo recoloring is fixed
+                        borderField.getValue(), logoField.getValue(),
                         fadeInField.getValue(), fadeOutField.getValue()
                 );
             }
