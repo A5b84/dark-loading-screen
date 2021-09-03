@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.IntSupplier;
@@ -26,18 +26,10 @@ import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
 @Mixin(SplashOverlay.class)
 public abstract class SplashOverlayMixin {
 
-    /** Descriptor for {@link SplashOverlay#fill(MatrixStack, int, int, int, int, int)} */
-    private static final String FILL_DESC = "Lnet/minecraft/client/gui/screen/SplashOverlay;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V";
-
-
     @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
 
-    @Shadow private static int withAlpha(int color, int alpha) {
-        return 0;
-    }
 
-
-    /** Background */
+    /** Changes the background color */
     @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void adjustBg(CallbackInfo ci) {
@@ -47,25 +39,26 @@ public abstract class SplashOverlayMixin {
 
     // Progress bar
 
-    /** Changes the progress bar border color and draws its background */
-    @Redirect(method = "renderProgressBar",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/BackgroundHelper$ColorMixer;getArgb(IIII)I"))
-    private int progressBarBorderProxy(int a, int r, int g, int b, MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity) {
-        // Bar background
-        DrawableHelper.fill(
-                matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
-                withAlpha(config.barBg, a)
-        );
+    /** Renders the bar background and changes the color to the main bar color */
+    @ModifyVariable(method = "renderProgressBar",
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/gui/hud/BackgroundHelper$ColorMixer;getArgb(IIII)I"),
+            ordinal = 6)
+    private int modifyBarColor(int barColor, MatrixStack matrices, int x1, int y1, int x2, int y2) {
+        int alpha = barColor & 0xff000000;
 
-        // Bar border
-        return withAlpha(config.border, a);
+        // Bar background
+        DrawableHelper.fill(matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1,
+                config.barBg | alpha);
+
+        return config.bar | alpha;
     }
 
-    /** Modifies the bar color */
-    @ModifyArg(method = "renderProgressBar",
-            at = @At(value = "INVOKE", target = FILL_DESC, ordinal = 0), index = 5)
-    private int adjustBarColor(int color) {
-        return config.bar | color & 0xff000000;
+    /** Changes the color to the bar border color */
+    @ModifyVariable(method = "renderProgressBar",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V", ordinal = 0, shift = At.Shift.AFTER),
+            ordinal = 6)
+    private int modifyBarBorderColor(int color) {
+        return config.border | color & 0xff000000;
     }
 
 
@@ -73,6 +66,7 @@ public abstract class SplashOverlayMixin {
     // TODO Fix logo recoloring (broke in 1.17)
     // @Redirect(method = "render",
     //         at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
+    @Unique
     private void drawLogoProxy(
         MatrixStack matrices, int x, int y, int width, int height,
         float u, float v, int regionWidth, int regionHeight,
