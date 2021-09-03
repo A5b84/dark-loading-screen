@@ -17,8 +17,8 @@ import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.util.function.IntSupplier;
 
@@ -30,8 +30,6 @@ public abstract class SplashOverlayMixin {
     @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
 
     @Shadow @Final private boolean reloading;
-
-
 
     /** Changes the background color */
     @SuppressWarnings("UnresolvedMixinReference")
@@ -65,43 +63,60 @@ public abstract class SplashOverlayMixin {
         return config.border | color & 0xff000000;
     }
 
+    // Logo color
+    // `RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)`
+    // causes an ugly outline so we add/substract the difference between
+    // the logo and the background instead
 
-    /** Changes the logo color */
-    // TODO Fix logo recoloring (broke in 1.17)
-    @Redirect(method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V"))
-    private void drawLogoProxy(
-        MatrixStack matrices, int x, int y, int width, int height,
-        float u, float v, int regionWidth, int regionHeight,
-        int textureWidth, int textureHeight
-    ) {
-        if (skipNextLogoAndBarRendering) return;
+    /** Changes the logo color to render the parts brighter than the background */
+    @Inject(method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V", ordinal = 0))
+    private void onBeforeRenderLogo(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        float[] shaderColor = RenderSystem.getShaderColor();
+        if (skipNextLogoAndBarRendering) {
+            shaderColor[0] = shaderColor[1] = shaderColor[2] = 0;
+        } else {
+            shaderColor[0] = config.logoR - config.bgR;
+            shaderColor[1] = config.logoG - config.bgG;
+            shaderColor[2] = config.logoB - config.bgB;
+        }
+    }
 
-        // `RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)`
-        // causes an ugly outline so we add/substract the difference between
-        // the logo and the background instead
+    /**
+     * Original names for future reference:
+     * @param scaledWidth i
+     * @param scaledHeight j
+     * @param now l
+     * @param fadeOutProgress f
+     * @param fadeInProgress g
+     * @param alpha s
+     * @param x t
+     * @param y u
+     * @param height d
+     * @param halfHeight v
+     * @param width e
+     * @param halfWidth w
+     */
+    @Inject(method = "render",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V", ordinal = 1, shift = At.Shift.AFTER),
+            locals = LocalCapture.CAPTURE_FAILEXCEPTION)
+    private void drawLogoProxy(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci, int scaledWidth, int scaledHeight, long now, float fadeOutProgress, float fadeInProgress, float alpha, int x, int y, double height, int halfHeight, double width, int halfWidth) {
+        float[] shaderColor = RenderSystem.getShaderColor();
 
-        float alpha = RenderSystem.getShaderColor()[3];
+        if (!skipNextLogoAndBarRendering) {
+            RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
+            shaderColor[0] *= -1;
+            shaderColor[1] *= -1;
+            shaderColor[2] *= -1;
+            DrawableHelper.drawTexture(matrices, x - halfWidth, y - halfHeight, halfWidth, (int)height, -0.0625F, 0.0F, 120, 60, 120, 120);
+            DrawableHelper.drawTexture(matrices, x, y - halfHeight, halfWidth, (int)height, 0.0625F, 60.0F, 120, 60, 120, 120);
 
-        RenderSystem.setShaderColor(
-                config.logoR - config.bgR,
-                config.logoG - config.bgG,
-                config.logoB - config.bgB,
-                alpha
-        );
-        DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
+            RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
+        }
 
-        RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
-        RenderSystem.setShaderColor(
-                config.bgR - config.logoR,
-                config.bgG - config.logoG,
-                config.bgB - config.logoB,
-                alpha
-        );
-        DrawableHelper.drawTexture(matrices, x, y, width, height, u, v, regionWidth, regionHeight, textureWidth, textureHeight);
-
-        RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
-        RenderSystem.setShaderColor(1, 1, 1, alpha);
+        shaderColor[0] = 1;
+        shaderColor[1] = 1;
+        shaderColor[2] = 1;
     }
 
 
