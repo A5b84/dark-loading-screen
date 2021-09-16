@@ -13,7 +13,7 @@
 ---
 
 ### [1.6.10]
-- Added [Semitranslucency Fix](https://modrinth.com/mod/semitranslucency) compatibility ([#20])
+- Added [Semitranslucency Fix](https://modrinth.com/mod/semitranslucency) compatibility ([#20](https://github.com/A5b84/dark-loading-screen/issues/20))
 
 ### [1.6.8] & [1.6.9]
 - Fixed logo recoloring
