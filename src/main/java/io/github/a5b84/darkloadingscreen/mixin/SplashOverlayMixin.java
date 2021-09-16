@@ -112,13 +112,13 @@ public abstract class SplashOverlayMixin {
     }
 
 
-    /** Calls {@link PreviewSplashOverlay#onDone()} when the screen disappears */
+    /** Calls {@link PreviewSplashOverlay#onRemoved()} when the overlay is removed */
     @Inject(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
     private void onSetOverlay(CallbackInfo info) {
         //noinspection ConstantConditions
         if ((Object) this instanceof PreviewSplashOverlay previewScreen) {
-            previewScreen.onDone();
+            previewScreen.onRemoved();
         }
     }
 
@@ -140,8 +140,19 @@ public abstract class SplashOverlayMixin {
     @Unique private boolean skipNextLogoAndBarRendering;
     @Unique private boolean initialReloadComplete;
 
-    /** Skips the next frame to prevent the logo from getting rendered twice
-     * (for whatever reason) causing it to render twice as bright */
+    @Inject(method = "<init>", at = @At("RETURN"))
+    private void onInit(CallbackInfo ci) {
+        // The logo renders black the first frame when RenderSystem#blendEquation
+        // is called, so we just skip the frame
+        skipNextLogoAndBarRendering = !reloading;
+        initialReloadComplete = reloading;
+    }
+
+    /**
+     * Skips the frame when the overlay starts fading out to prevent the logo
+     * from getting rendered twice (for whatever reason) causing it to appear
+     * twice as bright
+     */
     @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V"))
     private void onRenderScreen(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (!initialReloadComplete) {
@@ -150,6 +161,7 @@ public abstract class SplashOverlayMixin {
         }
     }
 
+    /** Skips rendering when {@link #skipNextLogoAndBarRendering} is true */
     @Inject(method = "render",
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getWindow()Lnet/minecraft/client/util/Window;", ordinal = 2), cancellable = true)
     private void onBeforeBeforeLogo(CallbackInfo ci) {
@@ -157,14 +169,6 @@ public abstract class SplashOverlayMixin {
             ci.cancel();
             skipNextLogoAndBarRendering = false;
         }
-    }
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void onInit(CallbackInfo ci) {
-        // The logo renders black the first frame when RenderSystem#blendEquation
-        // is called, so we just skip the frame
-        skipNextLogoAndBarRendering = !reloading;
-        initialReloadComplete = reloading;
     }
 
 }

@@ -119,30 +119,32 @@ public class Config {
 
         // String -> int conversion
         try {
-            // `rgb` format (retro-compatibility)
+            // 0xRGB format (for older versions that didn't use Cloth Config)
             if (str.length() == 3) {
                 int color = Integer.parseInt(str, 16);
-                // #rgb -> #rrggbb conversion
+                // 0xRGB -> 0xRRGGBB conversion
                 return (((color & 0xf00) << 8) + ((color & 0x0f0) << 4) + (color & 0x00f)) * 0x11;
             }
 
-            // `rrggbb` format (cloth config)
+            // 0xRRGGBB format (Cloth Config)
             if (str.length() == 6) {
                 return Integer.parseInt(str, 16);
             }
         } catch (NumberFormatException ignored) {}
 
-        return fallback; // Error or unknown format
+        // Error or unknown format
+        LOGGER.warn("[Dark Loading Screen] Invalid color '{}' for option '{}'", str, key);
+        return fallback;
     }
 
     private static float readFloat(JsonObject o, String key, float fallback) {
-        // Reading
         JsonElement el = o.get(key);
         if (el == null) return fallback;
 
         try {
             return el.getAsFloat();
         } catch (ClassCastException | IllegalStateException e) {
+            LOGGER.warn("[Dark Loading Screen] Invalid float '{}' for option '{}'", el, key);
             return fallback;
         }
     }

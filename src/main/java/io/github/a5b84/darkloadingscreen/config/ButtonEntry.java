@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-/** Button entry for Cloth Config */
+/** Clickable button entry for Cloth Config that doesn't hold any data */
 public class ButtonEntry extends AbstractConfigListEntry<Void> {
 
     private static final int HEIGHT = 20;
@@ -41,14 +41,14 @@ public class ButtonEntry extends AbstractConfigListEntry<Void> {
     @Override
     public void save() {}
 
-    private List<ButtonWidget> ch() {
+    private List<ButtonWidget> children0() {
         return Collections.singletonList(button);
     }
 
     @Override
-    public List<? extends Element> children() { return ch(); }
+    public List<? extends Element> children() { return children0(); }
 
     @Override
-    public List<? extends Selectable> narratables() { return ch(); }
+    public List<? extends Selectable> narratables() { return children0(); }
 
 }
