@@ -12,6 +12,9 @@
 
 ---
 
+### [1.6.11]
+- Fixed a crash on startup with OptiFine ([#17](https://github.com/A5b84/dark-loading-screen/issues/17), [#19](https://github.com/A5b84/dark-loading-screen/issues/19), [#21](https://github.com/A5b84/dark-loading-screen/issues/21))
+
 ### [1.6.10]
 - Added [Semitranslucency Fix](https://modrinth.com/mod/semitranslucency) compatibility ([#20](https://github.com/A5b84/dark-loading-screen/issues/20))
 
@@ -155,3 +158,4 @@
 [1.6.8]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.8
 [1.6.9]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.9
 [1.6.10]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.10
+[1.6.11]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.11

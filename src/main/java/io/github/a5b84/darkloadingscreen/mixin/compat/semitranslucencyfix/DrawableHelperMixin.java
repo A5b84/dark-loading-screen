@@ -1,4 +1,4 @@
-package io.github.a5b84.darkloadingscreen.mixin.compat;
+package io.github.a5b84.darkloadingscreen.mixin.compat.semitranslucencyfix;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;

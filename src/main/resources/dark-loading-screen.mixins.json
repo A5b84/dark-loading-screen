@@ -5,8 +5,10 @@
   "plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinPlugin",
   "compatibilityLevel": "JAVA_16",
   "client": [
-    "compat.DrawableHelperMixin",
+    "compat.optifine.SplashOverlayMixin",
+    "compat.semitranslucencyfix.DrawableHelperMixin",
     "SplashOverlayMixin",
+    "SplashOverlayMixinNoOptifine",
     "WindowMixin"
   ],
   "injectors": {
