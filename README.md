@@ -27,6 +27,7 @@ Manual changes are only visible after restarting the game.
 - Config screen made using [shedaniel](https://www.curseforge.com/members/shedaniel/projects)'s [Cloth Config]
 - Logo coloring suggested by [Minenash](https://github.com/Minenash)
 - Bar background coloring suggested by [Chrisblox](https://github.com/Chrisblox)
+- `bg_bg` translation by [natee22](https://github.com/natee22)
 - `de_de` translation by [Der_Anderl](https://www.curseforge.com/members/der_anderl/)
 - `es_xx` translations by [Haseck](https://github.com/Haseck)
 - `pl_pl` translation by [DarkKnightComes](https://github.com/DarkKnightComes) and [goodideagiver](https://github.com/goodideagiver)
