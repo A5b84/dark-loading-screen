@@ -1,0 +1,11 @@
+{
+    "darkLoadingScreen.config.title": "Dark Loading Screen 환경설정",
+    "darkLoadingScreen.config.entry.background": "배경 색상",
+    "darkLoadingScreen.config.entry.bar": "바 색상",
+    "darkLoadingScreen.config.entry.barBackground": "바 배경 색상",
+    "darkLoadingScreen.config.entry.border": "바 테두리 색상",
+    "darkLoadingScreen.config.entry.logo": "로고 색상",
+    "darkLoadingScreen.config.entry.fadeIn": "페이드 인 지속 시간",
+    "darkLoadingScreen.config.entry.fadeOut": "페이드 아웃 지속 시간",
+    "darkLoadingScreen.config.entry.preview": "미리보기"
+}
