@@ -12,6 +12,10 @@
 
 ---
 
+### [1.6.12]
+- Added `bg_bg` translation by [@natee22](https://github.com/natee22) ([#23](https://github.com/A5b84/dark-loading-screen/issues/25))
+- Added `ko_kr` translation by [@gyular](https://github.com/gyular) ([#25](https://github.com/A5b84/dark-loading-screen/pull/25))
+
 ### [1.6.11]
 - Fixed a crash on startup with OptiFine ([#17](https://github.com/A5b84/dark-loading-screen/issues/17), [#19](https://github.com/A5b84/dark-loading-screen/issues/19), [#21](https://github.com/A5b84/dark-loading-screen/issues/21))
 
@@ -120,15 +124,16 @@
 ---
 
 ### Compatibility table
-|     Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2-1.16.5 | 1.17 |
-|------------:|:-----------:|:-------------:|:-------------:|:-------------:|:-----:|
-| 1.0.0-1.2.0 | X
-|       1.2.1 | X           | X
-| 1.2.2-1.4.2 | X           | X             | X
-| 1.4.3-1.5.0 | X           | X             | X             | X
-| 1.6.0-1.6.3 |             |               | X             | X
-| 1.6.4+      |             |               |               |               | X
+|     Version | 1.14-20w16a | 20w17a-20w21a | 20w22a-1.16.1 | 1.16.2-1.16.5 |
+|------------:|:-----------:|:-------------:|:-------------:|:-------------:|
+| 1.0.0-1.2.0 |      X      |               |               |               |
+|       1.2.1 |      X      |       X       |               |               |
+| 1.2.2-1.4.2 |      X      |       X       |       X       |               |
+| 1.4.3-1.5.0 |      X      |       X       |       X       |       X       |
+| 1.6.0-1.6.3 |             |               |       X       |       X       |
 
+- 1.6.4-1.6.11: Minecraft 1.17-1.18.2
+- 1.6.12+: Minecraft 1.19+
 
 
 [1.0.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.0.0
@@ -159,3 +164,4 @@
 [1.6.9]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.9
 [1.6.10]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.10
 [1.6.11]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.11
+[1.6.12]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.12
