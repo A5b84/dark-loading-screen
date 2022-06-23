@@ -27,7 +27,6 @@ public abstract class SplashOverlayMixin {
     @Shadow @Final private boolean reloading;
 
     /** Changes the background color */
-    @SuppressWarnings("UnresolvedMixinReference")
     @Inject(method = "<clinit>", at = @At("RETURN"))
     private static void adjustBg(CallbackInfo ci) {
         BRAND_ARGB = () -> config.bg;

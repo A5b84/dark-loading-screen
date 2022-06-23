@@ -4,10 +4,7 @@ import io.github.a5b84.darkloadingscreen.SharedMixinMethods;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.SplashOverlay;
 import net.minecraft.client.util.math.MatrixStack;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -23,7 +20,7 @@ public abstract class SplashOverlayMixinNoOptifine {
 
     /** Renders the bar background and changes the main bar color */
     @ModifyVariable(method = "renderProgressBar",
-            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/client/gui/hud/BackgroundHelper$ColorMixer;getArgb(IIII)I"),
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/math/ColorHelper$Argb;getArgb(IIII)I"),
             ordinal = 6)
     private int modifyBarColor(int barColor, MatrixStack matrices, int x1, int y1, int x2, int y2) {
         int alpha = barColor & 0xff000000;

@@ -8,9 +8,7 @@ import me.shedaniel.clothconfig2.gui.entries.ColorEntry;
 import me.shedaniel.clothconfig2.gui.entries.FloatListEntry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 
 import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
 import static io.github.a5b84.darkloadingscreen.config.Config.DEFAULT;
@@ -21,13 +19,13 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
     public Screen create(Screen parent) {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
-                .setTitle(new TranslatableText("darkLoadingScreen.config.title"));
+                .setTitle(Text.translatable("darkLoadingScreen.config.title"));
 
         // Keep the old config in case the user wants to close without saving
         Config oldConfig = config;
 
         // Fields
-        ConfigCategory category = builder.getOrCreateCategory(new LiteralText(""));
+        ConfigCategory category = builder.getOrCreateCategory(Text.empty());
         ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
         category.addEntry(new ButtonEntry(fieldName("preview"), button -> {
             // Preview button
@@ -50,7 +48,7 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
 
     /** @return a {@link Text} that indentifies a field */
     private static Text fieldName(String id) {
-        return new TranslatableText("darkLoadingScreen.config.entry." + id);
+        return Text.translatable("darkLoadingScreen.config.entry." + id);
     }
 
 

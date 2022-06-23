@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(DrawableHelper.class)
-public class DrawableHelperMixin {
+public abstract class DrawableHelperMixin {
 
     /**
-     * Adds compatibility for Semitranslucency Fix (https://modrinth.com/mod/semitranslucency)
+     * Adds compatibility for Semitranslucency Fix (<a href="https://modrinth.com/mod/semitranslucency">link</a>)
      * by undoing what it does when the {@link SplashOverlay} is visible
-     * (https://github.com/ruvaldak/Semitranslucency/blob/a70656c2e1b504417abc75e00a6a8797ed21471e/src/main/java/net/ims/semitranslucency/mixin/MixinDrawableHelper.java#L16)
+     * (<a href="https://github.com/ruvaldak/Semitranslucency/blob/a70656c2e1b504417abc75e00a6a8797ed21471e/src/main/java/net/ims/semitranslucency/mixin/MixinDrawableHelper.java#L16">relevant method</a>)
      * @see SplashOverlay#render
      */
     @Inject(method = "drawTexturedQuad", at = @At(value = "HEAD", shift = At.Shift.AFTER))

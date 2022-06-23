@@ -38,7 +38,7 @@ public abstract class SplashOverlayMixin {
 
     /** Changes the progress bar border color and draws its background */
     @Redirect(method = "renderProgressBar",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/BackgroundHelper$ColorMixer;getArgb(IIII)I"))
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/ColorHelper$Argb;getArgb(IIII)I"))
     private int progressBarBorderProxy(int a, int r, int g, int b, MatrixStack matrices, int x1, int y1, int x2, int y2, float opacity) {
         // Bar border
         return withAlpha(config.border, a);
