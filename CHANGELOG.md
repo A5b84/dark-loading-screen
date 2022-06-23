@@ -13,8 +13,9 @@
 ---
 
 ### [1.6.12]
-- Added `bg_bg` translation by [@natee22](https://github.com/natee22) ([#23](https://github.com/A5b84/dark-loading-screen/issues/25))
+- Added `bg_bg` translation by [@natee22](https://github.com/natee22) ([#23](https://github.com/A5b84/dark-loading-screen/issues/23))
 - Added `ko_kr` translation by [@gyular](https://github.com/gyular) ([#25](https://github.com/A5b84/dark-loading-screen/pull/25))
+- Fixed the config screen not being accessible in 1.19 ([#24](https://github.com/A5b84/dark-loading-screen/issues/24))
 
 ### [1.6.11]
 - Fixed a crash on startup with OptiFine ([#17](https://github.com/A5b84/dark-loading-screen/issues/17), [#19](https://github.com/A5b84/dark-loading-screen/issues/19), [#21](https://github.com/A5b84/dark-loading-screen/issues/21))
