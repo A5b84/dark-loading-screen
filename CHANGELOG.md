@@ -12,6 +12,9 @@
 
 ---
 
+### Unreleased
+- `zh_cn` translation updated by [@GodGun968](https://github.com/GodGun968) ([#26](https://github.com/A5b84/dark-loading-screen/pull/26))
+
 ### [1.6.12]
 - Added `bg_bg` translation by [@natee22](https://github.com/natee22) ([#23](https://github.com/A5b84/dark-loading-screen/issues/23))
 - Added `ko_kr` translation by [@gyular](https://github.com/gyular) ([#25](https://github.com/A5b84/dark-loading-screen/pull/25))
