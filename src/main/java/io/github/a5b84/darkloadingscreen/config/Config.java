@@ -82,7 +82,7 @@ public class Config {
     /** Reads the config in the config folder */
     public static Config read() {
         try (FileReader reader = new FileReader(CONFIG_FILE)) {
-            JsonElement el = new JsonParser().parse(reader);
+            JsonElement el = JsonParser.parseReader(reader);
             if (!el.isJsonObject()) return DEFAULT;
 
             JsonObject o = el.getAsJsonObject();

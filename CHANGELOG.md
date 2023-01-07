@@ -12,8 +12,9 @@
 
 ---
 
-### Unreleased
+### [1.6.13]
 - `zh_cn` translation updated by [@GodGun968](https://github.com/GodGun968) ([#26](https://github.com/A5b84/dark-loading-screen/pull/26))
+- Fixed the config screen not being accessible in 1.19.3 ([#28](https://github.com/A5b84/dark-loading-screen/issues/28))
 
 ### [1.6.12]
 - Added `bg_bg` translation by [@natee22](https://github.com/natee22) ([#23](https://github.com/A5b84/dark-loading-screen/issues/23))
@@ -169,3 +170,4 @@
 [1.6.10]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.10
 [1.6.11]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.11
 [1.6.12]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.12
+[1.6.13]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.13
