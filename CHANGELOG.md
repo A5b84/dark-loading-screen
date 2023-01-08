@@ -12,6 +12,9 @@
 
 ---
 
+### Unreleased
+- Added `pt_br` translation by [@FITFC](https://github.com/FITFC) ([#29](https://github.com/A5b84/dark-loading-screen/pull/29))
+
 ### [1.6.13]
 - `zh_cn` translation updated by [@GodGun968](https://github.com/GodGun968) ([#26](https://github.com/A5b84/dark-loading-screen/pull/26))
 - Fixed the config screen not being accessible in 1.19.3 ([#28](https://github.com/A5b84/dark-loading-screen/issues/28))

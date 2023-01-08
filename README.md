@@ -32,6 +32,7 @@ Manual changes are only visible after restarting the game.
 - `es_xx` translations by [Haseck](https://github.com/Haseck)
 - `ko_kr` translation by [gyular](https://github.com/gyular)
 - `pl_pl` translation by [DarkKnightComes](https://github.com/DarkKnightComes) and [goodideagiver](https://github.com/goodideagiver)
+- `pt_br` translation by [FITFC](https://github.com/FITFC)
 - `ru_ru` translation by [Felix14-v2](https://github.com/Felix14-v2)
 - `sv_se` translation by [Luracasmus](https://github.com/Luracasmus)
 - `zh_cn` translation by [GodGun968](https://github.com/GodGun968), [Hambaka](https://github.com/Hambaka) and [w5860363](https://github.com/w5860363)
