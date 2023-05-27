@@ -35,6 +35,7 @@ Manual changes are only visible after restarting the game.
 - `pt_br` translation by [FITFC](https://github.com/FITFC)
 - `ru_ru` translation by [Felix14-v2](https://github.com/Felix14-v2)
 - `sv_se` translation by [Luracasmus](https://github.com/Luracasmus)
+- `uk_ua` translation by [BurrConnie](https://github.com/BurrConnie)
 - `zh_cn` translation by [GodGun968](https://github.com/GodGun968), [Hambaka](https://github.com/Hambaka) and [w5860363](https://github.com/w5860363)
 
 Links: [CurseForge](https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen) · [GitHub](https://github.com/A5b84/dark-loading-screen) · [Modrinth](https://modrinth.com/mod/dark-loading-screen)

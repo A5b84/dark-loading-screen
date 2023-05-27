@@ -14,6 +14,7 @@
 
 ### Unreleased
 - Added `pt_br` translation by [@FITFC](https://github.com/FITFC) ([#29](https://github.com/A5b84/dark-loading-screen/pull/29))
+- Added `uk_ua` translation by [@BurrConnie](https://github.com/BurrConnie) ([#31](https://github.com/A5b84/dark-loading-screen/pull/31))
 
 ### [1.6.13]
 - `zh_cn` translation updated by [@GodGun968](https://github.com/GodGun968) ([#26](https://github.com/A5b84/dark-loading-screen/pull/26))
