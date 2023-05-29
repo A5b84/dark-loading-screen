@@ -12,7 +12,8 @@
 
 ---
 
-### Unreleased
+### [1.6.14]
+- Updated to 1.20-pre6
 - Added `pt_br` translation by [@FITFC](https://github.com/FITFC) ([#29](https://github.com/A5b84/dark-loading-screen/pull/29))
 - Added `uk_ua` translation by [@BurrConnie](https://github.com/BurrConnie) ([#31](https://github.com/A5b84/dark-loading-screen/pull/31))
 
@@ -142,7 +143,9 @@
 | 1.6.0-1.6.3 |             |               |       X       |       X       |
 
 - 1.6.4-1.6.11: Minecraft 1.17-1.18.2
-- 1.6.12+: Minecraft 1.19+
+- 1.6.12: Minecraft 1.19-1.19.2
+- 1.6.13: Minecraft 1.19.3-1.19.4
+- 1.6.14: Minecraft 1.20+
 
 
 [1.0.0]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.0.0
@@ -175,3 +178,4 @@
 [1.6.11]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.11
 [1.6.12]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.12
 [1.6.13]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.13
+[1.6.14]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.14

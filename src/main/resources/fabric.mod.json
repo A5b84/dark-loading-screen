@@ -35,5 +35,7 @@
   },
   "mixins": ["dark-loading-screen.mixins.json"],
 
-  "depends": { "minecraft": ">=1.19.3-" }
+  "depends": {
+    "minecraft": ">=1.20-"
+  }
 }

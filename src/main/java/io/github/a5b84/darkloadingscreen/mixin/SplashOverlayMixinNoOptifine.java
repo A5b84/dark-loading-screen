@@ -1,10 +1,12 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
 import io.github.a5b84.darkloadingscreen.SharedMixinMethods;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.SplashOverlay;
-import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -16,24 +18,26 @@ import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
 @Mixin(SplashOverlay.class)
 public abstract class SplashOverlayMixinNoOptifine {
 
+    @Shadow @Final static Identifier LOGO;
+
     // Progress bar
 
     /** Renders the bar background and changes the main bar color */
     @ModifyVariable(method = "renderProgressBar",
             at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/math/ColorHelper$Argb;getArgb(IIII)I"),
             ordinal = 6)
-    private int modifyBarColor(int barColor, MatrixStack matrices, int x1, int y1, int x2, int y2) {
+    private int modifyBarColor(int barColor, DrawContext context, int x1, int y1, int x2, int y2, float opacity) {
         int alpha = barColor & 0xff000000;
 
         // Bar background
-        DrawableHelper.fill(matrices, x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBg | alpha);
+        context.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBg | alpha);
 
         return config.bar | alpha;
     }
 
     /** Changes the bar border color */
     @ModifyVariable(method = "renderProgressBar",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;fill(Lnet/minecraft/client/util/math/MatrixStack;IIIII)V", ordinal = 0, shift = At.Shift.AFTER),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;fill(IIIII)V", ordinal = 0, shift = At.Shift.AFTER),
             ordinal = 6)
     private int modifyBarBorderColor(int color) {
         return config.border | color & 0xff000000;
@@ -44,8 +48,8 @@ public abstract class SplashOverlayMixinNoOptifine {
 
     /** Prepares for drawing the logo highlights */
     @Inject(method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V", ordinal = 0))
-    private void onBeforeRenderLogo(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIFFIIII)V", ordinal = 0))
+    private void onBeforeRenderLogo(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         SharedMixinMethods.setShaderColorToLogoHighlights();
     }
 
@@ -66,12 +70,12 @@ public abstract class SplashOverlayMixinNoOptifine {
      * @param halfWidth w
      */
     @Inject(method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/SplashOverlay;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIFFIIII)V", ordinal = 1, shift = At.Shift.AFTER),
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIFFIIII)V", ordinal = 1, shift = At.Shift.AFTER),
             locals = LocalCapture.CAPTURE_FAILEXCEPTION)
-    private void onAfterRenderLogo(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci, int scaledWidth, int scaledHeight, long now, float fadeOutProgress, float fadeInProgress, float alpha, int x, int y, double height, int halfHeight, double width, int halfWidth) {
+    private void onAfterRenderLogo(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci, int scaledWidth, int scaledHeight, long now, float fadeOutProgress, float fadeInProgress, float alpha, int x, int y, double height, int halfHeight, double width, int halfWidth) {
         SharedMixinMethods.beforeDrawLogoShadows();
-        DrawableHelper.drawTexture(matrices, x - halfWidth, y - halfHeight, halfWidth, (int) height, -0.0625F, 0, 120, 60, 120, 120);
-        DrawableHelper.drawTexture(matrices, x, y - halfHeight, halfWidth, (int) height, 0.0625F, 60, 120, 60, 120, 120);
+        context.drawTexture(LOGO, x - halfWidth, y - halfHeight, halfWidth, (int) height, -0.0625F, 0, 120, 60, 120, 120);
+        context.drawTexture(LOGO, x, y - halfHeight, halfWidth, (int) height, 0.0625F, 60, 120, 60, 120, 120);
         SharedMixinMethods.afterDrawLogoShadows();
     }
 

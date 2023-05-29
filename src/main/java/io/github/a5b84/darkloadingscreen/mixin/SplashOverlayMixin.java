@@ -2,8 +2,8 @@ package io.github.a5b84.darkloadingscreen.mixin;
 
 import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
 import io.github.a5b84.darkloadingscreen.config.PreviewSplashOverlay;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.SplashOverlay;
-import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -73,8 +73,8 @@ public abstract class SplashOverlayMixin {
      * from getting rendered twice (for whatever reason) causing it to appear
      * twice as bright
      */
-    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;render(Lnet/minecraft/client/util/math/MatrixStack;IIF)V"))
-    private void onRenderScreen(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/Screen;render(Lnet/minecraft/client/gui/DrawContext;IIF)V"))
+    private void onRenderScreen(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         if (!initialReloadComplete) {
             initialReloadComplete = true;
             skipNextLogoAndBarRendering = true;
@@ -83,7 +83,7 @@ public abstract class SplashOverlayMixin {
 
     /** Skips rendering when {@link #skipNextLogoAndBarRendering} is true */
     @Inject(method = "render",
-            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;getWindow()Lnet/minecraft/client/util/Window;", ordinal = 2), cancellable = true)
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowWidth()I", ordinal = 2), cancellable = true)
     private void onBeforeBeforeLogo(CallbackInfo ci) {
         if (skipNextLogoAndBarRendering) {
             ci.cancel();

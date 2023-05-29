@@ -6,7 +6,6 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "compat.optifine.SplashOverlayMixin",
-    "compat.semitranslucencyfix.DrawableHelperMixin",
     "SplashOverlayMixin",
     "SplashOverlayMixinNoOptifine",
     "WindowMixin"
