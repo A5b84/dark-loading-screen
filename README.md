@@ -30,6 +30,7 @@ Manual changes are only visible after restarting the game.
 - `bg_bg` translation by [natee22](https://github.com/natee22)
 - `de_de` translation by [Der_Anderl](https://www.curseforge.com/members/der_anderl/)
 - `es_xx` translations by [Haseck](https://github.com/Haseck)
+- `it_it` translations by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
 - `ko_kr` translation by [gyular](https://github.com/gyular)
 - `pl_pl` translation by [DarkKnightComes](https://github.com/DarkKnightComes) and [goodideagiver](https://github.com/goodideagiver)
 - `pt_br` translation by [FITFC](https://github.com/FITFC)

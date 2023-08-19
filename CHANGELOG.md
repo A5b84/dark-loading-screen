@@ -12,6 +12,9 @@
 
 ---
 
+### Unreleased
+- Added `it_it` translation by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
+
 ### [1.6.14]
 - Updated to 1.20-pre6
 - Added `pt_br` translation by [@FITFC](https://github.com/FITFC) ([#29](https://github.com/A5b84/dark-loading-screen/pull/29))
