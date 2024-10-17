@@ -14,6 +14,7 @@
 
 ### Unreleased
 - Added `it_it` translation by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
+- `de_de` translation updated by [@moritz-htk](https://github.com/moritz-htk) ([#33](https://github.com/A5b84/dark-loading-screen/pull/33))
 
 ### [1.6.14]
 - Updated to 1.20-pre6
