@@ -10,16 +10,10 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 
-    private final boolean isOptiFabricLoaded = FabricLoader.getInstance().isModLoaded("optifabric");
-
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.contains(".compat.semitranslucencyfix.")) {
             return FabricLoader.getInstance().isModLoaded("semitranslucency");
-        } else if (mixinClassName.contains(".compat.optifine.")) {
-            return isOptiFabricLoaded;
-        } else if (mixinClassName.endsWith("NoOptifine")) {
-            return !isOptiFabricLoaded;
         } else {
             return true;
         }

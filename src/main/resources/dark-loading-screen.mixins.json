@@ -1,16 +1,12 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "io.github.a5b84.darkloadingscreen.mixin",
-  "plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinPlugin",
-  "compatibilityLevel": "JAVA_17",
-  "client": [
-    "compat.optifine.SplashOverlayMixin",
-    "SplashOverlayMixin",
-    "SplashOverlayMixinNoOptifine",
-    "WindowMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+	"required": true,
+	"package": "io.github.a5b84.darkloadingscreen.mixin",
+	"plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinPlugin",
+	"compatibilityLevel": "JAVA_21",
+	"client": [
+		"SplashOverlayMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
 }

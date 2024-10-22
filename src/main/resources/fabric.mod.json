@@ -1,43 +1,45 @@
 {
-  "schemaVersion": 1,
-  "id": "dark-loading-screen",
-  "version": "${version}",
-
-  "name": "Dark Loading Screen",
-  "description": "Makes the loading screen darker\\nIn-game configuration requires Mod Menu and Cloth Config",
-  "authors": ["Neecko5b84"],
-  "contributors": [
-    "BurrConnie",
-    "DarkKnightComes",
-    "Felix14-v2",
-    "FITFC",
-    "GodGun968",
-    "goodideagiver",
-    "gyular",
-    "Hambaka",
-    "Haseck",
-    "Luracasmus",
-    "moritz-htk",
-    "natee22",
-    "Ocizuko",
-    "w5860363"
-  ],
-  "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen",
-    "issues": "https://github.com/A5b84/dark-loading-screen/issues",
-    "sources": "https://github.com/A5b84/dark-loading-screen"
-  },
-
-  "license": "LGPL-3.0-or-later",
-  "icon": "assets/dark-loading-screen/icon.png",
-
-  "environment": "client",
-  "entrypoints": {
-    "modmenu": ["io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl"]
-  },
-  "mixins": ["dark-loading-screen.mixins.json"],
-
-  "depends": {
-    "minecraft": ">=1.20-"
-  }
+	"schemaVersion": 1,
+	"id": "dark-loading-screen",
+	"version": "${version}",
+	"name": "Dark Loading Screen",
+	"description": "Makes the loading screen darker\\nIn-game configuration requires Mod Menu and Cloth Config",
+	"authors": [
+		"Neecko5b84"
+	],
+	"contributors": [
+		"BurrConnie",
+		"DarkKnightComes",
+		"Felix14-v2",
+		"FITFC",
+		"GodGun968",
+		"goodideagiver",
+		"gyular",
+		"Hambaka",
+		"Haseck",
+		"Luracasmus",
+		"moritz-htk",
+		"natee22",
+		"Ocizuko",
+		"w5860363"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/dark-loading-screen",
+		"issues": "https://github.com/A5b84/dark-loading-screen/issues",
+		"sources": "https://github.com/A5b84/dark-loading-screen"
+	},
+	"license": "LGPL-3.0-or-later",
+	"icon": "assets/dark-loading-screen/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"modmenu": [
+			"io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl"
+		]
+	},
+	"mixins": [
+		"dark-loading-screen.mixins.json"
+	],
+	"depends": {
+		"minecraft": ">=1.21.2-"
+	}
 }
