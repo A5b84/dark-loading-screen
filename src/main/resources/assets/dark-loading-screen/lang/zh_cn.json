@@ -1,4 +1,5 @@
 {
+    "modmenu.descriptionTranslation.darkLoadingScreen": "使加载画面变暗\n游戏内配置需使用Mod Menu和Cloth Config",
     "darkLoadingScreen.config.title": "Dark Loading Screen 配置",
     "darkLoadingScreen.config.entry.background": "背景颜色",
     "darkLoadingScreen.config.entry.bar": "进度条颜色",
