@@ -1,0 +1,11 @@
+{
+    "darkLoadingScreen.config.title": "Dark Loading Screen Yapılandırması",
+    "darkLoadingScreen.config.entry.background": "Arka Plan Rengi",
+    "darkLoadingScreen.config.entry.bar": "Bar Rengi",
+    "darkLoadingScreen.config.entry.barBackground": "Bar Arka Plan Rengi",
+    "darkLoadingScreen.config.entry.border": "Bar Kenarlık Rengi",
+    "darkLoadingScreen.config.entry.logo": "Logo Rengi",
+    "darkLoadingScreen.config.entry.fadeIn": "Soluklaşma Süresi",
+    "darkLoadingScreen.config.entry.fadeOut": "Sönme Süresi",
+    "darkLoadingScreen.config.entry.preview": "Önizleme"
+}
