@@ -1,11 +1,11 @@
-# Dark Loading Screen
-
 A simple [Fabric](https://fabricmc.net) mod to make the loading screen darker.
 
-A changelog is available [here](CHANGELOG.md).
+![In-game appearance](https://cdn-raw.modrinth.com/data/h3XWIuzM/images/b059b8c3ca7eca7d0747a9a12496f6634e4fb081.png)
+
+A changelog is available [here](https://github.com/A5b84/dark-loading-screen/blob/main/CHANGELOG.md).
 
 ## Color configuration
-Colors can be modified in-game if both Mod Menu ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/modmenu) / [Modrinth](https://modrinth.com/mod/modmenu)) and Cloth Config ([CurseForge](https://www.curseforge.com/minecraft/mc-mods/cloth-config) / [Modrinth](https://modrinth.com/mod/cloth-config)) are installed.
+Colors can be modified in-game if both [Mod Menu](https://modrinth.com/mod/modmenu) and [Cloth Config](https://modrinth.com/mod/cloth-config) are installed.
 
 ### Manual configuration
 Create or edit `.minecraft/config/dark-loading-screen.json`, the default config is
