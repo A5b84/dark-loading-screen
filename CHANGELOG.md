@@ -12,6 +12,11 @@
 
 ---
 
+### [1.6.16]
+- Updated to 1.21.5
+- Added `tr_tr` translation by [@Mid0aria](https://github.com/Mid0aria)
+- `zh_cn` translation updated by [@Q2297045667](https://github.com/Q2297045667)
+
 ### [1.6.15]
 - Update to 1.21.2
 - Added `it_it` translation by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
@@ -185,3 +190,4 @@
 [1.6.13]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.13
 [1.6.14]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.14
 [1.6.15]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.15
+[1.6.16]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.16

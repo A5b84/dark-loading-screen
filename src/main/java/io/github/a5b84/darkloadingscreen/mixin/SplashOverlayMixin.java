@@ -2,7 +2,6 @@ package io.github.a5b84.darkloadingscreen.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
 import io.github.a5b84.darkloadingscreen.TriFloatConsumer;
 import io.github.a5b84.darkloadingscreen.config.PreviewSplashOverlay;
@@ -96,7 +95,7 @@ public abstract class SplashOverlayMixin {
         );
         context.draw();
 
-        RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
+        GL14.glBlendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
         drawTexture.accept(
                 config.bgR - config.logoR,
                 config.bgG - config.logoG,
@@ -104,7 +103,7 @@ public abstract class SplashOverlayMixin {
         );
         context.draw(); // Draw now because draws are queued until later and
         // so wouldn't use the blend equation set here
-        RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
+        GL14.glBlendEquation(GL14.GL_FUNC_ADD);
     }
 
 
