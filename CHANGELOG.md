@@ -14,8 +14,8 @@
 
 ### [1.6.16]
 - Updated to 1.21.5
-- Added `tr_tr` translation by [@Mid0aria](https://github.com/Mid0aria)
-- `zh_cn` translation updated by [@Q2297045667](https://github.com/Q2297045667)
+- Added `tr_tr` translation by [@Mid0aria](https://github.com/Mid0aria) ([#36](https://github.com/A5b84/dark-loading-screen/pull/36))
+- `zh_cn` translation updated by [@Q2297045667](https://github.com/Q2297045667) ([#37](https://github.com/A5b84/dark-loading-screen/pull/37))
 
 ### [1.6.15]
 - Update to 1.21.2
