@@ -12,7 +12,8 @@
 
 ---
 
-### Unreleased
+### [1.6.17]
+- Updated to 1.21.6
 - `es_ar` translation updated by [@Texaliuz](https://github.com/Texaliuz) ([#38](https://github.com/A5b84/dark-loading-screen/pull/38)) 
 
 ### [1.6.16]
@@ -21,7 +22,7 @@
 - `zh_cn` translation updated by [@Q2297045667](https://github.com/Q2297045667) ([#37](https://github.com/A5b84/dark-loading-screen/pull/37))
 
 ### [1.6.15]
-- Update to 1.21.2
+- Updated to 1.21.2
 - Added `it_it` translation by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
 - `de_de` translation updated by [@moritz-htk](https://github.com/moritz-htk) ([#33](https://github.com/A5b84/dark-loading-screen/pull/33))
 
@@ -194,3 +195,4 @@
 [1.6.14]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.14
 [1.6.15]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.15
 [1.6.16]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.16
+[1.6.17]: https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.17
