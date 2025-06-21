@@ -12,6 +12,9 @@
 
 ---
 
+### Unreleased
+- `es_ar` translation updated by [@Texaliuz](https://github.com/Texaliuz) ([#38](https://github.com/A5b84/dark-loading-screen/pull/38)) 
+
 ### [1.6.16]
 - Updated to 1.21.5
 - Added `tr_tr` translation by [@Mid0aria](https://github.com/Mid0aria) ([#36](https://github.com/A5b84/dark-loading-screen/pull/36))
