@@ -32,7 +32,7 @@ public abstract class SplashOverlayMixin {
   /** Changes the background color */
   @Inject(method = "<clinit>", at = @At("RETURN"))
   private static void adjustBg(CallbackInfo ci) {
-    BRAND_ARGB = () -> config.bg;
+    BRAND_ARGB = () -> config.backgroundColor;
   }
 
   // Progress bar
@@ -48,8 +48,8 @@ public abstract class SplashOverlayMixin {
   private int modifyBarColor(
       int barColor, DrawContext context, int x1, int y1, int x2, int y2, float opacity) {
     int alpha = barColor & 0xff000000;
-    context.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBg | alpha);
-    return config.bar | alpha;
+    context.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBackgroundColor | alpha);
+    return config.barColor | alpha;
   }
 
   /** Changes the bar border color */
@@ -63,7 +63,7 @@ public abstract class SplashOverlayMixin {
               shift = At.Shift.AFTER),
       ordinal = 6)
   private int modifyBarBorderColor(int color) {
-    return config.border | color & 0xff000000;
+    return config.barBorderColor | color & 0xff000000;
   }
 
   // Logo
@@ -130,15 +130,15 @@ public abstract class SplashOverlayMixin {
     // highlights.
     drawTexture.call(
         DarkLoadingScreen.MOJANG_LOGO_SHADOWS,
-        config.bgR - config.logoR,
-        config.bgG - config.logoG,
-        config.bgB - config.logoB);
+        config.backgroundRed - config.logoRed,
+        config.backgroundGreen - config.logoGreen,
+        config.backgroundBlue - config.logoBlue);
 
     drawTexture.call(
         originalPipeline,
-        config.logoR - config.bgR,
-        config.logoG - config.bgG,
-        config.logoB - config.bgB);
+        config.logoRed - config.backgroundRed,
+        config.logoGreen - config.backgroundGreen,
+        config.logoBlue - config.backgroundBlue);
   }
 
   /** Calls {@link PreviewSplashOverlay#onRemoved()} when the overlay is removed */
@@ -160,13 +160,13 @@ public abstract class SplashOverlayMixin {
       method = "render",
       constant = @Constant(floatValue = DarkLoadingScreen.VANILLA_FADE_IN_DURATION))
   private float getFadeInTime(float old) {
-    return config.fadeInMs;
+    return config.fadeInMillis;
   }
 
   @ModifyConstant(
       method = "render",
       constant = @Constant(floatValue = DarkLoadingScreen.VANILLA_FADE_OUT_DURATION))
   private float getFadeOutTime(float old) {
-    return config.fadeOutMs;
+    return config.fadeOutMillis;
   }
 }

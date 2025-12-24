@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.util.math.ColorHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,14 +33,25 @@ public class Config {
   public static final float MAX_FADE_DURATION = 5;
 
   // Colors
-  public final int bg, bar, barBg, border, logo;
+  public final int backgroundColor;
+  public final int barColor;
+  public final int barBackgroundColor;
+  public final int barBorderColor;
+  public final int logoColor;
+
   // RGB channels of some colors
-  public final float bgR, bgG, bgB;
-  public final float logoR, logoG, logoB;
+  public final float backgroundRed;
+  public final float backgroundGreen;
+  public final float backgroundBlue;
+  public final float logoRed;
+  public final float logoGreen;
+  public final float logoBlue;
 
   // Fade durations
-  public final float fadeIn, fadeOut;
-  public final float fadeInMs, fadeOutMs;
+  public final float fadeInDuration;
+  public final float fadeOutDuration;
+  public final float fadeInMillis;
+  public final float fadeOutMillis;
 
   public static final Config DEFAULT =
       new Config(
@@ -52,37 +64,36 @@ public class Config {
           DarkLoadingScreen.VANILLA_FADE_OUT_DURATION / FADE_DURATION_FACTOR);
 
   /**
-   * @param fadeIn Fade in time in seconds
-   * @param fadeOut Fade out time in seconds
+   * @param fadeInDuration Fade in time in seconds
+   * @param fadeOutDuration Fade out time in seconds
    */
-  public Config(int bg, int bar, int barBg, int border, int logo, float fadeIn, float fadeOut) {
-    this.bg = bg;
-    this.bar = bar;
-    this.barBg = barBg;
-    this.border = border;
-    this.logo = logo;
-    this.fadeIn = Math.min(fadeIn, MAX_FADE_DURATION);
-    this.fadeOut = Math.min(fadeOut, MAX_FADE_DURATION);
+  public Config(
+      int backgroundColor,
+      int barColor,
+      int barBackgroundColor,
+      int barBorderColor,
+      int logoColor,
+      float fadeInDuration,
+      float fadeOutDuration) {
+    this.backgroundColor = backgroundColor;
+    this.barColor = barColor;
+    this.barBackgroundColor = barBackgroundColor;
+    this.barBorderColor = barBorderColor;
+    this.logoColor = logoColor;
+    this.fadeInDuration = Math.min(fadeInDuration, MAX_FADE_DURATION);
+    this.fadeOutDuration = Math.min(fadeOutDuration, MAX_FADE_DURATION);
 
     // Splitting some colors in floats
-    bgR = getChannel(bg, 16);
-    bgG = getChannel(bg, 8);
-    bgB = getChannel(bg, 0);
-    logoR = getChannel(logo, 16);
-    logoG = getChannel(logo, 8);
-    logoB = getChannel(logo, 0);
+    backgroundRed = ColorHelper.getRed(backgroundColor);
+    backgroundGreen = ColorHelper.getGreen(backgroundColor);
+    backgroundBlue = ColorHelper.getBlue(backgroundColor);
+    logoRed = ColorHelper.getRed(logoColor);
+    logoGreen = ColorHelper.getGreen(logoColor);
+    logoBlue = ColorHelper.getBlue(logoColor);
 
     // Calculate durations
-    fadeInMs = fadeIn * FADE_DURATION_FACTOR;
-    fadeOutMs = fadeOut * FADE_DURATION_FACTOR;
-  }
-
-  /**
-   * @param offset Channel offset in bits
-   * @return the corresponding channel value between {@code 0} and {@code 1}
-   */
-  private static float getChannel(int color, int offset) {
-    return ((color >> offset) & 0xff) / 255f;
+    fadeInMillis = fadeInDuration * FADE_DURATION_FACTOR;
+    fadeOutMillis = fadeOutDuration * FADE_DURATION_FACTOR;
   }
 
   /** Reads the config in the config folder */
@@ -93,21 +104,22 @@ public class Config {
 
       JsonObject o = el.getAsJsonObject();
       return new Config(
-          readColor(o, "background", DEFAULT.bg),
-          readColor(o, "bar", DEFAULT.bar),
-          readColor(o, "barBackground", DEFAULT.barBg),
-          readColor(o, "border", DEFAULT.border),
-          readColor(o, "logo", DEFAULT.logo),
-          readFloat(o, "fadeIn", DEFAULT.fadeIn),
-          readFloat(o, "fadeOut", DEFAULT.fadeOut));
+          readColor(o, "background", DEFAULT.backgroundColor),
+          readColor(o, "bar", DEFAULT.barColor),
+          readColor(o, "barBackground", DEFAULT.barBackgroundColor),
+          readColor(o, "border", DEFAULT.barBorderColor),
+          readColor(o, "logo", DEFAULT.logoColor),
+          readFloat(o, "fadeIn", DEFAULT.fadeInDuration),
+          readFloat(o, "fadeOut", DEFAULT.fadeOutDuration));
     } catch (FileNotFoundException e) {
       return DEFAULT;
     } catch (IOException | JsonSyntaxException e) {
       LOGGER.error(
-          "[Dark Loading Screen] Couldn't read "
-              + CONFIG_FILE
-              + ", using default settings instead");
-      e.printStackTrace();
+          () ->
+              "[Dark Loading Screen] Couldn't read "
+                  + CONFIG_FILE
+                  + ", using default settings instead",
+          e);
       return DEFAULT;
     }
   }
@@ -164,11 +176,10 @@ public class Config {
       try {
         File file = CONFIG_FILE;
         if (file.exists() && !file.delete()) {
-          LOGGER.error("[Dark Loading Screen] Couldn't delete settings file " + CONFIG_FILE);
+          LOGGER.error(() -> "[Dark Loading Screen] Couldn't delete settings file " + CONFIG_FILE);
         }
       } catch (SecurityException e) {
-        LOGGER.error("[Dark Loading Screen] Couldn't delete settings file " + CONFIG_FILE);
-        e.printStackTrace();
+        LOGGER.error(() -> "[Dark Loading Screen] Couldn't delete settings file " + CONFIG_FILE, e);
       }
       return;
     }
@@ -180,23 +191,22 @@ public class Config {
       jsonWriter
           .beginObject()
           .name("background")
-          .value(colorToString(bg))
+          .value(colorToString(backgroundColor))
           .name("bar")
-          .value(colorToString(bar))
+          .value(colorToString(barColor))
           .name("barBackground")
-          .value(colorToString(barBg))
+          .value(colorToString(barBackgroundColor))
           .name("border")
-          .value(colorToString(border))
+          .value(colorToString(barBorderColor))
           .name("logo")
-          .value(colorToString(logo))
+          .value(colorToString(logoColor))
           .name("fadeIn")
-          .value(fadeIn)
+          .value(fadeInDuration)
           .name("fadeOut")
-          .value(fadeOut)
+          .value(fadeOutDuration)
           .endObject();
     } catch (IOException e) {
-      LOGGER.error("[Dark Loading Screen] Couldn't write settings to " + CONFIG_FILE);
-      e.printStackTrace();
+      LOGGER.error(() -> "[Dark Loading Screen] Couldn't write settings to " + CONFIG_FILE, e);
     }
   }
 
@@ -212,12 +222,12 @@ public class Config {
     if (this == o) return true;
     if (!(o instanceof Config config)) return false;
 
-    return bg == config.bg
-        && bar == config.bar
-        && barBg == config.barBg
-        && border == config.border
-        && logo == config.logo
-        && fadeIn == config.fadeIn
-        && fadeOut == config.fadeOut;
+    return backgroundColor == config.backgroundColor
+        && barColor == config.barColor
+        && barBackgroundColor == config.barBackgroundColor
+        && barBorderColor == config.barBorderColor
+        && logoColor == config.logoColor
+        && fadeInDuration == config.fadeInDuration
+        && fadeOutDuration == config.fadeOutDuration;
   }
 }

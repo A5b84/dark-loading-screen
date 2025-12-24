@@ -15,11 +15,18 @@ public class DarkLoadingScreen {
   public static final String MOD_ID = "dark-loading-screen";
 
   /**
-   * Vanilla fade in/out durations
+   * Vanilla fade in duration
    *
    * @see SplashOverlay#render
    */
-  public static final float VANILLA_FADE_IN_DURATION = 500, VANILLA_FADE_OUT_DURATION = 1000;
+  public static final float VANILLA_FADE_IN_DURATION = 500;
+
+  /**
+   * Vanilla fade out duration
+   *
+   * @see SplashOverlay#render
+   */
+  public static final float VANILLA_FADE_OUT_DURATION = 1000;
 
   /**
    * Render pipeline for the part of the Mojang logo that are darker than the background.

@@ -61,32 +61,42 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
 
     private final ConfigEntryBuilder builder;
     private final ConfigCategory category;
-    private final ColorEntry bgField, barField, barBgField, borderField, logoField;
-    private final FloatListEntry fadeInField, fadeOutField;
+    private final ColorEntry backgroundColorField;
+    private final ColorEntry barColorField;
+    private final ColorEntry barBackgroundColorField;
+    private final ColorEntry barBorderColorField;
+    private final ColorEntry logoColorField;
+    private final FloatListEntry fadeInDurationField;
+    private final FloatListEntry fadeOutDurationField;
 
     /** Creates all the fields and adds them to {@code category} */
     public ConfigEntries(ConfigEntryBuilder builder, ConfigCategory category) {
       this.builder = builder;
       this.category = category;
 
-      bgField = createColorField("background", config.bg, DEFAULT.bg);
-      barField = createColorField("bar", config.bar, DEFAULT.bar);
-      barBgField = createColorField("barBackground", config.barBg, DEFAULT.barBg);
-      borderField = createColorField("border", config.border, DEFAULT.border);
-      logoField = createColorField("logo", config.logo, DEFAULT.logo);
-      fadeInField = createFadeTimeField("fadeIn", config.fadeIn, DEFAULT.fadeIn);
-      fadeOutField = createFadeTimeField("fadeOut", config.fadeOut, DEFAULT.fadeOut);
+      backgroundColorField =
+          createColorField("background", config.backgroundColor, DEFAULT.backgroundColor);
+      barColorField = createColorField("bar", config.barColor, DEFAULT.barColor);
+      barBackgroundColorField =
+          createColorField("barBackground", config.barBackgroundColor, DEFAULT.barBackgroundColor);
+      barBorderColorField =
+          createColorField("border", config.barBorderColor, DEFAULT.barBorderColor);
+      logoColorField = createColorField("logo", config.logoColor, DEFAULT.logoColor);
+      fadeInDurationField =
+          createFadeTimeField("fadeIn", config.fadeInDuration, DEFAULT.fadeInDuration);
+      fadeOutDurationField =
+          createFadeTimeField("fadeOut", config.fadeOutDuration, DEFAULT.fadeOutDuration);
     }
 
     public Config createConfig() {
       return new Config(
-          bgField.getValue(),
-          barField.getValue(),
-          barBgField.getValue(),
-          borderField.getValue(),
-          logoField.getValue(),
-          fadeInField.getValue(),
-          fadeOutField.getValue());
+          backgroundColorField.getValue(),
+          barColorField.getValue(),
+          barBackgroundColorField.getValue(),
+          barBorderColorField.getValue(),
+          logoColorField.getValue(),
+          fadeInDurationField.getValue(),
+          fadeOutDurationField.getValue());
     }
 
     // Methods that create entries
