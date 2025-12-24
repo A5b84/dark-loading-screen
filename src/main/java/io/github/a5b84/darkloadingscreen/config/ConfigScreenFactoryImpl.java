@@ -9,9 +9,9 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import me.shedaniel.clothconfig2.gui.entries.ColorEntry;
 import me.shedaniel.clothconfig2.gui.entries.FloatListEntry;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 
 public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
 
@@ -20,13 +20,13 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
     ConfigBuilder builder =
         ConfigBuilder.create()
             .setParentScreen(parent)
-            .setTitle(Text.translatable("darkLoadingScreen.config.title"));
+            .setTitle(Component.translatable("darkLoadingScreen.config.title"));
 
     // Keep the old config in case the user wants to close without saving
     Config oldConfig = config;
 
     // Fields
-    ConfigCategory category = builder.getOrCreateCategory(Text.empty());
+    ConfigCategory category = builder.getOrCreateCategory(Component.empty());
     ConfigEntries entries = new ConfigEntries(builder.entryBuilder(), category);
     category.addEntry(
         new ButtonEntry(
@@ -34,7 +34,7 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
             button -> {
               // Preview button
               config = entries.createConfig();
-              MinecraftClient.getInstance()
+              Minecraft.getInstance()
                   .setOverlay(new PreviewSplashOverlay(500, () -> config = oldConfig));
             }));
 
@@ -50,10 +50,10 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
   }
 
   /**
-   * @return a {@link Text} that indentifies a field
+   * @return a {@link Component} that indentifies a field
    */
-  private static Text fieldName(String id) {
-    return Text.translatable("darkLoadingScreen.config.entry." + id);
+  private static Component fieldName(String id) {
+    return Component.translatable("darkLoadingScreen.config.entry." + id);
   }
 
   /** Class that holds/handles all the fields */

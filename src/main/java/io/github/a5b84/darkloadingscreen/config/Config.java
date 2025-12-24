@@ -12,7 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.util.ARGB;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -84,12 +84,12 @@ public class Config {
     this.fadeOutDuration = Math.min(fadeOutDuration, MAX_FADE_DURATION);
 
     // Splitting some colors in floats
-    backgroundRed = ColorHelper.getRed(backgroundColor);
-    backgroundGreen = ColorHelper.getGreen(backgroundColor);
-    backgroundBlue = ColorHelper.getBlue(backgroundColor);
-    logoRed = ColorHelper.getRed(logoColor);
-    logoGreen = ColorHelper.getGreen(logoColor);
-    logoBlue = ColorHelper.getBlue(logoColor);
+    backgroundRed = ARGB.red(backgroundColor);
+    backgroundGreen = ARGB.green(backgroundColor);
+    backgroundBlue = ARGB.blue(backgroundColor);
+    logoRed = ARGB.red(logoColor);
+    logoGreen = ARGB.green(logoColor);
+    logoBlue = ARGB.blue(logoColor);
 
     // Calculate durations
     fadeInMillis = fadeInDuration * FADE_DURATION_FACTOR;

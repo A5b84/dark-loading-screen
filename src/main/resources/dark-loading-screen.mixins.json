@@ -5,7 +5,7 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"GlCommandEncoderMixin",
-		"SplashOverlayMixin"
+		"LoadingOverlayMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

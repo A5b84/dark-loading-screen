@@ -9,10 +9,10 @@ import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
 import io.github.a5b84.darkloadingscreen.DrawTextureLambda;
 import io.github.a5b84.darkloadingscreen.config.PreviewSplashOverlay;
 import java.util.function.IntSupplier;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.SplashOverlay;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.LoadingOverlay;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ARGB;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -24,41 +24,38 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SplashOverlay.class)
-public abstract class SplashOverlayMixin {
+@Mixin(LoadingOverlay.class)
+public abstract class LoadingOverlayMixin {
 
-  @Mutable @Shadow private static @Final IntSupplier BRAND_ARGB;
+  @Mutable @Shadow private static @Final IntSupplier BRAND_BACKGROUND;
 
   /** Changes the background color */
   @Inject(method = "<clinit>", at = @At("RETURN"))
   private static void adjustBg(CallbackInfo ci) {
-    BRAND_ARGB = () -> config.backgroundColor;
+    BRAND_BACKGROUND = () -> config.backgroundColor;
   }
 
   // Progress bar
 
   /** Renders the bar background and changes the main bar color */
   @ModifyVariable(
-      method = "renderProgressBar",
-      at =
-          @At(
-              value = "INVOKE_ASSIGN",
-              target = "Lnet/minecraft/util/math/ColorHelper;getArgb(IIII)I"),
+      method = "drawProgressBar",
+      at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/ARGB;color(IIII)I"),
       ordinal = 6)
   private int modifyBarColor(
-      int barColor, DrawContext context, int x1, int y1, int x2, int y2, float opacity) {
+      int barColor, GuiGraphics graphics, int x1, int y1, int x2, int y2, float opacity) {
     int alpha = barColor & 0xff000000;
-    context.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBackgroundColor | alpha);
+    graphics.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBackgroundColor | alpha);
     return config.barColor | alpha;
   }
 
   /** Changes the bar border color */
   @ModifyVariable(
-      method = "renderProgressBar",
+      method = "drawProgressBar",
       at =
           @At(
               value = "INVOKE",
-              target = "Lnet/minecraft/client/gui/DrawContext;fill(IIIII)V",
+              target = "Lnet/minecraft/client/gui/GuiGraphics;fill(IIIII)V",
               ordinal = 0,
               shift = At.Shift.AFTER),
       ordinal = 6)
@@ -75,11 +72,11 @@ public abstract class SplashOverlayMixin {
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIFFIIIIIII)V"))
+                  "Lnet/minecraft/client/gui/GuiGraphics;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/ResourceLocation;IIFFIIIIIII)V"))
   private void onDrawTexture(
-      DrawContext context,
+      GuiGraphics graphics,
       RenderPipeline originalPipeline,
-      Identifier sprite,
+      ResourceLocation sprite,
       int x,
       int y,
       float u,
@@ -97,13 +94,13 @@ public abstract class SplashOverlayMixin {
     // channels that are brighter than the background, and another time
     // for those that are darker)
 
-    int alpha = ColorHelper.getAlpha(color);
+    int alpha = ARGB.alpha(color);
 
     DrawTextureLambda drawTexture =
         (pipeline, r, g, b) -> {
           if (r > 0 || g > 0 || b > 0) {
             original.call(
-                context,
+                graphics,
                 pipeline,
                 sprite,
                 x,
@@ -116,11 +113,11 @@ public abstract class SplashOverlayMixin {
                 regionHeight,
                 textureWidth,
                 textureHeight,
-                ColorHelper.getArgb(
+                ARGB.color(
                     alpha,
-                    ColorHelper.channelFromFloat(Math.max(r, 0)),
-                    ColorHelper.channelFromFloat(Math.max(g, 0)),
-                    ColorHelper.channelFromFloat(Math.max(b, 0))));
+                    ARGB.as8BitChannel(Math.max(r, 0)),
+                    ARGB.as8BitChannel(Math.max(g, 0)),
+                    ARGB.as8BitChannel(Math.max(b, 0))));
           }
         };
 
@@ -148,7 +145,7 @@ public abstract class SplashOverlayMixin {
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/MinecraftClient;setOverlay(Lnet/minecraft/client/gui/screen/Overlay;)V"))
+                  "Lnet/minecraft/client/Minecraft;setOverlay(Lnet/minecraft/client/gui/screens/Overlay;)V"))
   private void onSetOverlay(CallbackInfo info) {
     //noinspection ConstantConditions
     if ((Object) this instanceof PreviewSplashOverlay previewScreen) {
