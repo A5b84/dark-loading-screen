@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Dark Loading Screen - Parametri",
-    "darkLoadingScreen.config.entry.background": "Colore del Fondo",
-    "darkLoadingScreen.config.entry.bar": "Colore della Barra",
-    "darkLoadingScreen.config.entry.barBackground": "Colore di Fondo della Barra",
-    "darkLoadingScreen.config.entry.border": "Colore del Contorno della Barra",
-    "darkLoadingScreen.config.entry.logo": "Colore del Logo",
-    "darkLoadingScreen.config.entry.fadeIn": "Durata della Apparizione",
-    "darkLoadingScreen.config.entry.fadeOut": "Durata della Dissolvenza",
-    "darkLoadingScreen.config.entry.preview": "Anteprima"
+	"darkLoadingScreen.config.title": "Dark Loading Screen - Parametri",
+	"darkLoadingScreen.config.entry.background": "Colore del Fondo",
+	"darkLoadingScreen.config.entry.bar": "Colore della Barra",
+	"darkLoadingScreen.config.entry.barBackground": "Colore di Fondo della Barra",
+	"darkLoadingScreen.config.entry.border": "Colore del Contorno della Barra",
+	"darkLoadingScreen.config.entry.logo": "Colore del Logo",
+	"darkLoadingScreen.config.entry.fadeIn": "Durata della Apparizione",
+	"darkLoadingScreen.config.entry.fadeOut": "Durata della Dissolvenza",
+	"darkLoadingScreen.config.entry.preview": "Anteprima"
 }

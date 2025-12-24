@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Настройки на Dark Loading Screen",
-    "darkLoadingScreen.config.entry.background": "Цвят на фона",
-    "darkLoadingScreen.config.entry.bar": "Цвят на запълване на панела",
-    "darkLoadingScreen.config.entry.barBackground": "Цвят на фона на панела",
-    "darkLoadingScreen.config.entry.border": "Цвят на ръба на панела",
-    "darkLoadingScreen.config.entry.logo": "Цвят на логото",
-    "darkLoadingScreen.config.entry.fadeIn": "Продължителност на избледняване",
-    "darkLoadingScreen.config.entry.fadeOut": "Продължителност на затъмняването",
-    "darkLoadingScreen.config.entry.preview": "Визуализация"
+	"darkLoadingScreen.config.title": "Настройки на Dark Loading Screen",
+	"darkLoadingScreen.config.entry.background": "Цвят на фона",
+	"darkLoadingScreen.config.entry.bar": "Цвят на запълване на панела",
+	"darkLoadingScreen.config.entry.barBackground": "Цвят на фона на панела",
+	"darkLoadingScreen.config.entry.border": "Цвят на ръба на панела",
+	"darkLoadingScreen.config.entry.logo": "Цвят на логото",
+	"darkLoadingScreen.config.entry.fadeIn": "Продължителност на избледняване",
+	"darkLoadingScreen.config.entry.fadeOut": "Продължителност на затъмняването",
+	"darkLoadingScreen.config.entry.preview": "Визуализация"
 }

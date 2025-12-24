@@ -1,12 +1,12 @@
 {
-    "modmenu.descriptionTranslation.darkLoadingScreen": "使加载画面变暗\n游戏内配置需使用Mod Menu和Cloth Config",
-    "darkLoadingScreen.config.title": "Dark Loading Screen 配置",
-    "darkLoadingScreen.config.entry.background": "背景颜色",
-    "darkLoadingScreen.config.entry.bar": "进度条颜色",
-    "darkLoadingScreen.config.entry.barBackground": "进度条背景颜色",
-    "darkLoadingScreen.config.entry.border": "进度条边框颜色",
-    "darkLoadingScreen.config.entry.logo": "Logo 颜色",
-    "darkLoadingScreen.config.entry.fadeIn": "淡入持续时间",
-    "darkLoadingScreen.config.entry.fadeOut": "淡出持续时间",
-    "darkLoadingScreen.config.entry.preview": "预览"
+	"modmenu.descriptionTranslation.darkLoadingScreen": "使加载画面变暗\n游戏内配置需使用Mod Menu和Cloth Config",
+	"darkLoadingScreen.config.title": "Dark Loading Screen 配置",
+	"darkLoadingScreen.config.entry.background": "背景颜色",
+	"darkLoadingScreen.config.entry.bar": "进度条颜色",
+	"darkLoadingScreen.config.entry.barBackground": "进度条背景颜色",
+	"darkLoadingScreen.config.entry.border": "进度条边框颜色",
+	"darkLoadingScreen.config.entry.logo": "Logo 颜色",
+	"darkLoadingScreen.config.entry.fadeIn": "淡入持续时间",
+	"darkLoadingScreen.config.entry.fadeOut": "淡出持续时间",
+	"darkLoadingScreen.config.entry.preview": "预览"
 }

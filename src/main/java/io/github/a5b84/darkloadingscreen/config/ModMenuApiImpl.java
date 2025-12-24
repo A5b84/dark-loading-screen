@@ -6,13 +6,13 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public class ModMenuApiImpl implements ModMenuApi {
 
-    private static final ConfigScreenFactory<?> FACTORY = FabricLoader.getInstance().isModLoaded("cloth-config2")
-            ? new ConfigScreenFactoryImpl()
-            : parent -> null;
+  private static final ConfigScreenFactory<?> FACTORY =
+      FabricLoader.getInstance().isModLoaded("cloth-config2")
+          ? new ConfigScreenFactoryImpl()
+          : parent -> null;
 
-    @Override
-    public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return FACTORY;
-    }
-
+  @Override
+  public ConfigScreenFactory<?> getModConfigScreenFactory() {
+    return FACTORY;
+  }
 }

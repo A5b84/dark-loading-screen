@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Konfiguracja ciemnego ekranu ładowania",
-    "darkLoadingScreen.config.entry.background": "Kolor tła",
-    "darkLoadingScreen.config.entry.bar": "Kolor paska",
-    "darkLoadingScreen.config.entry.barBackground": "Kolor tła paska",
-    "darkLoadingScreen.config.entry.border": "Kolor krawędzi",
-    "darkLoadingScreen.config.entry.logo": "Kolor Logo",
-    "darkLoadingScreen.config.entry.fadeIn": "Czas pojawiania się",
-    "darkLoadingScreen.config.entry.fadeOut": "Czas zanikania",
-    "darkLoadingScreen.config.entry.preview": "Wypróbuj"
+	"darkLoadingScreen.config.title": "Konfiguracja ciemnego ekranu ładowania",
+	"darkLoadingScreen.config.entry.background": "Kolor tła",
+	"darkLoadingScreen.config.entry.bar": "Kolor paska",
+	"darkLoadingScreen.config.entry.barBackground": "Kolor tła paska",
+	"darkLoadingScreen.config.entry.border": "Kolor krawędzi",
+	"darkLoadingScreen.config.entry.logo": "Kolor Logo",
+	"darkLoadingScreen.config.entry.fadeIn": "Czas pojawiania się",
+	"darkLoadingScreen.config.entry.fadeOut": "Czas zanikania",
+	"darkLoadingScreen.config.entry.preview": "Wypróbuj"
 }

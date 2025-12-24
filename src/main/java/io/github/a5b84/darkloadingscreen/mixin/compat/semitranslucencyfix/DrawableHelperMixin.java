@@ -16,9 +16,11 @@ package io.github.a5b84.darkloadingscreen.mixin.compat.semitranslucencyfix;
 // public abstract class DrawableHelperMixin {
 //
 //     /**
-//      * Adds compatibility for Semitranslucency Fix (<a href="https://modrinth.com/mod/semitranslucency">link</a>)
+//      * Adds compatibility for Semitranslucency Fix (<a
+// href="https://modrinth.com/mod/semitranslucency">link</a>)
 //      * by undoing what it does when the {@link SplashOverlay} is visible
-//      * (<a href="https://github.com/ruvaldak/Semitranslucency/blob/a70656c2e1b504417abc75e00a6a8797ed21471e/src/main/java/net/ims/semitranslucency/mixin/MixinDrawableHelper.java#L16">relevant method</a>)
+//      * (<a
+// href="https://github.com/ruvaldak/Semitranslucency/blob/a70656c2e1b504417abc75e00a6a8797ed21471e/src/main/java/net/ims/semitranslucency/mixin/MixinDrawableHelper.java#L16">relevant method</a>)
 //      * @see SplashOverlay#render
 //      */
 //     @Inject(method = "drawTexturedQuad", at = @At(value = "HEAD", shift = At.Shift.AFTER))

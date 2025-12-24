@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Dark Loading Screen Konfiguration",
-    "darkLoadingScreen.config.entry.background": "Bakgrundsfärg",
-    "darkLoadingScreen.config.entry.bar": "Färg Av Stång",
-    "darkLoadingScreen.config.entry.barBackground": "Bakgrundsfärg Av Stång",
-    "darkLoadingScreen.config.entry.border": "Kantfärg Av Stång",
-    "darkLoadingScreen.config.entry.logo": "Färg Av Logotyp",
-    "darkLoadingScreen.config.entry.fadeIn": "Intoningstid",
-    "darkLoadingScreen.config.entry.fadeOut": "Uttoningstid",
-    "darkLoadingScreen.config.entry.preview": "Förhandsvisning"
+	"darkLoadingScreen.config.title": "Dark Loading Screen Konfiguration",
+	"darkLoadingScreen.config.entry.background": "Bakgrundsfärg",
+	"darkLoadingScreen.config.entry.bar": "Färg Av Stång",
+	"darkLoadingScreen.config.entry.barBackground": "Bakgrundsfärg Av Stång",
+	"darkLoadingScreen.config.entry.border": "Kantfärg Av Stång",
+	"darkLoadingScreen.config.entry.logo": "Färg Av Logotyp",
+	"darkLoadingScreen.config.entry.fadeIn": "Intoningstid",
+	"darkLoadingScreen.config.entry.fadeOut": "Uttoningstid",
+	"darkLoadingScreen.config.entry.preview": "Förhandsvisning"
 }

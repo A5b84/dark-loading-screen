@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Параметри Dark Loading Screen",
-    "darkLoadingScreen.config.entry.background": "Колір фону",
-    "darkLoadingScreen.config.entry.bar": "Колір стрічки",
-    "darkLoadingScreen.config.entry.barBackground": "Колір фону стрічки",
-    "darkLoadingScreen.config.entry.border": "Колір меж стрічки",
-    "darkLoadingScreen.config.entry.logo": "Колір логотипу",
-    "darkLoadingScreen.config.entry.fadeIn": "Тривалість появи",
-    "darkLoadingScreen.config.entry.fadeOut": "Тривалість зникання",
-    "darkLoadingScreen.config.entry.preview": "Перегляд"
+	"darkLoadingScreen.config.title": "Параметри Dark Loading Screen",
+	"darkLoadingScreen.config.entry.background": "Колір фону",
+	"darkLoadingScreen.config.entry.bar": "Колір стрічки",
+	"darkLoadingScreen.config.entry.barBackground": "Колір фону стрічки",
+	"darkLoadingScreen.config.entry.border": "Колір меж стрічки",
+	"darkLoadingScreen.config.entry.logo": "Колір логотипу",
+	"darkLoadingScreen.config.entry.fadeIn": "Тривалість появи",
+	"darkLoadingScreen.config.entry.fadeOut": "Тривалість зникання",
+	"darkLoadingScreen.config.entry.preview": "Перегляд"
 }

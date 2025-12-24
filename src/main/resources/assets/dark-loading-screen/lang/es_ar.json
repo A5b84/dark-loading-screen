@@ -1,11 +1,11 @@
 {
-    "darkLoadingScreen.config.title": "Configuración de Dark Loading Screen",
-    "darkLoadingScreen.config.entry.background": "Color de fondo",
-    "darkLoadingScreen.config.entry.bar": "Color de la barra",
-    "darkLoadingScreen.config.entry.barBackground": "Color de fondo de la barra",
-    "darkLoadingScreen.config.entry.border": "Color del borde de la barra",
-    "darkLoadingScreen.config.entry.logo": "Color del logo",
-    "darkLoadingScreen.config.entry.fadeIn": "Duración del desvanecido de entrada",
-    "darkLoadingScreen.config.entry.fadeOut": "Duración del desvanecido de salida",
-    "darkLoadingScreen.config.entry.preview": "Vista previa"
+	"darkLoadingScreen.config.title": "Configuración de Dark Loading Screen",
+	"darkLoadingScreen.config.entry.background": "Color de fondo",
+	"darkLoadingScreen.config.entry.bar": "Color de la barra",
+	"darkLoadingScreen.config.entry.barBackground": "Color de fondo de la barra",
+	"darkLoadingScreen.config.entry.border": "Color del borde de la barra",
+	"darkLoadingScreen.config.entry.logo": "Color del logo",
+	"darkLoadingScreen.config.entry.fadeIn": "Duración del desvanecido de entrada",
+	"darkLoadingScreen.config.entry.fadeOut": "Duración del desvanecido de salida",
+	"darkLoadingScreen.config.entry.preview": "Vista previa"
 }

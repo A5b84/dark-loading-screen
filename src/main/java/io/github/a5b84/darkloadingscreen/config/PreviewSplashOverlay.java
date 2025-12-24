@@ -5,18 +5,14 @@ import net.minecraft.client.gui.screen.SplashOverlay;
 
 public class PreviewSplashOverlay extends SplashOverlay {
 
-    private final Runnable onRemoved;
+  private final Runnable onRemoved;
 
-    public PreviewSplashOverlay(long durationMs, Runnable onRemoved) {
-        super(
-                MinecraftClient.getInstance(), new FakeResourceReload(durationMs),
-                optional -> {}, true
-        );
-        this.onRemoved = onRemoved;
-    }
+  public PreviewSplashOverlay(long durationMs, Runnable onRemoved) {
+    super(MinecraftClient.getInstance(), new FakeResourceReload(durationMs), optional -> {}, true);
+    this.onRemoved = onRemoved;
+  }
 
-    public void onRemoved() {
-        if (onRemoved != null) onRemoved.run();
-    }
-
+  public void onRemoved() {
+    if (onRemoved != null) onRemoved.run();
+  }
 }
