@@ -84,12 +84,12 @@ public class Config {
     this.fadeOutDuration = Math.min(fadeOutDuration, MAX_FADE_DURATION);
 
     // Splitting some colors in floats
-    backgroundRed = ARGB.red(backgroundColor);
-    backgroundGreen = ARGB.green(backgroundColor);
-    backgroundBlue = ARGB.blue(backgroundColor);
-    logoRed = ARGB.red(logoColor);
-    logoGreen = ARGB.green(logoColor);
-    logoBlue = ARGB.blue(logoColor);
+    backgroundRed = ARGB.redFloat(backgroundColor);
+    backgroundGreen = ARGB.greenFloat(backgroundColor);
+    backgroundBlue = ARGB.blueFloat(backgroundColor);
+    logoRed = ARGB.redFloat(logoColor);
+    logoGreen = ARGB.greenFloat(logoColor);
+    logoBlue = ARGB.blueFloat(logoColor);
 
     // Calculate durations
     fadeInMillis = fadeInDuration * FADE_DURATION_FACTOR;
