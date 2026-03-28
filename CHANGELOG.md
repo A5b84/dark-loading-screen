@@ -2,6 +2,7 @@
 
 ### [1.6.18](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.18) (Minecraft 26.1+)
 - Updated to 26.1 
+- Fixed most UI elements rendering as black when the logo is darker than the background (#40)
 
 ### [1.6.17](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.17) (Minecraft 1.21.6-1.21.11)
 - Updated to 1.21.6

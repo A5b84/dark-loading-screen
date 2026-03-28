@@ -31,9 +31,21 @@ public abstract class GlCommandEncoderMixin {
       if (newPipeline == DarkLoadingScreen.MOJANG_LOGO_SHADOWS) {
         oldBlendEquation = GL11.glGetInteger(GL14.GL_BLEND_EQUATION);
         GL14.glBlendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
-      } else if (lastPipeline == DarkLoadingScreen.MOJANG_LOGO_SHADOWS) {
-        GL14.glBlendEquation(oldBlendEquation);
-      }
+      } else if (lastPipeline == DarkLoadingScreen.MOJANG_LOGO_SHADOWS)
+        restoreOldBlendEquationIfAny();
+    }
+  }
+
+  @Inject(method = "finishRenderPass", at = @At("HEAD"))
+  public void onFinishRenderPass(CallbackInfo ci) {
+    restoreOldBlendEquationIfAny();
+  }
+
+  @Unique
+  private void restoreOldBlendEquationIfAny() {
+    if (oldBlendEquation != 0) {
+      GL14.glBlendEquation(oldBlendEquation);
+      oldBlendEquation = 0;
     }
   }
 }
