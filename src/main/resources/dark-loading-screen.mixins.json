@@ -2,12 +2,18 @@
 	"required": true,
 	"package": "io.github.a5b84.darkloadingscreen.mixin",
 	"plugin": "io.github.a5b84.darkloadingscreen.mixin.MixinPlugin",
-	"compatibilityLevel": "JAVA_21",
+	"compatibilityLevel": "JAVA_25",
 	"client": [
 		"GlCommandEncoderMixin",
 		"LoadingOverlayMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	},
+	"mixinextras": {
+		"minVersion": "0.5.3"
 	}
 }

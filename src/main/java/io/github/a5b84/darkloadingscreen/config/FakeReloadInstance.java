@@ -1,24 +1,25 @@
 package io.github.a5b84.darkloadingscreen.config;
 
 import java.util.concurrent.CompletableFuture;
-import net.minecraft.Util;
 import net.minecraft.server.packs.resources.ReloadInstance;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
+import net.minecraft.util.Util;
+import org.jspecify.annotations.NonNull;
 
 /** {@link ReloadInstance} that automatically completes after some time */
-public class FakeResourceReload implements ReloadInstance {
+public class FakeReloadInstance implements ReloadInstance {
 
   protected final long start;
   protected final long duration;
 
-  public FakeResourceReload(long durationMs) {
+  public FakeReloadInstance(long durationMs) {
     start = Util.getMillis();
     duration = durationMs;
   }
 
   @Override
-  public CompletableFuture<Unit> done() {
+  public @NonNull CompletableFuture<Unit> done() {
     throw new UnsupportedOperationException();
   }
 

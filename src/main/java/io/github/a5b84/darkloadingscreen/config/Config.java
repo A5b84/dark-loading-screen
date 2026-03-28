@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.gui.screens.LoadingOverlay;
 import net.minecraft.util.ARGB;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,7 +28,7 @@ public class Config {
 
   /** Factor to convert UI time (seconds) to ms */
   // (Dividing by 2 because the game waits twice as long)
-  public static final float FADE_DURATION_FACTOR = DarkLoadingScreen.VANILLA_FADE_OUT_DURATION / 2;
+  public static final float FADE_DURATION_FACTOR = LoadingOverlay.FADE_OUT_TIME / 2f;
 
   /** Maximum fade duration (just in case) */
   public static final float MAX_FADE_DURATION = 5;
@@ -60,8 +61,8 @@ public class Config {
           0x14181c,
           0x303336,
           0xffffff,
-          DarkLoadingScreen.VANILLA_FADE_IN_DURATION / FADE_DURATION_FACTOR,
-          DarkLoadingScreen.VANILLA_FADE_OUT_DURATION / FADE_DURATION_FACTOR);
+          LoadingOverlay.FADE_IN_TIME / FADE_DURATION_FACTOR,
+          LoadingOverlay.FADE_OUT_TIME / FADE_DURATION_FACTOR);
 
   /**
    * @param fadeInDuration Fade in time in seconds
