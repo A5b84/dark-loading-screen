@@ -1,6 +1,6 @@
 # Changelog
 
-### [1.6.18](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.18) (Minecraft 26.1+)
+### [1.6.19](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.19) (Minecraft 26.1+)
 
 - Updated to 26.2 (#44).
 
