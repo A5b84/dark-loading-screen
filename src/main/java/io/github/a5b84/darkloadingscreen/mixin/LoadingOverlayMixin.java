@@ -19,10 +19,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
@@ -156,17 +155,18 @@ public abstract class LoadingOverlayMixin {
     }
   }
 
-  @ModifyConstant(
-      method = "extractRenderState",
-      constant = @Constant(floatValue = LoadingOverlay.FADE_IN_TIME))
-  private float getFadeInTime(float old) {
-    return config.fadeInMillis;
+  @ModifyVariable(method = "extractRenderState", at = @At(value = "STORE"), name = "fadeInAnim")
+  private float modifyFadeInAnim(float fadeInAnim) {
+    return modifyFadeAnim(fadeInAnim, LoadingOverlay.FADE_IN_TIME, config.fadeInMillis);
   }
 
-  @ModifyConstant(
-      method = "extractRenderState",
-      constant = @Constant(floatValue = LoadingOverlay.FADE_OUT_TIME))
-  private float getFadeOutTime(float old) {
-    return config.fadeOutMillis;
+  @ModifyVariable(method = "extractRenderState", at = @At(value = "STORE"), name = "fadeOutAnim")
+  private float modifyFadeOutAnim(float fadeOutAnim) {
+    return modifyFadeAnim(fadeOutAnim, LoadingOverlay.FADE_OUT_TIME, config.fadeOutMillis);
+  }
+
+  @Unique
+  private float modifyFadeAnim(float value, float vanillaValue, float newValue) {
+    return value >= 0 ? value * vanillaValue / newValue : value;
   }
 }
