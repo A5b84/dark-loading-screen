@@ -10,14 +10,16 @@ import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
 
-/** Clickable button entry for Cloth Config that doesn't hold any data */
+/** Clickable Cloth Config button entry that doesn't hold any data. */
 public class ButtonEntry extends AbstractConfigListEntry<Void> {
+
+  private static final int HORIZONTAL_PADDING = 24;
 
   private final Button button;
 
   public ButtonEntry(Component fieldName, Button.OnPress onPress) {
     super(fieldName, false);
-    int width = Minecraft.getInstance().font.width(fieldName) + 24;
+    int width = Minecraft.getInstance().font.width(fieldName) + HORIZONTAL_PADDING;
     button = Button.builder(fieldName, onPress).width(width).build();
   }
 

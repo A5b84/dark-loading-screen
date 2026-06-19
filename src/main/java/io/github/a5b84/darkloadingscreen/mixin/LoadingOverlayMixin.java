@@ -1,7 +1,5 @@
 package io.github.a5b84.darkloadingscreen.mixin;
 
-import static io.github.a5b84.darkloadingscreen.DarkLoadingScreen.config;
-
 import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -32,26 +30,23 @@ public abstract class LoadingOverlayMixin {
 
   @Inject(method = "<clinit>", at = @At("RETURN"))
   private static void modifyBackgroundColor(CallbackInfo ci) {
-    BRAND_BACKGROUND = () -> config.backgroundColor;
+    BRAND_BACKGROUND = () -> DarkLoadingScreen.config.backgroundColor;
   }
 
-  // Progress bar
-
-  /** Renders the bar background and changes the main bar color */
   @Definition(id = "color", method = "Lnet/minecraft/util/ARGB;color(IIII)I")
   @Expression("? = color(?, ?, ?, ?)")
   @ModifyVariable(
       method = "extractProgressBar",
       at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER),
       name = "white")
-  private int modifyBarColor(
+  private int modifyBarColorAndFillBackground(
       int white, GuiGraphicsExtractor graphics, int x0, int y0, int x1, int y1, float fade) {
     int alpha = white & 0xff000000;
-    graphics.fill(x0 + 1, y0 + 1, x1 - 1, y1 - 1, config.barBackgroundColor | alpha);
-    return config.barColor | alpha;
+    graphics.fill(
+        x0 + 1, y0 + 1, x1 - 1, y1 - 1, DarkLoadingScreen.config.barBackgroundColor | alpha);
+    return DarkLoadingScreen.config.barColor | alpha;
   }
 
-  /** Changes the bar border color */
   @ModifyVariable(
       method = "extractProgressBar",
       at =
@@ -62,12 +57,10 @@ public abstract class LoadingOverlayMixin {
               shift = At.Shift.AFTER),
       name = "white")
   private int modifyBarBorderColor(int white) {
-    return config.barBorderColor | white & 0xff000000;
+    return DarkLoadingScreen.config.barBorderColor | white & 0xff000000;
   }
 
-  // Logo
-
-  /** Changes the logo color */
+  /** Changes the logo color. */
   @WrapOperation(
       method = "extractRenderState",
       at =
@@ -75,7 +68,7 @@ public abstract class LoadingOverlayMixin {
               value = "INVOKE",
               target =
                   "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIIII)V"))
-  private void onBlit(
+  private void onBlitLogo(
       GuiGraphicsExtractor graphics,
       RenderPipeline renderPipeline,
       Identifier texture,
@@ -92,9 +85,9 @@ public abstract class LoadingOverlayMixin {
       int color,
       Operation<Void> original) {
     // `RenderSystem.blendFunc(GL_SRC_ALPHA, Gl_ONE_MINUS_SOURCE_ALPHA)`
-    // causes an ugly outline, so we render the logo twice (once for logo
-    // channels that are brighter than the background, and another time
-    // for those that are darker)
+    // causes an ugly outline, so we render the logo twice:
+    // - once for channels that are brighter than the background
+    // - once for those that are darker)
 
     int alpha = ARGB.alpha(color);
 
@@ -123,24 +116,19 @@ public abstract class LoadingOverlayMixin {
           }
         };
 
-    // Order of draws is important because GlCommandEncoderMixin resets
-    // the blend equation only when MOJANG_LOGO_SHADOWS is swapped out for
-    // something else. One way to ensure this is to draw shadows before
-    // highlights.
     drawTexture.call(
         DarkLoadingScreen.MOJANG_LOGO_SHADOWS,
-        config.backgroundRed - config.logoRed,
-        config.backgroundGreen - config.logoGreen,
-        config.backgroundBlue - config.logoBlue);
+        DarkLoadingScreen.config.backgroundRed - DarkLoadingScreen.config.logoRed,
+        DarkLoadingScreen.config.backgroundGreen - DarkLoadingScreen.config.logoGreen,
+        DarkLoadingScreen.config.backgroundBlue - DarkLoadingScreen.config.logoBlue);
 
     drawTexture.call(
         renderPipeline,
-        config.logoRed - config.backgroundRed,
-        config.logoGreen - config.backgroundGreen,
-        config.logoBlue - config.backgroundBlue);
+        DarkLoadingScreen.config.logoRed - DarkLoadingScreen.config.backgroundRed,
+        DarkLoadingScreen.config.logoGreen - DarkLoadingScreen.config.backgroundGreen,
+        DarkLoadingScreen.config.logoBlue - DarkLoadingScreen.config.backgroundBlue);
   }
 
-  /** Calls {@link PreviewSplashOverlay#onRemoved()} when the overlay is removed */
   @Inject(
       method = "extractRenderState",
       at =
@@ -148,7 +136,7 @@ public abstract class LoadingOverlayMixin {
               value = "INVOKE",
               target =
                   "Lnet/minecraft/client/gui/Gui;setOverlay(Lnet/minecraft/client/gui/screens/Overlay;)V"))
-  private void onSetOverlay(CallbackInfo info) {
+  private void onOverlayRemoved(CallbackInfo info) {
     //noinspection ConstantConditions
     if ((Object) this instanceof PreviewSplashOverlay previewScreen) {
       previewScreen.onRemoved();
@@ -157,12 +145,14 @@ public abstract class LoadingOverlayMixin {
 
   @ModifyVariable(method = "extractRenderState", at = @At(value = "STORE"), name = "fadeInAnim")
   private float modifyFadeInAnim(float fadeInAnim) {
-    return modifyFadeAnim(fadeInAnim, LoadingOverlay.FADE_IN_TIME, config.fadeInMillis);
+    return modifyFadeAnim(
+        fadeInAnim, LoadingOverlay.FADE_IN_TIME, DarkLoadingScreen.config.fadeInMillis);
   }
 
   @ModifyVariable(method = "extractRenderState", at = @At(value = "STORE"), name = "fadeOutAnim")
   private float modifyFadeOutAnim(float fadeOutAnim) {
-    return modifyFadeAnim(fadeOutAnim, LoadingOverlay.FADE_OUT_TIME, config.fadeOutMillis);
+    return modifyFadeAnim(
+        fadeOutAnim, LoadingOverlay.FADE_OUT_TIME, DarkLoadingScreen.config.fadeOutMillis);
   }
 
   @Unique

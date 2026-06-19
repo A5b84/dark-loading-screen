@@ -21,10 +21,6 @@ dependencies {
 	api "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
 }
 
-loom {
-	accessWidenerPath = file("src/main/resources/dark-loading-screen.classtweaker")
-}
-
 processResources {
 	def version = project.version
 	inputs.property "version", version

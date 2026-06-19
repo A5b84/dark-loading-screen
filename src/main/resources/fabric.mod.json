@@ -39,7 +39,6 @@
 			"io.github.a5b84.darkloadingscreen.config.ModMenuApiImpl"
 		]
 	},
-	"accessWidener": "dark-loading-screen.classtweaker",
 	"mixins": [
 		"dark-loading-screen.mixins.json"
 	],

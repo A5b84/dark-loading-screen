@@ -6,7 +6,7 @@ import net.minecraft.server.packs.resources.ReloadInstance;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Util;
 
-/** {@link ReloadInstance} that automatically completes after some time */
+/** {@link ReloadInstance} that automatically completes after some time. */
 public class FakeReloadInstance implements ReloadInstance {
 
   private final long start;
