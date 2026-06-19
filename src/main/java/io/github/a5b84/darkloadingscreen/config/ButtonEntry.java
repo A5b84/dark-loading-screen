@@ -9,7 +9,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.network.chat.Component;
-import org.jetbrains.annotations.NotNull;
 
 /** Clickable button entry for Cloth Config that doesn't hold any data */
 public class ButtonEntry extends AbstractConfigListEntry<Void> {
@@ -55,7 +54,6 @@ public class ButtonEntry extends AbstractConfigListEntry<Void> {
   public void save() {}
 
   @Override
-  @NotNull
   public List<? extends GuiEventListener> children() {
     return List.of(button);
   }

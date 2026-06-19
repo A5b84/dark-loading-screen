@@ -31,10 +31,11 @@ public class ConfigScreenFactoryImpl implements ConfigScreenFactory<Screen> {
     category.addEntry(
         new ButtonEntry(
             fieldName("preview"),
-            button -> {
+            _ -> {
               // Preview button
               config = entries.createConfig();
               Minecraft.getInstance()
+                  .gui
                   .setOverlay(new PreviewSplashOverlay(500, () -> config = oldConfig));
             }));
 

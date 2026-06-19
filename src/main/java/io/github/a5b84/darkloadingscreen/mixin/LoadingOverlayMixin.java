@@ -31,9 +31,8 @@ public abstract class LoadingOverlayMixin {
 
   @Mutable @Shadow private static @Final IntSupplier BRAND_BACKGROUND;
 
-  /** Changes the background color */
   @Inject(method = "<clinit>", at = @At("RETURN"))
-  private static void adjustBg(CallbackInfo ci) {
+  private static void modifyBackgroundColor(CallbackInfo ci) {
     BRAND_BACKGROUND = () -> config.backgroundColor;
   }
 
@@ -47,9 +46,9 @@ public abstract class LoadingOverlayMixin {
       at = @At(value = "MIXINEXTRAS:EXPRESSION", shift = At.Shift.AFTER),
       name = "white")
   private int modifyBarColor(
-      int barColor, GuiGraphicsExtractor graphics, int x1, int y1, int x2, int y2, float opacity) {
-    int alpha = barColor & 0xff000000;
-    graphics.fill(x1 + 1, y1 + 1, x2 - 1, y2 - 1, config.barBackgroundColor | alpha);
+      int white, GuiGraphicsExtractor graphics, int x0, int y0, int x1, int y1, float fade) {
+    int alpha = white & 0xff000000;
+    graphics.fill(x0 + 1, y0 + 1, x1 - 1, y1 - 1, config.barBackgroundColor | alpha);
     return config.barColor | alpha;
   }
 
@@ -63,8 +62,8 @@ public abstract class LoadingOverlayMixin {
               ordinal = 0,
               shift = At.Shift.AFTER),
       name = "white")
-  private int modifyBarBorderColor(int color) {
-    return config.barBorderColor | color & 0xff000000;
+  private int modifyBarBorderColor(int white) {
+    return config.barBorderColor | white & 0xff000000;
   }
 
   // Logo
@@ -79,16 +78,16 @@ public abstract class LoadingOverlayMixin {
                   "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIIII)V"))
   private void onBlit(
       GuiGraphicsExtractor graphics,
-      RenderPipeline originalPipeline,
-      Identifier sprite,
+      RenderPipeline renderPipeline,
+      Identifier texture,
       int x,
       int y,
       float u,
       float v,
       int width,
       int height,
-      int regionWidth,
-      int regionHeight,
+      int srcWidth,
+      int srcHeight,
       int textureWidth,
       int textureHeight,
       int color,
@@ -106,15 +105,15 @@ public abstract class LoadingOverlayMixin {
             original.call(
                 graphics,
                 pipeline,
-                sprite,
+                texture,
                 x,
                 y,
                 u,
                 v,
                 width,
                 height,
-                regionWidth,
-                regionHeight,
+                srcWidth,
+                srcHeight,
                 textureWidth,
                 textureHeight,
                 ARGB.color(
@@ -136,7 +135,7 @@ public abstract class LoadingOverlayMixin {
         config.backgroundBlue - config.logoBlue);
 
     drawTexture.call(
-        originalPipeline,
+        renderPipeline,
         config.logoRed - config.backgroundRed,
         config.logoGreen - config.backgroundGreen,
         config.logoBlue - config.backgroundBlue);
@@ -149,7 +148,7 @@ public abstract class LoadingOverlayMixin {
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/Minecraft;setOverlay(Lnet/minecraft/client/gui/screens/Overlay;)V"))
+                  "Lnet/minecraft/client/gui/Gui;setOverlay(Lnet/minecraft/client/gui/screens/Overlay;)V"))
   private void onSetOverlay(CallbackInfo info) {
     //noinspection ConstantConditions
     if ((Object) this instanceof PreviewSplashOverlay previewScreen) {

@@ -6,10 +6,6 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-base {
-	archivesName = project.archives_base_name
-}
-
 repositories {
 	maven { url "https://maven.shedaniel.me/" }
 	maven { url "https://maven.terraformersmc.com/" }
@@ -17,6 +13,7 @@ repositories {
 
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
@@ -29,10 +26,11 @@ loom {
 }
 
 processResources {
-	inputs.property "version", project.version
+	def version = project.version
+	inputs.property "version", version
 
 	filesMatching("fabric.mod.json") {
-		expand "version": inputs.properties.version
+		expand "version": version
 	}
 }
 
@@ -51,8 +49,11 @@ java {
 }
 
 jar {
+	def projectName = project.name
+	inputs.property "projectName", projectName
+
 	from(["COPYING", "COPYING.LESSER"]) {
-		rename { "${it}_${inputs.properties.archivesName}"}
+		rename { "${it}_$projectName"}
 	}
 }
 
@@ -60,7 +61,6 @@ jar {
 publishing {
 	publications {
 		create("mavenJava", MavenPublication) {
-			artifactId = project.archives_base_name
 			from components.java
 		}
 	}

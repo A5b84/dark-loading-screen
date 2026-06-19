@@ -5,7 +5,6 @@ import net.minecraft.server.packs.resources.ReloadInstance;
 import net.minecraft.util.Mth;
 import net.minecraft.util.Unit;
 import net.minecraft.util.Util;
-import org.jspecify.annotations.NonNull;
 
 /** {@link ReloadInstance} that automatically completes after some time */
 public class FakeReloadInstance implements ReloadInstance {
@@ -19,7 +18,7 @@ public class FakeReloadInstance implements ReloadInstance {
   }
 
   @Override
-  public @NonNull CompletableFuture<Unit> done() {
+  public CompletableFuture<Unit> done() {
     throw new UnsupportedOperationException();
   }
 
