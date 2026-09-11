@@ -4,9 +4,9 @@ import com.llamalad7.mixinextras.expression.Definition;
 import com.llamalad7.mixinextras.expression.Expression;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.mojang.blaze3d.pipeline.RenderPipeline;
+import com.mojang.renderpearl.api.pipeline.RenderPipeline;
+import io.github.a5b84.darkloadingscreen.BlitLambda;
 import io.github.a5b84.darkloadingscreen.DarkLoadingScreen;
-import io.github.a5b84.darkloadingscreen.DrawTextureLambda;
 import io.github.a5b84.darkloadingscreen.config.PreviewSplashOverlay;
 import java.util.function.IntSupplier;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
@@ -67,7 +67,7 @@ public abstract class LoadingOverlayMixin {
           @At(
               value = "INVOKE",
               target =
-                  "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIIII)V"))
+                  "Lnet/minecraft/client/gui/GuiGraphicsExtractor;blit(Lcom/mojang/renderpearl/api/pipeline/RenderPipeline;Lnet/minecraft/resources/Identifier;IIFFIIIIIII)V"))
   private void onBlitLogo(
       GuiGraphicsExtractor graphics,
       RenderPipeline renderPipeline,
@@ -91,7 +91,7 @@ public abstract class LoadingOverlayMixin {
 
     int alpha = ARGB.alpha(color);
 
-    DrawTextureLambda drawTexture =
+    BlitLambda blit =
         (pipeline, r, g, b) -> {
           if (r > 0 || g > 0 || b > 0) {
             original.call(
@@ -116,13 +116,13 @@ public abstract class LoadingOverlayMixin {
           }
         };
 
-    drawTexture.call(
+    blit.call(
         DarkLoadingScreen.MOJANG_LOGO_SHADOWS,
         DarkLoadingScreen.config.backgroundRed - DarkLoadingScreen.config.logoRed,
         DarkLoadingScreen.config.backgroundGreen - DarkLoadingScreen.config.logoGreen,
         DarkLoadingScreen.config.backgroundBlue - DarkLoadingScreen.config.logoBlue);
 
-    drawTexture.call(
+    blit.call(
         renderPipeline,
         DarkLoadingScreen.config.logoRed - DarkLoadingScreen.config.backgroundRed,
         DarkLoadingScreen.config.logoGreen - DarkLoadingScreen.config.backgroundGreen,

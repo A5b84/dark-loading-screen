@@ -1,6 +1,10 @@
 # Changelog
 
-### [1.6.19](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.19) (Minecraft 26.1+)
+### [1.6.20](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.20) (Minecraft 26.3+)
+
+- Updated to 26.3.
+
+### [1.6.19](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.19) (Minecraft 26.1-26.2)
 
 - Updated to 26.2 (#44).
 - Improved compatibility with other mods such as Remove Reloading Screen (#42).
