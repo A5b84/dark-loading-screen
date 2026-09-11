@@ -31,6 +31,7 @@ Manual changes are only visible after restarting the game.
 - `de_de` translation by [Der_Anderl](https://www.curseforge.com/members/der_anderl/) and [moritz-htk](https://github.com/moritz-htk)
 - `es_xx` translations by [Haseck](https://github.com/Haseck) and [Texaliuz](https://github.com/Texaliuz)
 - `it_it` translations by [Ocizuko](https://legacy.curseforge.com/members/awesome_nobel58/projects)
+- `ja_jp` translations by [misosoupTgit](https://github.com/misosoupTgit)
 - `ko_kr` translation by [gyular](https://github.com/gyular)
 - `pl_pl` translation by [DarkKnightComes](https://github.com/DarkKnightComes) and [goodideagiver](https://github.com/goodideagiver)
 - `pt_br` translation by [FITFC](https://github.com/FITFC)

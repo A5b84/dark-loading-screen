@@ -3,6 +3,7 @@
 ### [1.6.20](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.20) (Minecraft 26.3+)
 
 - Updated to 26.3.
+- Added `ja_jp` translation by [misosoupTgit](https://github.com/misosoupTgit) ([#45](https://github.com/A5b84/dark-loading-screen/issues/45)).
 
 ### [1.6.19](https://github.com/A5b84/dark-loading-screen/releases/tag/v1.6.19) (Minecraft 26.1-26.2)
 

@@ -1,0 +1,11 @@
+{
+	"darkLoadingScreen.config.title": "Dark Loading Screen Config",
+	"darkLoadingScreen.config.entry.background": "背景色",
+	"darkLoadingScreen.config.entry.bar": "ローディングバーの色",
+	"darkLoadingScreen.config.entry.barBackground": "ローディングバーの背景色",
+	"darkLoadingScreen.config.entry.border": "ローディングバーの縁取り色",
+	"darkLoadingScreen.config.entry.logo": "ロゴの色",
+	"darkLoadingScreen.config.entry.fadeIn": "フェードイン時間",
+	"darkLoadingScreen.config.entry.fadeOut": "フェードアウト時間",
+	"darkLoadingScreen.config.entry.preview": "プレビュー"
+}
